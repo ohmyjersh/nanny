@@ -1,15 +1,16 @@
-import ManifestRepository from '../repository/ManifestRepository';
-import ConfigurationRepository from '../repository/ConfigurationRepository';
+import ManifestHandler from './ManifestHandler';
+import ConfigurationHandler from './ConfigurationHandler';
 
 class GenerateConfigurationHandler {
-    private _manifestRepository: ManifestRepository;
-    private _configurationRepository:ConfigurationRepository;
+    private _manifestHandler: ManifestHandler;
+    private _configurationHandler:ConfigurationHandler;
     constructor() {
-        this._manifestRepository = new ManifestRepository();
-        this._configurationRepository = new ConfigurationRepository();
+        this._manifestHandler = new ManifestHandler();
+        this._configurationHandler= new ConfigurationHandler();
     }
-    generateConfiguration() {
-        //
+    generateConfiguration(manifest:any, configuration:Object, options:Object) {
+        //get manifest if not null
+        var manfiest = this._manifestHandler.findByName(manifest.name, null);
     }
 }
 
