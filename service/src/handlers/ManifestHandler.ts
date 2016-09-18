@@ -39,6 +39,9 @@ class ManifestHandler implements IManifestHandler {
     findById (_id: string, callback: (error: any, result: IManifestModel) => void) {
         this._manifestRepository.findById(_id, callback);
     }
+    findByName (name: string, callback: (error: any, result: IManifestModel) => void) {
+        this._manifestRepository.findOne({name:name}, callback);
+    }
 }
 
 Object.seal(ManifestHandler);

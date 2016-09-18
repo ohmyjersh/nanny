@@ -21,7 +21,11 @@ export class NannyApi {
         app.use("/configuration", configurationRoutes);
         app.use("/manifest", manifestRoutes);
         app.use("/users", manifestRoutes);
-        app.use("/generateconfiguration", generateConfigurationRoutes);
+        app.use("/generate", generateConfigurationRoutes);
+        // authorization?
+        // account management?
+        // sign up
+        // login
     }
     public run() {
         this.app.listen(this.port);

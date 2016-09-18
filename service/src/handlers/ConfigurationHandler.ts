@@ -39,49 +39,9 @@ class ConfigurationHandler implements IConfigurationHandler {
     findById (_id: string, callback: (error: any, result: IConfigurationModel) => void) {
         this._configurationRepository.findById(_id, callback);
     }
-        // async getConfigurationByManfiest(configurations:any, transforms:any, flatten:boolean = false){
-    //     let configs = {
-    //         validationErrors:[]
-    //     }
-    //     for(let config in configurations) {
-    //         try {
-    //             let result = await this.getConfiguraton(configurations[config]);
-    //             var newObject = {};
-    //             if(result.length === 0) {
-    //                 configs.validationErrors.push(`${config} does not exist`);
-    //             }
-    //             else {
-    //                 result[0].configurations.forEach(x => {
-    //                     var configKey = Object.keys(x)[0];
-    //                     let transformed = this.transformConfigData(x[configKey],transforms);
-
-    //                     if(flatten) {
-    //                         newObject[configKey]= transformed;
-    //                     }
-    //                     else {
-    //                         newObject[config] = {[configKey]: transformed};
-    //                     }
-    //                 });
-    //             }
-    //             Object.assign(configs, newObject);
-    //         }
-    //     catch(e) {
-    //         console.log(e);
-    //     }
-
-    //     Object.assign(configs, newObject);
-    //     }
-    //     return configs;
-    // }
-
-    // async getConfiguraton(name:string) {
-    //     return await this.dataHandler.getData(name, "configurations");
-    // }
-
-    // private transformConfigData(config: string, transformer: Object) {
-    //     return format(config, transformer);
-    // }
-    
+    findByName (name: string, callback: (error: any, result: IConfigurationModel) => void) {
+        this._configurationRepository.findOne({name:name}, callback);
+    }
 }
 
 Object.seal(ConfigurationHandler);
