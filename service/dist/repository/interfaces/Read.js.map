@@ -1,0 +1,1 @@
+{"version":3,"file":"Read.js","sourceRoot":"","sources":["../../../src/repository/interfaces/Read.ts"],"names":[],"mappings":"","sourcesContent":["interface Read<T> {\n    retrieve: (callback: (error: any, result: any)=> void)=> void;\n    findById: (id: string, callback: (error:any, result: T) => void) => void;    \n} \n\nexport = Read;\n"]}
