@@ -17,4 +17,4 @@ class ManifestHandler {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = ManifestHandler;
-//# sourceMappingURL=manifest.js.map
+//# sourceMappingURL=Manifest.js.map
