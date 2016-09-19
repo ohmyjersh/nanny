@@ -1,1 +1,0 @@
-{"version":3,"file":"IConfigurationModel.js","sourceRoot":"","sources":["../../../src/models/interfaces/IConfigurationModel.ts"],"names":[],"mappings":"","sourcesContent":["import * as mongoose from 'mongoose';\n\ninterface IConfigurationModel extends mongoose.Document {\n  name: string;\n  configurations:[Object];\n}\n\nexport default IConfigurationModel;"]}

@@ -1,17 +1,17 @@
 {
-  "dependencies": {},
   "globalDependencies": {
-    "assertion-error": "registry:dt/assertion-error#1.0.0+20160316155526",
-    "bluebird": "registry:dt/bluebird#3.0.0+20160907110115",
+    "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",
     "chai": "registry:dt/chai#3.4.0+20160601211834",
-    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
-    "express": "registry:dt/express#4.0.0+20160317120654",
-    "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160625155614",
+    "chai-http": "registry:dt/chai-http#0.0.0+20160317120654",
+    "express": "registry:dt/express#4.0.0+20160708185218",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160715232503",
     "mime": "registry:dt/mime#0.0.0+20160316155526",
     "mocha": "registry:dt/mocha#2.2.5+20160720003353",
-    "node": "registry:dt/node#6.0.0+20160621231320",
-    "rethinkdb": "registry:dt/rethinkdb#1.10.0+20160811111312",
-    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
-    "sinon": "registry:dt/sinon#1.16.0+20160517064723"
+    "mongodb": "registry:dt/mongodb#2.1.0+20160602142941",
+    "mongoose": "registry:dt/mongoose#4.5.4+20160807120805",
+    "mongoose-promise": "registry:dt/mongoose-promise#4.5.4+20160720003345",
+    "mpromise": "registry:dt/mpromise#0.5.4+20160316155526",
+    "node": "registry:dt/node#6.0.0+20160805072842",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
   }
 }

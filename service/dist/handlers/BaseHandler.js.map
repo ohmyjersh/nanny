@@ -1,1 +1,0 @@
-{"version":3,"file":"BaseHandler.js","sourceRoot":"","sources":["../../src/handlers/BaseHandler.ts"],"names":[],"mappings":"","sourcesContent":["import Read = require(\"./interfaces/Read\");\nimport Write = require(\"./interfaces/Write\");\ninterface BaseHandler<T> extends Read<T>, Write<T> \n{\n}\nexport = BaseHandler;"]}
