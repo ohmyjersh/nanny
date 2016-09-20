@@ -4,6 +4,7 @@ import * as http from "http";
 import { GenerateRouter } from "./routes/generate";
 import { ConfigurationRouter } from "./routes/configuration";
 import { ManifestRouter } from "./routes/manifest";
+import {AuthenticationRouter, roleAuthorization } from "./routes/authentication";
 const app: express.Application = express();
 
 app.use(json());
@@ -24,7 +25,7 @@ app.use((err: Error & { status: number }, request: express.Request, response: ex
         error: "Server error"
     })
 });
-
+app.use("/api", new AuthenticationRouter().getRouter());
 app.use("/api", new ConfigurationRouter().getRouter());
 app.use("/api", new ManifestRouter().getRouter());
 app.use("/api", new GenerateRouter().getRouter());

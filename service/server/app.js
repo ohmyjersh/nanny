@@ -4,6 +4,7 @@ const body_parser_1 = require("body-parser");
 const generate_1 = require("./routes/generate");
 const configuration_1 = require("./routes/configuration");
 const manifest_1 = require("./routes/manifest");
+const authentication_1 = require("./routes/authentication");
 const app = express();
 app.use(body_parser_1.json());
 app.use(body_parser_1.urlencoded({
@@ -20,6 +21,7 @@ app.use((err, request, response, next) => {
         error: "Server error"
     });
 });
+app.use("/api", new authentication_1.AuthenticationRouter().getRouter());
 app.use("/api", new configuration_1.ConfigurationRouter().getRouter());
 app.use("/api", new manifest_1.ManifestRouter().getRouter());
 app.use("/api", new generate_1.GenerateRouter().getRouter());

@@ -23,7 +23,7 @@ const schema = new Schema({
     configuration: Object,
     transform: Object,
     options: Object
-});
+},{timestamps:true});
 
 schema.static("findByName", (name: string) => {
     return Manifest

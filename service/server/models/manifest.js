@@ -11,7 +11,7 @@ const schema = new mongoose_1.Schema({
     configuration: Object,
     transform: Object,
     options: Object
-});
+}, { timestamps: true });
 schema.static("findByName", (name) => {
     return exports.Manifest
         .findOne({ name: name })

@@ -19,7 +19,7 @@ const schema = new Schema({
         "default": Date.now
     },
     configuration: Object
-});
+},{timestamps:true});
 
 schema.static("findAllByName", (name: string) => {
 
