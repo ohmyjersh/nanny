@@ -14,7 +14,7 @@ export class AuthenticationRouter {
     }
     getRouter(): Router {
 
-        this.router.post("/authentication/login", async(request: Request, response: Response) => {
+        this.router.post("/authentication/login",(request: Request, response: Response) => {
             let userInfo = this.setUserInfo(request.user);
 
             response.status(200).json({
@@ -23,7 +23,7 @@ export class AuthenticationRouter {
             });
         });
 
-        this.router.post("/authentication/register", async(request: Request, response: Response, next:Function) => {
+        this.router.post("/authentication/register",(request: Request, response: Response, next:Function) => {
             // Check for registration errors
             const email = request.body.email;
             const firstName = request.body.firstName;

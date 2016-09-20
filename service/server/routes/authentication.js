@@ -1,12 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
-    });
-};
 const jwt = require("jsonwebtoken");
 const user_1 = require("../models/user");
 //mailgun = require('../config/mailgun'),
@@ -18,14 +10,14 @@ class AuthenticationRouter {
         this.router = express_1.Router();
     }
     getRouter() {
-        this.router.post("/authentication/login", (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.post("/authentication/login", (request, response) => {
             let userInfo = this.setUserInfo(request.user);
             response.status(200).json({
                 token: 'JWT ' + this.generateToken(userInfo),
                 user: userInfo
             });
-        }));
-        this.router.post("/authentication/register", (request, response, next) => __awaiter(this, void 0, void 0, function* () {
+        });
+        this.router.post("/authentication/register", (request, response, next) => {
             // Check for registration errors
             const email = request.body.email;
             const firstName = request.body.firstName;
@@ -71,7 +63,7 @@ class AuthenticationRouter {
                     });
                 });
             });
-        }));
+        });
         return this.router;
     }
     generateToken(user) {

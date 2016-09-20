@@ -13,6 +13,7 @@
 /// <reference path="globals/node/index.d.ts" />
 /// <reference path="globals/passport-jwt/index.d.ts" />
 /// <reference path="globals/passport-local/index.d.ts" />
+/// <reference path="globals/passport-strategy/index.d.ts" />
 /// <reference path="globals/passport/index.d.ts" />
 /// <reference path="globals/serve-static/index.d.ts" />
 /// <reference path="globals/sinon-chai/index.d.ts" />
