@@ -22,7 +22,6 @@ const schema = new Schema({
 },{timestamps:true});
 
 schema.static("findAllByName", (name: string) => {
-
     return Configuration
         .findOne({ name: name})
         .lean()

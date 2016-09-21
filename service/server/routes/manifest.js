@@ -9,17 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const express_1 = require("express");
 const Manifest_1 = require("../handlers/Manifest");
+var jwt = require('express-jwt');
+var auth = jwt({
+    secret: 'SecretKey',
+    userProperty: 'payload'
+});
 class ManifestRouter {
     constructor() {
         this.router = express_1.Router();
         this._manifestHandler = new Manifest_1.default();
     }
     getRouter() {
-        this.router.post("/Manifest", (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.post("/Manifest", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             yield this._manifestHandler.create(request.body);
             response.status(200);
         }));
-        this.router.get("/Manifest", (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.get("/Manifest", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             response.json("hi");
         }));
         return this.router;

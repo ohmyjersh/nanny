@@ -1,8 +1,7 @@
 "use strict";
-// import * as mongoose from "mongoose";
 const db_1 = require("../config/db");
 const mongoose_1 = require("mongoose");
-const schema = new mongoose_1.Schema({
+let schema = new mongoose_1.Schema({
     title: String,
     create: {
         type: Date,

@@ -1,4 +1,3 @@
-// import * as mongoose from "mongoose";
 import { mongoose } from "../config/db";
 import { Schema, Document, Model } from "mongoose";
 
@@ -14,7 +13,7 @@ export interface IManifestModel {
     findByName(name: string): Promise<Manifest>
 }
 
-const schema = new Schema({
+let schema = new Schema({
     title: String,
     create: {
         type: Date,

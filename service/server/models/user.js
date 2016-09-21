@@ -1,56 +1,91 @@
 "use strict";
-const db_1 = require("../config/db");
-const mongoose_1 = require("mongoose");
-const bcrypt = require("bcrypt-nodejs");
-const schema = new mongoose_1.Schema({
-    email: {
-        type: String,
-        lowercase: true,
-        unique: true,
-        required: true
-    },
-    create: {
-        type: Date,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    profile: {
-        firstName: { type: String },
-        lastName: { type: String }
-    },
-    role: {
-        type: String,
-        enum: ['Member', 'Client', 'Owner', 'Admin'],
-        default: 'Member'
-    },
-    resetPasswordToken: { type: String },
-    resetPasswordExpires: { type: Date }
-}, { timestamps: true });
-schema.pre('save', (next) => {
-    const user = this, SALT_FACTOR = 5;
-    if (!user.isModified('password'))
-        return next();
-    bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
+const mongoose = require("mongoose");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
+let userSchema = new mongoose.Schema({
+    username: { type: String, sparse: true, lowercase: true, trim: true },
+    salt: String,
+    password: String,
+    role: { type: String, enum: ['Basic', 'Admin'] },
+    movies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+});
+userSchema.methods.hashPassword = function (password, done) {
+    this.salt = crypto.randomBytes(16).toString('hex');
+    crypto.pbkdf2(password, this.salt, 1000, 32, (err, hash) => {
         if (err)
-            return next(err);
-        bcrypt.hash(user.password, salt, null, (err, hash) => {
-            if (err)
-                return next(err);
-            user.password = hash;
-            next();
-        });
+            return done(err);
+        done(null, hash.toString('hex'));
     });
-});
-schema.method("comparePassword", (candidatePassword, cb) => {
-    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, isMatch);
+};
+userSchema.methods.comparePassword = function (password, done) {
+    crypto.pbkdf2(password, this.salt, 1000, 32, (err, hash) => {
+        if (err)
+            return done(err);
+        done(null, hash.toString('hex') === this.password);
     });
-});
-exports.User = db_1.mongoose.model("User", schema);
+};
+userSchema.methods.createJWT = function () {
+    return jwt.sign({
+        _id: this._id,
+        username: this.username,
+        role: this.role
+    }, "SecretKey");
+};
+exports.User = mongoose.model('User', userSchema);
+// import { mongoose } from "../config/db";
+// import { Schema, Document, Model } from "mongoose";
+// import * as bcrypt from "bcrypt-nodejs";
+// export interface IUser extends Document {
+//     email: string;
+//     password: string,
+//     profile: {string:string},
+//     role: string,
+//     resetPasswordToken: string,
+//     resetPasswordExpires: string,
+//     comparePassword(password:string, cb:Function):any;
+// }
+// let schema = new Schema({
+//   email: {
+//     type: String,
+//     lowercase: true,
+//     unique: true,
+//     required: true
+//   },
+//   password: {
+//     type: String,
+//     required: true
+//   },
+//   profile: {
+//     firstName: { type: String },
+//     lastName: { type: String }
+//   },
+//   role: {
+//     type: String,
+//     enum: ['Member', 'Client', 'Owner', 'Admin'],
+//     default: 'Member'
+//   },
+//   resetPasswordToken: { type: String },
+//   resetPasswordExpires: { type: Date }
+// },{timestamps:true});
+// schema.pre('save', (next)=> {
+//     const user = this, SALT_FACTOR=5;
+//     if(!user.isModified('password'))return next();
+//     bcrypt.genSalt(SALT_FACTOR, (err,salt) => {
+//         if(err) return next(err);
+//         bcrypt.hash(user.password, salt, null, (err, hash)=> {
+//             if(err) return next(err);
+//             user.password = hash;
+//             next();
+//         });
+//     });
+// });
+// schema.methods.comparePassword = (candidatePassword, cb) => {
+//   var user = this;
+//   bcrypt.compare(candidatePassword, user.password, function(err, isMatch) {
+//     console.log(isMatch);
+//     if (err) { return cb(err); }
+//         cb(null, isMatch);
+//   });
+// };
+// export const User= mongoose.model<IUser>("User", schema); 
 //# sourceMappingURL=user.js.map

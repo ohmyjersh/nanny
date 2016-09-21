@@ -1,5 +1,7 @@
 import { Router, Request, Response } from "express";
 import GenerateHandler from "../handlers/generate";
+import * as passport from 'passport';
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 export class GenerateRouter {
     private _generateHandler;
@@ -9,8 +11,8 @@ export class GenerateRouter {
     }
     getRouter(): Router {
         this.router.post("configurtion/generate", async(request: Request, response: Response) => {
-
-            await this._generateHandler.configuration();
+            console.log('in here');
+            //await this._generateHandler.configuration();
             response.status(200);
         });
         return this.router;

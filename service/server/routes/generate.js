@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const express_1 = require("express");
 const generate_1 = require("../handlers/generate");
+const passport = require("passport");
+const requireAuth = passport.authenticate('jwt', { session: false });
 class GenerateRouter {
     constructor() {
         this.router = express_1.Router();
@@ -16,7 +18,8 @@ class GenerateRouter {
     }
     getRouter() {
         this.router.post("configurtion/generate", (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._generateHandler.configuration();
+            console.log('in here');
+            //await this._generateHandler.configuration();
             response.status(200);
         }));
         return this.router;
