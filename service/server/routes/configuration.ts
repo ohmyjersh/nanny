@@ -1,5 +1,10 @@
 import { Router, Request, Response } from "express";
 import ConfigurationHandler from "../handlers/configuration";
+var jwt = require('express-jwt');
+var auth = jwt({
+    secret: 'SecretKey',
+    userProperty: 'payload'
+});
 
 export class ConfigurationRouter {
     private _configurationHandler;
@@ -9,13 +14,13 @@ export class ConfigurationRouter {
     }
     getRouter(): Router {
 
-        this.router.post("/configuration", async(request: Request, response: Response) => {
+        this.router.post("/configuration", auth, async(request: Request, response: Response) => {
 
             await this._configurationHandler.create(request.body);
             response.status(200);
         });
 
-        this.router.get("/configuration", async(request: Request, response: Response) => {
+        this.router.get("/configuration", auth, async(request: Request, response: Response) => {
             response.json("hi");
         });
 

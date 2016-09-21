@@ -9,17 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const express_1 = require("express");
 const generate_1 = require("../handlers/generate");
-const passport = require("passport");
-const requireAuth = passport.authenticate('jwt', { session: false });
+var jwt = require('express-jwt');
+var auth = jwt({
+    secret: 'SecretKey',
+    userProperty: 'payload'
+});
 class GenerateRouter {
     constructor() {
         this.router = express_1.Router();
         this._generateHandler = new generate_1.default();
     }
     getRouter() {
-        this.router.post("configurtion/generate", (request, response) => __awaiter(this, void 0, void 0, function* () {
-            console.log('in here');
-            //await this._generateHandler.configuration();
+        this.router.post("configurtion/generate", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            yield this._generateHandler.configuration();
             response.status(200);
         }));
         return this.router;

@@ -4,7 +4,7 @@ import * as http from "http";
 import { GenerateRouter } from "./routes/generate";
 import { ConfigurationRouter } from "./routes/configuration";
 import { ManifestRouter } from "./routes/manifest";
-import {AuthenticationRouter, roleAuthorization } from "./routes/authentication";
+import {AuthenticationRouter } from "./routes/authentication";
 const app: express.Application = express();
 
 app.use(json());

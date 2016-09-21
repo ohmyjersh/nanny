@@ -1,16 +1,12 @@
 import { mongoose } from "../config/db";
 import { Schema, Document, Model } from "mongoose";
 
-export interface Manifest extends Document {
+export interface IManifest extends Document {
     name: string;
     create: Date;
     configurations: Object;
     transforms: Object;
     options:Object
-}
-
-export interface IManifestModel {
-    findByName(name: string): Promise<Manifest>
 }
 
 let schema = new Schema({
@@ -24,13 +20,4 @@ let schema = new Schema({
     options: Object
 },{timestamps:true});
 
-schema.static("findByName", (name: string) => {
-    return Manifest
-        .findOne({ name: name})
-        .lean()
-        .exec();
-});
-
-export type ManifestModel = Model<Manifest> & IManifestModel;
-
-export const Manifest: ManifestModel = <ManifestModel>mongoose.model<Manifest>("Manifest", schema);
+export const Manifest= mongoose.model("Manifest", schema);

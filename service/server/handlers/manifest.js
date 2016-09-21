@@ -11,7 +11,32 @@ const manifest_1 = require("../models/manifest");
 class ManifestHandler {
     create() {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield manifest_1.Manifest.create({ thing: "thing" });
+            return yield manifest_1.Manifest.create({ thing: "thing" });
+        });
+    }
+    getAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield manifest_1.Manifest.find();
+        });
+    }
+    getById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield manifest_1.Manifest.findById(id);
+        });
+    }
+    getByName(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield manifest_1.Manifest.findOne({ name: name });
+        });
+    }
+    update(id, manifest) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield manifest_1.Manifest.findByIdAndUpdate(id, manifest);
+        });
+    }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield manifest_1.Manifest.findByIdAndRemove(id);
         });
     }
 }

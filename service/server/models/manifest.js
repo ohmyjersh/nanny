@@ -11,11 +11,5 @@ let schema = new mongoose_1.Schema({
     transform: Object,
     options: Object
 }, { timestamps: true });
-schema.static("findByName", (name) => {
-    return exports.Manifest
-        .findOne({ name: name })
-        .lean()
-        .exec();
-});
 exports.Manifest = db_1.mongoose.model("Manifest", schema);
 //# sourceMappingURL=manifest.js.map

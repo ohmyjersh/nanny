@@ -1,11 +1,18 @@
-import { Configuration } from "../models/configuration";
-import { Manifest } from "../models/manifest";
+import ConfigurationHandler from "../handlers/configuration";
+import ManifestHandler from "../handlers/manifest";
 
 export default class Generate {
-    configurations(request:any) {
-        var manifest = Manifest.findByName(request.manifest.name);
-        request.configurations.forEach((x) => {
-            var result = Configuration.findAllByName(x);
-        });
+    private _configurationHandler: ConfigurationHandler;
+    private _manfiestHandler: ManifestHandler;
+    constructor() {
+        this._configurationHandler = new ConfigurationHandler();
+        this._manfiestHandler = new ManifestHandler();
+    }
+    generateConfiguration(request:Object) {
+        // if request contains a manfiest, go get it
+        // if request contains configurations, go get it
+        // Object.assign configurations
+        // flatten if options specify
+        // return configurations
     }
 } 
