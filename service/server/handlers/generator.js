@@ -1,7 +1,7 @@
 "use strict";
 const configuration_1 = require("../handlers/configuration");
 const manifest_1 = require("../handlers/manifest");
-class Generate {
+class GeneratorHandler {
     constructor() {
         this._configurationHandler = new configuration_1.default();
         this._manfiestHandler = new manifest_1.default();
@@ -13,7 +13,11 @@ class Generate {
         // flatten if options specify
         // return configurations
     }
+    mapResultsToConfigurations() {
+    }
+    flattenConfigurations() {
+    }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Generate;
-//# sourceMappingURL=generate.js.map
+exports.default = GeneratorHandler;
+//# sourceMappingURL=generator.js.map

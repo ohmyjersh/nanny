@@ -8,24 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const express_1 = require("express");
-const generate_1 = require("../handlers/generate");
+const generator_1 = require("../handlers/generator");
+const utils_1 = require("../utils/utils");
 var jwt = require('express-jwt');
 var auth = jwt({
     secret: 'SecretKey',
     userProperty: 'payload'
 });
-class GenerateRouter {
+class GeneratorRouter {
     constructor() {
         this.router = express_1.Router();
-        this._generateHandler = new generate_1.default();
+        this._generatorHandler = new generator_1.default();
     }
     getRouter() {
-        this.router.post("configurtion/generate", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._generateHandler.configuration();
-            response.status(200);
+        this.router.post("/configuration/generator", (request, response) => __awaiter(this, void 0, void 0, function* () {
+            if (utils_1.default.isNullOrUndefined(request.body.manifest) && utils_1.default.isNullOrUndefined(request.body.configurations))
+                response.status(400).json({ error: "Need manifest or configuration defined" });
+            var configurations = yield this._generatorHandler.configuration();
+            response.status(200).json(configurations);
         }));
         return this.router;
     }
 }
-exports.GenerateRouter = GenerateRouter;
-//# sourceMappingURL=generate.js.map
+exports.GeneratorRouter = GeneratorRouter;
+//# sourceMappingURL=generator.js.map

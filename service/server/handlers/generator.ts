@@ -1,7 +1,7 @@
 import ConfigurationHandler from "../handlers/configuration";
 import ManifestHandler from "../handlers/manifest";
 
-export default class Generate {
+export default class GeneratorHandler {
     private _configurationHandler: ConfigurationHandler;
     private _manfiestHandler: ManifestHandler;
     constructor() {
@@ -14,5 +14,11 @@ export default class Generate {
         // Object.assign configurations
         // flatten if options specify
         // return configurations
+    }
+    private mapResultsToConfigurations() {
+
+    }
+    private flattenConfigurations() {
+
     }
 } 

@@ -1,7 +1,7 @@
 "use strict";
 const express = require("express");
 const body_parser_1 = require("body-parser");
-const generate_1 = require("./routes/generate");
+const generator_1 = require("./routes/generator");
 const configuration_1 = require("./routes/configuration");
 const manifest_1 = require("./routes/manifest");
 const authentication_1 = require("./routes/authentication");
@@ -24,7 +24,7 @@ app.use((err, request, response, next) => {
 app.use("/api", new authentication_1.AuthenticationRouter().getRouter());
 app.use("/api", new configuration_1.ConfigurationRouter().getRouter());
 app.use("/api", new manifest_1.ManifestRouter().getRouter());
-app.use("/api", new generate_1.GenerateRouter().getRouter());
+app.use("/api", new generator_1.GeneratorRouter().getRouter());
 const server = app.listen(3003);
 exports.server = server;
 //# sourceMappingURL=app.js.map
