@@ -18,7 +18,20 @@ export default class GeneratorHandler {
     private mapResultsToConfigurations() {
 
     }
-    private flattenConfigurations() {
+    public flattenConfigurations(configurations) {
 
     }
 } 
+
+// {
+//     configurations:{
+//         sites: { 
+//             apiHost: "http://qa-api.site.com",
+//             Things: "stuff"
+//         },
+//         integration: {
+//             twitter: "http://twitter.com/api",
+//             facebook: "http://facebook.com/api"
+//         }
+//     }
+// }

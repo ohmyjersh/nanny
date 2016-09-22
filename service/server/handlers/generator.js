@@ -15,9 +15,21 @@ class GeneratorHandler {
     }
     mapResultsToConfigurations() {
     }
-    flattenConfigurations() {
+    flattenConfigurations(configurations) {
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = GeneratorHandler;
+// {
+//     configurations:{
+//         sites: { 
+//             apiHost: "http://qa-api.site.com",
+//             Things: "stuff"
+//         },
+//         integration: {
+//             twitter: "http://twitter.com/api",
+//             facebook: "http://facebook.com/api"
+//         }
+//     }
+// } 
 //# sourceMappingURL=generator.js.map
