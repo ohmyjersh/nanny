@@ -1,5 +1,4 @@
 "use strict";
-// import * as mongoose from "mongoose";
 const db_1 = require("../config/db");
 let configurationSchema = new db_1.mongoose.Schema({
     title: String,
@@ -7,7 +6,9 @@ let configurationSchema = new db_1.mongoose.Schema({
         type: Date,
         "default": Date.now
     },
-    configuration: Object
+    configurations: { String: String }
 }, { timestamps: true });
 exports.Configuration = db_1.mongoose.model('Configuration', configurationSchema);
+//export type ConfigurationModel = Model<IConfiguration> & IConfigurationModel;
+//export const Configuration: ConfigurationModel = <ConfigurationModel>mongoose.model<IConfiguration>("Configuration", configurationSchema); 
 //# sourceMappingURL=configuration.js.map

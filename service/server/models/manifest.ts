@@ -9,6 +9,9 @@ export interface IManifest extends Document {
     options:Object
 }
 
+export interface IManifestModel extends IManifest, mongoose.Document  {
+}
+
 let schema = new Schema({
     title: String,
     create: {
@@ -20,4 +23,4 @@ let schema = new Schema({
     options: Object
 },{timestamps:true});
 
-export const Manifest= mongoose.model("Manifest", schema);
+export const Manifest= mongoose.model<IManifestModel>("Manifest", schema);

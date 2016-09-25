@@ -9,7 +9,7 @@ export default class ConfigurationHandler {
     async getById(id:string) {
         return await Configuration.findById(id);
     }
-    async getByName(name:string){
+    async getByName(name:string) {
         return await Configuration.findOne({name:name});
     }
     async update(id:string, configuration:Object) {
