@@ -16,9 +16,10 @@ class GeneratorHandler {
         this._configurationHandler = new configuration_1.default();
         this._manfiestHandler = new manifest_1.default();
     }
-    generateConfiguration(requestManifest, requestConfigurations, transforms, options = { flatten: false, configOverride: true }) {
+    generateConfiguration(requestManifest, requestConfigurations, transforms = {}, options = { flatten: false, configOverride: true }) {
         var configResults = {};
         var manifestResults = {};
+        var validationErrors = [];
         // if request contains a manfiest, go get it
         if (!utils_1.default.isNullOrUndefined(requestManifest)) {
             Object.assign(manifestResults, this.mapManifestToConfigurations(requestManifest));
@@ -27,11 +28,11 @@ class GeneratorHandler {
         if (requestConfigurations > 0) {
             Object.assign(configResults, this.mapResultsToConfigurations(requestConfigurations));
         }
-        return this.transformResultsToConfigs(manifestResults, configResults, transforms, options);
-        // merge the to results sets 
-        // make method to take everything to generate configs
-        // return configs and object assign with validation errors from manifest and config grabbing.
-        return configResults;
+        var results = this.transformResultsToConfigs(manifestResults, configResults, transforms, options);
+        if (validationErrors.length > 0) {
+            Object.assign(results, this.addValidationErrors(results, validationErrors));
+        }
+        return results;
     }
     mapResultsToConfigurations(requestedConfigurations) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -40,20 +41,28 @@ class GeneratorHandler {
                 var result = yield this._configurationHandler.getByName(requestedConfigurations[config]);
                 Object.assign(results, result.configurations);
             }
+            return results;
         });
     }
     mapManifestToConfigurations(requestedManifest) {
         return __awaiter(this, void 0, void 0, function* () {
             var results = { validationErrors: [] };
-            var result = yield this._manfiestHandler.getByName(requestedManifest);
-            Object.assign(results, result);
+            try {
+                var result = yield this._manfiestHandler.getByName(requestedManifest);
+                Object.assign(results, result);
+            }
+            catch (ex) {
+                results.validationErrors.push(`Unable to fetch manfiest: ${requestedManifest}`);
+                console.log(ex);
+            }
+            return results;
         });
     }
     transformResultsToConfigs(manifestResults, configResults, transforms, options) {
         let configResponse = Object.assign(this.mergeManifestAndConfig(manifestResults, configResults, options.configOverride));
-        // Object.assign configurations
+        Object.assign(configResponse, this.transformConfigs(configResponse, transforms));
         if (options.flatten) {
-            Object.assign(configResults, this.flattenConfigurations(configResponse));
+            configResponse = this.flattenConfigurations(configResponse);
         }
         return configResponse;
     }
@@ -61,21 +70,31 @@ class GeneratorHandler {
         if (configOverride) {
             return Object.assign(configResults, manifestResults);
         }
-        return Object.assign(manifestResults, configResults);
+        else {
+            return Object.assign(manifestResults, configResults);
+        }
     }
     flattenConfigurations(configurations) {
-        var flatConfig = {};
-        for (var configuration in configurations) {
-            for (var key in configurations[configuration]) {
+        let flatConfig = {};
+        for (let configuration in configurations) {
+            for (let key in configurations[configuration]) {
                 Object.assign(flatConfig, { [key]: configurations[configuration][key] });
             }
         }
         return flatConfig;
     }
-    transformConfigData(config, transformer) {
-        return format(config, transformer);
+    transformConfigs(configurations, transformer) {
+        for (let configuration in configurations) {
+            let config = {};
+            for (let key in configurations[configuration]) {
+                config[key] = format(configurations[configuration][key], transformer);
+            }
+            Object.assign(configurations[configuration], config);
+        }
+        return configurations;
     }
-    addValidationErrors() {
+    addValidationErrors(configs, validationErrors) {
+        return Object.assign(configs, validationErrors);
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
