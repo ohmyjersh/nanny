@@ -1,7 +1,6 @@
 "use strict";
 const db_1 = require("../config/db");
-const mongoose_1 = require("mongoose");
-let schema = new mongoose_1.Schema({
+let manifestSchema = new db_1.mongoose.Schema({
     title: String,
     create: {
         type: Date,
@@ -11,5 +10,5 @@ let schema = new mongoose_1.Schema({
     transform: Object,
     options: Object
 }, { timestamps: true });
-exports.Manifest = db_1.mongoose.model("Manifest", schema);
+exports.Manifest = db_1.mongoose.model("Manifest", manifestSchema);
 //# sourceMappingURL=manifest.js.map

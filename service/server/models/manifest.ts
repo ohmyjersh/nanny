@@ -1,7 +1,7 @@
 import { mongoose } from "../config/db";
-import { Schema, Document, Model } from "mongoose";
+//import { Schema, Document, Model } from "mongoose";
 
-export interface IManifest extends Document {
+export interface IManifest extends mongoose.Document {
     name: string;
     create: Date;
     configurations: Object;
@@ -12,7 +12,7 @@ export interface IManifest extends Document {
 export interface IManifestModel extends IManifest, mongoose.Document  {
 }
 
-let schema = new Schema({
+let manifestSchema = new mongoose.Schema({
     title: String,
     create: {
         type: Date,
@@ -23,4 +23,4 @@ let schema = new Schema({
     options: Object
 },{timestamps:true});
 
-export const Manifest= mongoose.model<IManifestModel>("Manifest", schema);
+export const Manifest= mongoose.model<IManifestModel>("Manifest", manifestSchema);

@@ -1,13 +1,13 @@
 import { mongoose } from "../config/db";
-import { Schema, Document, Model } from "mongoose";
+//import { Schema, Document, Model } from "mongoose";
 
-interface IConfiguration extends Document {
+interface IConfiguration extends mongoose.Document {
     name: string;
     create: Date;
     configurations: {String:String};
 }
 
-export interface IConfigurationModel extends IConfiguration, Document  {
+export interface IConfigurationModel extends IConfiguration, mongoose.Document  {
 }
 
 let configurationSchema = new mongoose.Schema({
