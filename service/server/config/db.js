@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 exports.mongoose = mongoose;
 // import mockgoose = require("mockgoose");
-mongoose.Promise = global.Promise;
+//(<any>mongoose).Promise = global.Promise;
 // if (process.env.NODE_ENV === "testing") {
 //     mockgoose(mongoose).then((): void => { mongoose.connect("mongodb://example.com/TestingDB") });
 // } else {
