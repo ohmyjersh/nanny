@@ -1,3 +1,12 @@
 // use strip for subscriptions
 // refactor contrller and routes
 // tests!
+
+// login through service
+// register through serivce
+// for configuration and manifest, add preview for transforms editor 
+   
+|           |   | <- transform editor
+| manifest  |___|
+|  config   |   |
+|           |___| <- preview
