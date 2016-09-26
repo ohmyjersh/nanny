@@ -4,6 +4,8 @@ import * as actions from '../actions';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {deepOrange500} from 'material-ui/styles/colors';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -16,9 +18,19 @@ class App extends Component {
     super();
   }
   render() {
+      var loggedIn = false;
+      let rightButtons;
+      if(loggedIn) {
+          rightButtons = <span>jjarmain@gmail.com</span>;
+      }
+      else {
+          rightButtons = <span><FlatButton label="Login" />/<FlatButton label="Signup" /></span>
+      }
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="App">
+        <AppBar
+        iconElementRight={rightButtons}/>
 
       </div>
       </MuiThemeProvider>

@@ -1,0 +1,4 @@
+-- Refactor App bar to be in own component
+-- Look into CSS stying to make AppBar larger
+-- Break up everything into small components for later refactor to not use material ui but own
+stylized components.
