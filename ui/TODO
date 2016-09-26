@@ -2,3 +2,11 @@
 -- Look into CSS stying to make AppBar larger
 -- Break up everything into small components for later refactor to not use material ui but own
 stylized components.
+-- App container represents the account management and service details/company/pricing/etc
+-- Registration is free comes with 1 app connectivity and 3 configs
+-- Setup multiple tier for account types... based on configs and users
+
+-- dynamic route like  nanny/{businessname} will load generic login page but based on value
+in businessName that will be passed through to api to authenticate the user... will load details for businessname
+to state.
+- Once login to 'dashboard' will be a new container
