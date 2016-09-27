@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import * as actions from '../actions';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -24,14 +25,23 @@ class App extends Component {
           rightButtons = <span>jjarmain@gmail.com</span>;
       }
       else {
-          rightButtons = <span><FlatButton label="Login" />/<FlatButton label="Signup" /></span>
+          rightButtons = 
+          <span>
+          <Link to='login'>
+            <FlatButton 
+              label="Login" /></Link>
+              /
+            <Link to='registration'>
+            <FlatButton 
+              label='Register' /></Link>
+          </span>
       }
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="App">
         <AppBar
         iconElementRight={rightButtons}/>
-
+          {this.props.children}
       </div>
       </MuiThemeProvider>
     );
@@ -46,16 +56,7 @@ var styles = {
 }
 
 function mapStateToProps(state) {
-  return {
-    add:state.get('add'),
-    ingredients:state.get('ingredients'),
-    results:state.get('results'),
-    page:state.get('page'),
-    recipe:state.get('recipe'),
-    error:state.get('error'),
-    isFetching:state.get('isFetching')
-  };
+  return {};
 }
 
-export default App
-//export default App = connect(mapStateToProps, actions)(App);
+export default App = connect(mapStateToProps, actions)(App);

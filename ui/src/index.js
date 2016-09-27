@@ -6,6 +6,8 @@ import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import App from './container/App';
 import Registration from './components/registration/registration';
+import Login from './components/login/login';
+import Nanny from './container/Nanny';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -28,7 +30,10 @@ ReactDOM.render(
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
       <Route path="/" component={App}>
-        <Route path="/registration" component={Registration}/>
+        <Route title='Registration' path='registration' component={Registration}/>
+        <Route title='Login' path='login' component={Login}/>
+      </Route>
+      <Route path="/nanny/" component={Nanny}>
       </Route>
     </Router>
   </Provider>,

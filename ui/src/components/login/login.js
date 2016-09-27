@@ -4,7 +4,7 @@ class Registration extends Component {
         super();
     }
     render() {
-        return(<div className="Registration"><h1>registration</h1></div>);
+        return(<div className="Login"><h1>login</h1></div>);
     }
 }
 
