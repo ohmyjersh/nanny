@@ -19,7 +19,7 @@ const store = createStore(
     ...reducers,
     routing: routerReducer
   })
-)
+);
 
 
 // Create an enhanced history that syncs navigation events with the store
@@ -33,7 +33,7 @@ ReactDOM.render(
         <Route title='Registration' path='registration' component={Registration}/>
         <Route title='Login' path='login' component={Login}/>
       </Route>
-      <Route path="/nanny/" component={Nanny}>
+      <Route path="/nanny/*" component={Nanny}>
       </Route>
     </Router>
   </Provider>,
