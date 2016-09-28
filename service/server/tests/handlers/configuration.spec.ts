@@ -6,4 +6,3 @@
 // import ConfigurationHandler from "../../handlers/configuration"
 // const configurationHandler = new ConfigurationHandler();
 //  var thing = sinon.createStubInstance(configurationHandler);
-
