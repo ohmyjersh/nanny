@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-class Registration extends Component {
+import Card from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton'
+class Login extends Component {
     constructor() {
         super();
     }
@@ -8,4 +11,4 @@ class Registration extends Component {
     }
 }
 
-export default Registration;
+export default Login;

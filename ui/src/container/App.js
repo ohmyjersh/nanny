@@ -56,7 +56,7 @@ var styles = {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return state;
 }
 
 export default App = connect(mapStateToProps, actions)(App);
