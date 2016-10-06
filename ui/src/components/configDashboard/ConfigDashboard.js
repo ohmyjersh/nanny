@@ -10,18 +10,7 @@ import Draft, {
 } from 'draft-js';
 var CodeUtils = require('draft-js-code');
 const PrismDraftDecorator = require('draft-js-prism')
-// import Immutable from 'immutable';
-// const {Map, List} = Immutable;
-
-var emptyState = convertFromRaw({
-    entityMap:{},
-    blocks:[
-        {
-            type: 'code-block',
-            text: '{\n"key":"value"\n}'
-        },
-    ]
-})
+import Immutable from 'immutable';
 
 class ConfigDashboard extends React.Component {
     constructor(props) {
@@ -30,27 +19,41 @@ class ConfigDashboard extends React.Component {
         var decorator = new PrismDraftDecorator();
 
         this.state = {
-            editorState: EditorState.createWithContent(emptyState, decorator),
+            editorState: EditorState.createWithContent(this._resetState(), decorator),
         };
-
+        this._onChange = this._onChange.bind(this);
         this.focus = () => this.refs.editor.focus();
-        this.onChange = (editorState) =>  {
-            var currentContent = editorState.getCurrentContent();
-            if (!currentContent.hasText()) {
-                const editorState = EditorState.push(this.state.editorState, emptyState);
-                this.setState({ editorState });  
-            }
-            else {
-                this.setState({editorState})
-            }
-        };
-
         this.handleKeyCommand = (command) => this._handleKeyCommand(command);
         this.keyBindingFn = (e) => this._keyBindingFn(e);
         this.onTab = (e) => this._onTab(e);
         this.onReturn = (e) => this._onReturn(e);
     }
 
+    _resetState() {
+        return convertFromRaw({
+            entityMap:{},
+            blocks:[
+                {
+                    type: 'code-block',
+                    text: '{\n}'
+                },
+            ]
+        });
+    }
+    _fromTemplate(e) {
+        console.log("template")
+        var template = convertFromRaw({
+            entityMap:{},
+            blocks:[
+                {
+                    type: 'code-block',
+                    text: '{\n"key":"value"\n}'
+                },
+            ]
+        });
+        const editorState = EditorState.push(this.state.editorState, template);
+        this.setState({ editorState });   
+    }
     _handleKeyCommand(command) {
         const {editorState} = this.state;
         let newState;
@@ -64,7 +67,7 @@ class ConfigDashboard extends React.Component {
         }
 
         if (newState) {
-            this.onChange(newState);
+            this._onChange(newState);
             return true;
         }
         return false;
@@ -91,7 +94,7 @@ class ConfigDashboard extends React.Component {
             return;
         }
 
-        this.onChange(
+        this._onChange(
             CodeUtils.handleTab(e, editorState)
         )
     }
@@ -103,22 +106,34 @@ class ConfigDashboard extends React.Component {
             return;
         }
 
-        this.onChange(
+        this._onChange(
             CodeUtils.handleReturn(e, editorState)
         )
         return true;
     }
 
+    _onChange(editorState) {
+            // update redux store
+            var currentContent = editorState.getCurrentContent();
+            if (!currentContent.hasText()) {
+                const pushedState = EditorState.push(this.state.editorState, this._resetState());
+                Object.assign(editorState,pushedState);
+            }
+            this.setState({editorState})
+        };
+
     render() {
+       var editorState = this.state.editorState
         return (
             <div className="RichEditor-root">
                 <div className='RichEditor-editor' onClick={this.focus}>
+                    <button onClick={this._fromTemplate.bind(this)}>Template</button>
                     <Editor
                         customStyleMap={styleMap}
-                        editorState={this.state.editorState}
+                        editorState={editorState}
                         handleKeyCommand={this.handleKeyCommand}
                         keyBindingFn={this.keyBindingFn}
-                        onChange={this.onChange}
+                        onChange={this._onChange}
                         ref="editor"
                         spellCheck={true}
                         handleReturn={this.onReturn}
