@@ -115,6 +115,10 @@ class ConfigDashboard extends React.Component {
     _onChange(editorState) {
             // update redux store
             var currentContent = editorState.getCurrentContent();
+            var text = currentContent.getPlainText();
+            console.log(text);
+            var jsonObject = currentContent.toJS();
+            console.log(JSON.stringify(jsonObject));
             if (!currentContent.hasText()) {
                 const pushedState = EditorState.push(this.state.editorState, this._resetState());
                 Object.assign(editorState,pushedState);
