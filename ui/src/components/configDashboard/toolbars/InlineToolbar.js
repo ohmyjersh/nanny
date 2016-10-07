@@ -1,5 +1,5 @@
 import React from 'react';
-import ToolbarIcon from '../components/ToolbarIcon';
+import ToolbarIcon from './ToolbarIcon';
 
 const INLINE_STYLES = [
   { label: '{ }', style: 'BOLD' },

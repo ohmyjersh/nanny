@@ -18,8 +18,8 @@ import {
   getSelectionRange,
   getSelectedBlockElement,
   getSelectionCoords
-} from '../utils/selection';
-import InlineToolbar from '../components/InlineToolbar';
+} from './utils/selection';
+import InlineToolbar from './toolbars/InlineToolbar';
 import CodeUtils from 'draft-js-code';
 import PrismDraftDecorator from 'draft-js-prism';
 import Immutable from 'immutable';
@@ -171,23 +171,37 @@ class ConfigDashboard extends React.Component {
         };
 
     render() {
-       var editorState = this.state.editorState
+        const { editorState, selectedBlock, selectionRange } = this.state;
+
+        if (selectedBlock) {
+        const editor = document.getElementById('richEditor');
+        const editorBounds = editor.getBoundingClientRect();
+        const blockBounds = selectedBlock.getBoundingClientRect();
+        }
+
         return (
             <div className="RichEditor-root">
-                <div className='RichEditor-editor' onClick={this.focus}>
-                    <button onClick={this._fromTemplate.bind(this)}>Template</button>
-                    <Editor
-                        customStyleMap={styleMap}
-                        editorState={editorState}
-                        handleKeyCommand={this.handleKeyCommand}
-                        keyBindingFn={this.keyBindingFn}
-                        onChange={this._onChange}
-                        ref="editor"
-                        spellCheck={true}
-                        handleReturn={this.onReturn}
-                        onTab={this.onTab}
+               <div className="editor" id="richEditor" onClick={this.focus}>
+                 {this.state.inlineToolbar.show
+                  ? <InlineToolbar
+                      editorState={editorState}
+                      onToggle={this.templateString}
+                      position={this.state.inlineToolbar.position}
                     />
-                </div>
+                  : null
+                }
+                <Editor
+                    customStyleMap={styleMap}
+                    editorState={editorState}
+                    handleKeyCommand={this.handleKeyCommand}
+                    keyBindingFn={this.keyBindingFn}
+                    onChange={this._onChange}
+                    ref="editor"
+                    spellCheck={true}
+                    handleReturn={this.onReturn}
+                    onTab={this.onTab}
+                />
+            </div>
             </div>
         );
     }
