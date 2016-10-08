@@ -18,9 +18,9 @@ body {
 @font-face {
     font-family: 'alkren';
     src:
-        url('../fonts/alkren.ttf') format('truetype'),
-        url('../fonts/alkren.woff') format('woff'),
-        url('../fonts/alkren.svg') format('svg');
+        url('./fonts/alkren.ttf') format('truetype'),
+        url('./fonts/alkren.woff') format('woff'),
+        url('./fonts/alkren.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
