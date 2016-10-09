@@ -12,6 +12,7 @@
     "draft-js-code": "^0.2.0",
     "draft-js-prism": "^1.0.3",
     "immutable": "^3.8.1",
+    "is-json": "^2.0.1",
     "material-ui": "^0.15.4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

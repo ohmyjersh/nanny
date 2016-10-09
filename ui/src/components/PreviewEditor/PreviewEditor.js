@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Draft, { Editor, EditorState, RichUtils, convertFromRaw, createFromRaw, createEmpty, ContentState } from 'draft-js'
+var format = require("string-template");
+
 export default class TransformerEditor extends Component {
   constructor (props) {
     super(props)
@@ -11,9 +13,17 @@ export default class TransformerEditor extends Component {
   }
 
     componentWillReceiveProps(newProps) {
-    const newContentState = convertFromRaw(newProps.state.rawContent)
-    const editorState = EditorState.push(this.state.editorState, newContentState)
-    this.setState({editorState})
+    console.log(newProps.state.rawTransformer);
+    console.log(newProps.state.rawContent);
+    var rawContent = newProps.state.rawContent;
+    var transformer = JSON.parse(newProps.state.rawTransformer);
+    var formatted = format(rawContent,transformer);
+    const newContentState = convertFromRaw(JSON.parse(formatted));
+    const editorState = EditorState.push(this.state.editorState, newContentState);
+    this.setState({editorState});
+    // const newContentState = convertFromRaw(JSON.parse(newProps.state.rawContent));
+    // const editorState = EditorState.push(this.state.editorState, newContentState);
+    // this.setState({editorState});
   }
 
   render () {

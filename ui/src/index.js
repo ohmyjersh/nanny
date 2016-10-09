@@ -27,19 +27,6 @@ const store = createStore(
     )
 );
 
-// const initialState = {
-//   state: {test: "test"}
-// }
-// var store = createStore(
-//     reducers,
-//     initialState,
-//     applyMiddleware(
-//       thunkMiddleware,
-//       //loggerMiddleware
-//     )
-// );
-
-
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
 

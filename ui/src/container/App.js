@@ -38,9 +38,7 @@ class App extends Component {
     )
   }
 }
-      // {React.cloneElement(this.props.children, {...this.props})}
 function mapStateToProps (state) {
-  console.log(state);
   return {state: {
       rawContent: state.module.rawContent,
       rawTransformer: state.module.rawTransformer

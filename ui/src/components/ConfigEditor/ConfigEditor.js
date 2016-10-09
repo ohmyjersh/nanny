@@ -128,7 +128,7 @@ class ConfigEditor extends Component {
     this.setState({editorState})
 
     const content = this.state.editorState.getCurrentContent();
-    this.props.setEditorContent(convertToRaw(content));
+    this.props.setEditorContent(JSON.stringify(convertToRaw(content)));
   }
 
   _toggleToolbarActions (action) {
