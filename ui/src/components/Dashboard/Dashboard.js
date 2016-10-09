@@ -1,26 +1,25 @@
 import React, { Component } from 'react'
-import { Row, Col } from 'antd'
 import ConfigEditor from '../ConfigEditor/ConfigEditor'
 import PreviewEditor from '../PreviewEditor/PreviewEditor'
 import TransformerEditor from '../TransformerEditor/TransformerEditor'
 
 class Dashboard extends Component {
-  constructor () {
-    super()
+  constructor(props) {
+    super(props)
   }
 
   render () {
     return (
       <div className='dashboard'>
         <div className='configEditor'>
-          <ConfigEditor />
+          <ConfigEditor {...this.props} />
         </div>
         <div className='sideView'>
           <div className='previewEditor'>
-            <PreviewEditor />
+            <PreviewEditor {...this.props} />
           </div>
           <div className='transformerEditor'>
-            <TransformerEditor />
+            <TransformerEditor {...this.props} />
           </div>
         </div>
       </div>)

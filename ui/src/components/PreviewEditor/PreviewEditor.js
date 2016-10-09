@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Draft, { Editor, EditorState, RichUtils, convertFromRaw, createEmpty } from 'draft-js'
+import Draft, { Editor, EditorState, RichUtils, convertFromRaw, createFromRaw, createEmpty, ContentState } from 'draft-js'
 export default class TransformerEditor extends Component {
   constructor (props) {
     super(props)
@@ -8,6 +8,12 @@ export default class TransformerEditor extends Component {
     }
     this.onChange = (editorState) => this.setState({editorState})
     this.focus = () => this.refs.editor.focus()
+  }
+
+    componentWillReceiveProps(newProps) {
+    const newContentState = convertFromRaw(newProps.state.rawContent)
+    const editorState = EditorState.push(this.state.editorState, newContentState)
+    this.setState({editorState})
   }
 
   render () {
@@ -22,7 +28,7 @@ export default class TransformerEditor extends Component {
           editorState={editorState}
           onChange={this.onChange}
           readOnly={true}
-          placeholder="Preview...."
+          placeholder='Preview....'
           ref='editor' />
       </div>
     )

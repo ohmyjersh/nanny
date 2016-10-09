@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import Draft, { Modifier, Editor, EditorState, RichUtils, ContentState, Decorator, convertFromRaw, SelectionState } from 'draft-js'
+import Draft, { convertFromRaw, convertToRaw, Modifier, Editor, EditorState, RichUtils, ContentState, Decorator, SelectionState } from 'draft-js'
 import { getSelectionRange, getSelectedBlockElement, getSelectionCoords } from './utils/selection'
 import InlineToolbar, {toolBarActions} from './toolbars/InlineToolbar'
 import CodeUtils from 'draft-js-code'
@@ -7,6 +7,7 @@ import CodeUtils from 'draft-js-code'
 class ConfigEditor extends Component {
   constructor (props) {
     super(props)
+    console.log(this.props);
     this.state = {
       editorState: EditorState.createWithContent(this._resetState()),
       inlineToolbar: { show: false }
@@ -102,7 +103,6 @@ class ConfigEditor extends Component {
   }
 
   _onChange (editorState) {
-    // update redux store
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
       const pushedState = EditorState.push(this.state.editorState, this._resetState())
@@ -124,7 +124,11 @@ class ConfigEditor extends Component {
     } else {
       this.setState({ inlineToolbar: { show: false } })
     }
+    // setContentRaw in redux and pipe it back down
     this.setState({editorState})
+
+    const content = this.state.editorState.getCurrentContent();
+    this.props.setEditorContent(convertToRaw(content));
   }
 
   _toggleToolbarActions (action) {
@@ -134,6 +138,7 @@ class ConfigEditor extends Component {
   }
 
   render () {
+    console.log(this.props.state);
     const { editorState, selectedBlock, selectionRange } = this.state
 
     if (selectedBlock) {
