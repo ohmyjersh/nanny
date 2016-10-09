@@ -27,7 +27,6 @@ export default class TransformerEditor extends Component {
     this.setState({editorState})
     var content = this.state.editorState.getCurrentContent().getPlainText();
     if(isJSON.strict(content)) {
-        console.log('is json');
         this.props.setTransformerContent(content);
     }
   }

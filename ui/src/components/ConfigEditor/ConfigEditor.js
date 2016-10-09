@@ -7,7 +7,6 @@ import CodeUtils from 'draft-js-code'
 class ConfigEditor extends Component {
   constructor (props) {
     super(props)
-    console.log(this.props);
     this.state = {
       editorState: EditorState.createWithContent(this._resetState()),
       inlineToolbar: { show: false }
@@ -126,7 +125,6 @@ class ConfigEditor extends Component {
     }
     // setContentRaw in redux and pipe it back down
     this.setState({editorState})
-
     const content = this.state.editorState.getCurrentContent();
     this.props.setEditorContent(JSON.stringify(convertToRaw(content)));
   }
@@ -138,7 +136,6 @@ class ConfigEditor extends Component {
   }
 
   render () {
-    console.log(this.props.state);
     const { editorState, selectedBlock, selectionRange } = this.state
 
     if (selectedBlock) {

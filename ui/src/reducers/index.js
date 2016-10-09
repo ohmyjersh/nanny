@@ -1,10 +1,8 @@
 function registerResponse(state, response) {
-    console.log(response);
     return state;
 }
 
 function registeringRequest(state) {
-    console.log('registering');
     return state;
 }
 
@@ -16,7 +14,7 @@ function setTransformerContent(state, rawTransformer){
    return Object.assign({},state,{rawTransformer: rawTransformer});
 }
 
-function reducers (state = {rawContent:{},rawTransformer:''}, action) {
+function reducers (state = {rawContent:'', rawTransformer:''}, action) {
     switch(action.type) {
         case "REGISTER_REQUEST":
             return registeringRequest(state);
