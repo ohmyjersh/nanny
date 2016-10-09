@@ -25,9 +25,6 @@
     "express-unless": "^0.3.0",
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.1",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.1.0",
-    "passport-local": "^1.0.0",
     "string-template": "^1.0.0"
   },
   "devDependencies": {

@@ -15,10 +15,6 @@
     "mongoose-promise": "registry:dt/mongoose-promise#4.5.4+20160720003345",
     "mpromise": "registry:dt/mpromise#0.5.4+20160316155526",
     "node": "registry:dt/node#6.0.0+20160805072842",
-    "passport": "registry:dt/passport#0.2.0+20160720063208",
-    "passport-jwt": "registry:dt/passport-jwt#2.0.0+20160330163949",
-    "passport-local": "registry:dt/passport-local#0.0.0+20160316155526",
-    "passport-strategy": "registry:dt/passport-strategy#0.2.0+20160316155526",
     "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
     "sinon": "registry:dt/sinon#1.16.0+20160517064723",
     "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654"
