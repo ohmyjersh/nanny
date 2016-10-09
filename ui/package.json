@@ -6,6 +6,7 @@
     "react-scripts": "0.6.0"
   },
   "dependencies": {
+    "antd": "^2.0.1",
     "classnames": "^2.2.5",
     "draft-js": "^0.9.1",
     "draft-js-code": "^0.2.0",
