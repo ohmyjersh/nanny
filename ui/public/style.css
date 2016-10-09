@@ -26,7 +26,6 @@ body {
 }
 
 i {
-    /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'alkren' !important;
     speak: none;
     font-style: normal;
@@ -35,8 +34,6 @@ i {
     text-transform: none;
     line-height: 1;
     display: inline-block;
-
-    /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -61,14 +58,14 @@ i {
 .a-menu:before {
     content: "\e8fe";
 }
+
 .editor {
   position: absolute;
-  top: 0;
+  /*top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  width: 960px;
-  margin: 50px auto;
+  left: 0;*/
+  width: 500px;
   padding: 25px;
   font-size: 18px;
 }
@@ -83,6 +80,7 @@ i {
 .editor img {
   max-width: 100%;
 }
+
 .toolbar {
   position: absolute;
   z-index: 9999;

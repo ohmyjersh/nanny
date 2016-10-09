@@ -21,6 +21,7 @@ export default class TransformerEditor extends Component {
         <Editor
           editorState={editorState}
           onChange={this.onChange}
+          readOnly={true}
           placeholder="Preview...."
           ref='editor' />
       </div>

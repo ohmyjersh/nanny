@@ -42,20 +42,7 @@ class ConfigEditor extends Component {
       ]
     })
   }
-  _fromTemplate (e) {
-    console.log('template')
-    var template = convertFromRaw({
-      entityMap: {},
-      blocks: [
-        {
-          type: 'code-block',
-          text: '{\n"key":"value"\n}'
-        }
-      ]
-    })
-    const editorState = EditorState.push(this.state.editorState, template)
-    this.setState({ editorState})
-  }
+
   _handleKeyCommand (command) {
     const {editorState} = this.state
     let newState

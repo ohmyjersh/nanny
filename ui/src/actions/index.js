@@ -1,3 +1,17 @@
+export function setEditorContent(rawContent){
+    return {
+        type: "SET_EDITOR_CONTENT",
+        rawContent
+    }
+}
+
+export function setTransformerContent(rawTransformer){
+    return {
+        type: "SET_TRANSFORMER_CONTENT",
+        rawTransformer
+    }
+}
+
 export function registerRequest() {
   return {
   type: 'REGISTER_REQUEST'

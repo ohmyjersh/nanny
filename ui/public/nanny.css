@@ -1,0 +1,22 @@
+.dashboard {
+    display:flex;
+    flex-wrap: nowrap;
+    height: 600px;
+    padding: 12px;
+    position: relative;
+}
+.configEditor {
+    position: relative;
+    float: left;
+    width: 600px;
+}
+
+.previewEditor {
+    position: relative;
+    height: 50%;
+}
+
+.transformerEditor {
+    position: relative;
+    height: 50%;
+}

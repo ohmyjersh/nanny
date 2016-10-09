@@ -48,13 +48,6 @@ class App extends Component {
   }
 }
 
-var styles = {
-  container: {
-    'width': '650px',
-    'margin': '0 auto'
-  }
-}
-
 function mapStateToProps(state) {
   return state;
 }
