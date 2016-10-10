@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import Draft, { Editor, EditorState, ContentState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js'
 import CodeUtils from 'draft-js-code'
-import isJSON from 'is-json';
-
+import isJSON from 'is-json'
+import { mapEditorContent, startState } from '../Helpers/EditorHelper'
 
 export default class TransformerEditor extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      editorState: EditorState.createWithContent(this._resetState())
+      editorState: EditorState.createWithContent(convertFromRaw(startState()))
     }
     this.onChange = (editorState) => this._onChange(editorState)
     this.focus = () => this.refs.editor.focus()
@@ -21,30 +21,19 @@ export default class TransformerEditor extends Component {
   _onChange (editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
-      const pushedState = EditorState.push(this.state.editorState, this._resetState())
+      const pushedState = EditorState.push(this.state.editorState, convertFromRaw(startState()))
       Object.assign({}, editorState, pushedState)
     }
     this.setState({editorState})
 
-    const content = this.state.editorState.getCurrentContent();
-    this.props.setTransformerContent({
-      textContent:content.getPlainText(),
-      rawContent:JSON.stringify(convertToRaw(content)),
-      isValid:isJSON.strict(content.getPlainText())
-    });
+    const content = this.state.editorState.getCurrentContent()
+    this.props.setTransformerContent(
+      mapEditorContent(
+        JSON.stringify(convertToRaw(content)),
+        content.getPlainText()
+      ));
   }
 
-  _resetState () {
-    return convertFromRaw({
-      entityMap: {},
-      blocks: [
-        {
-          type: 'code-block',
-          text: '{}'
-        }
-      ]
-    })
-  }
   _handleKeyCommand (command) {
     const {editorState} = this.state
     let newState

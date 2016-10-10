@@ -1,23 +1,31 @@
 import React, { Component, PropTypes } from 'react'
-import Draft, { convertFromRaw, convertToRaw, Modifier, Editor, EditorState, RichUtils, ContentState, Decorator, SelectionState } from 'draft-js'
+import Draft, { CompositeDecorator, convertFromRaw, convertToRaw, Modifier, Editor, EditorState, RichUtils, ContentState, Decorator, SelectionState } from 'draft-js'
 import { getSelectionRange, getSelectedBlockElement, getSelectionCoords } from './utils/selection'
-import InlineToolbar, {toolBarActions} from './toolbars/InlineToolbar'
+import InlineToolbar, { toolBarActions } from './toolbars/InlineToolbar'
 import CodeUtils from 'draft-js-code'
-import isJSON from 'is-json';
+import isJSON from 'is-json'
+import { mapEditorContent, startState, paddedStrategy } from '../Helpers/EditorHelper'
 
 class ConfigEditor extends Component {
   constructor (props) {
     super(props)
+
+    const compositeDecorator = new CompositeDecorator([
+      {
+        strategy: paddedStrategy,
+        component: PaddedSpan,
+      }]);
+
     this.state = {
-      editorState: EditorState.createWithContent(this._resetState()),
+      editorState: EditorState.createWithContent(convertFromRaw(startState())),
       inlineToolbar: { show: false }
     }
-    this._onChange(this.state.editorState);
+    this._onChange(this.state.editorState)
     this.toggleToolbarActions = (action) => this._toggleToolbarActions(action)
     this._onChange = this._onChange.bind(this)
     this.focus = () => this.refs.editor.focus()
-    this.handleKeyCommand = (command) => this._handleKeyCommand(command)
-    this.keyBindingFn = (e) => this._keyBindingFn(e)
+    //this.handleKeyCommand = (command) => this._handleKeyCommand(command)
+    //this.keyBindingFn = (e) => this._keyBindingFn(e)
     this.onTab = (e) => this._onTab(e)
     this.onReturn = (e) => this._onReturn(e)
   }
@@ -33,50 +41,38 @@ class ConfigEditor extends Component {
     selectionRange})
   }
 
-  _resetState () {
-    return convertFromRaw({
-      entityMap: {},
-      blocks: [
-        {
-          type: 'code-block',
-          text: '{\n}'
-        }
-      ]
-    })
-  }
+  // _handleKeyCommand (command) {
+  //   const {editorState} = this.state
+  //   let newState
 
-  _handleKeyCommand (command) {
-    const {editorState} = this.state
-    let newState
+  //   if (CodeUtils.hasSelectionInBlock(editorState)) {
+  //     newState = CodeUtils.handleKeyCommand(editorState, command)
+  //   }
 
-    if (CodeUtils.hasSelectionInBlock(editorState)) {
-      newState = CodeUtils.handleKeyCommand(editorState, command)
-    }
+  //   if (!newState) {
+  //     newState = RichUtils.handleKeyCommand(editorState, command)
+  //   }
 
-    if (!newState) {
-      newState = RichUtils.handleKeyCommand(editorState, command)
-    }
+  //   if (newState) {
+  //     this._onChange(newState)
+  //     return true
+  //   }
+  //   return false
+  // }
 
-    if (newState) {
-      this._onChange(newState)
-      return true
-    }
-    return false
-  }
+  // _keyBindingFn (e) {
+  //   let editorState = this.state.editorState
+  //   let command
 
-  _keyBindingFn (e) {
-    let editorState = this.state.editorState
-    let command
+  //   if (CodeUtils.hasSelectionInBlock(editorState)) {
+  //     command = CodeUtils.getKeyBinding(e)
+  //   }
+  //   if (command) {
+  //     return command
+  //   }
 
-    if (CodeUtils.hasSelectionInBlock(editorState)) {
-      command = CodeUtils.getKeyBinding(e)
-    }
-    if (command) {
-      return command
-    }
-
-    return Draft.getDefaultKeyBinding(e)
-  }
+  //   return Draft.getDefaultKeyBinding(e)
+  //}
 
   _onTab (e) {
     let editorState = this.state.editorState
@@ -106,39 +102,38 @@ class ConfigEditor extends Component {
   _onChange (editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
-      const pushedState = EditorState.push(this.state.editorState, this._resetState())
+      const pushedState = EditorState.push(this.state.editorState, convertFromRaw(startState()))
       Object.assign(editorState, pushedState)
     }
 
     if (!editorState.getSelection().isCollapsed()) {
       const selectionRange = getSelectionRange()
       const selectionCoords = getSelectionCoords(selectionRange)
-        this.setState({
-          inlineToolbar: {
-            show: true,
-            position: {
-              top: selectionCoords.offsetTop,
-              left: selectionCoords.offsetLeft
-            }
+      this.setState({
+        inlineToolbar: {
+          show: true,
+          position: {
+            top: selectionCoords.offsetTop,
+            left: selectionCoords.offsetLeft
           }
-        })
+        }
+      })
     } else {
       this.setState({ inlineToolbar: { show: false } })
     }
     // setContentRaw in redux and pipe it back down
     this.setState({editorState})
 
-    const content = this.state.editorState.getCurrentContent();
-    this.props.setEditorContent({
-      textContent:content.getPlainText(),
-      rawContent:JSON.stringify(convertToRaw(content)),
-      isValid:isJSON.strict(content.getPlainText())
-    });
+    const content = this.state.editorState.getCurrentContent()
+    this.props.setEditorContent(
+      mapEditorContent(
+        JSON.stringify(convertToRaw(content)),
+        content.getPlainText()));
   }
 
   _toggleToolbarActions (action) {
     let {editorState} = this.state
-    let state = toolBarActions(editorState, action);
+    let state = toolBarActions(editorState, action)
     this._onChange(state)
   }
 
@@ -157,10 +152,10 @@ class ConfigEditor extends Component {
            ? <InlineToolbar editorState={editorState} onToggle={this.toggleToolbarActions} position={this.state.inlineToolbar.position} />
            : null}
         <Editor
-          customStyleMap={styleMap}
+          //customStyleMap={styleMap}
           editorState={editorState}
-          handleKeyCommand={this.handleKeyCommand}
-          keyBindingFn={this.keyBindingFn}
+          //handleKeyCommand={this.handleKeyCommand}
+          //keyBindingFn={this.keyBindingFn}
           onChange={this._onChange}
           ref='editor'
           spellCheck={true}
@@ -170,6 +165,16 @@ class ConfigEditor extends Component {
     )
   }
 }
+
+const PaddedSpan = (props) => {
+    return (
+      <span
+        style={{color: 'rgba(95, 184, 138, 1.0)'}}
+        data-offset-key={props.offsetKey}>
+        {props.children}
+      </span>
+    );
+  };
 
 // Custom overrides for "code" style.
 const styleMap = {

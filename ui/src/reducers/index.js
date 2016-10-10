@@ -14,18 +14,6 @@ function setTransformerContent(state, transformerEditor){
    return Object.assign({},state,{transformerEditor: transformerEditor});
 }
 
-function startState(){
-    return  {
-      entityMap: {},
-      blocks: [
-        {
-          type: 'code-block',
-          text: '{\n}'
-        }
-      ]
-    }
-}
-
 function reducers (state = {
                 configEditor: {rawContent:'',textContent:''},
                 transformerEditor: {rawContent:'',textContent:''}
