@@ -40,7 +40,7 @@ class App extends Component {
 }
 function mapStateToProps (state) {
   return {state: {
-      rawContent: state.module.rawContent,
+      configEditor: state.module.configEditor,
       rawTransformer: state.module.rawTransformer
     }
   }

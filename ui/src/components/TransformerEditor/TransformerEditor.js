@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Draft, { Editor, EditorState, ContentState, RichUtils, convertFromRaw } from 'draft-js'
 import CodeUtils from 'draft-js-code'
-var isJSON = require('is-json');
+import isJSON from 'is-json';
 
 
 export default class TransformerEditor extends Component {

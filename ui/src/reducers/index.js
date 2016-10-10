@@ -6,8 +6,8 @@ function registeringRequest(state) {
     return state;
 }
 
-function setConfigContent(state, rawContent){
-   return Object.assign({},state,{rawContent: rawContent});
+function setConfigContent(state, configEditor){
+   return Object.assign({},state,{configEditor: configEditor});
 }
 
 function setTransformerContent(state, rawTransformer){
@@ -21,7 +21,7 @@ function reducers (state = {rawContent:'', rawTransformer:''}, action) {
         case "REGISTER_RESPONSE":
             return registerResponse(state, action.response);
         case "SET_EDITOR_CONTENT":
-            return setConfigContent(state,action.rawContent);
+            return setConfigContent(state,action.configEditor);
         case "SET_TRANSFORMER_CONTENT":
             return setTransformerContent(state, action.rawTransformer);
         default:

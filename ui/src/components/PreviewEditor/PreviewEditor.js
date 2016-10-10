@@ -14,9 +14,9 @@ export default class TransformerEditor extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    var rawContent = newProps.state.rawContent
-    var rawTransformer = newProps.state.rawTransformer
-    var contentParsed = JSON.parse(rawContent)
+    var rawContent = newProps.state.configEditor.rawContent;
+    var rawTransformer = newProps.state.rawTransformer;
+    var contentParsed = JSON.parse(rawContent);
 
     if (isJSON.strict(rawTransformer) && rawTransformer != '{}') {
       // send rawContent with transformer Object
@@ -31,18 +31,6 @@ export default class TransformerEditor extends Component {
     const newContentState = convertFromRaw(contentParsed)
     const editorState = EditorState.push(this.state.editorState, newContentState)
     this.setState({editorState})
-
-    // var transformer = JSON.parse(rawTransformer)
-    // var formatted = format(rawContent,transformer)
-
-    // if(isJSON.strict(formatted)) {
-    //   console.log(isJSON.strict(formatted))
-    //   var transformedContent = JSON.parse(formatted)
-    //   const newContentState = convertFromRaw(JSON.parse(transformedContent))
-    //   const editorState = EditorState.push(this.state.editorState, newContentState)
-    //   this.setState({editorState})
-    // }
-
   }
 
   render () {

@@ -3,6 +3,7 @@ import Draft, { convertFromRaw, convertToRaw, Modifier, Editor, EditorState, Ric
 import { getSelectionRange, getSelectedBlockElement, getSelectionCoords } from './utils/selection'
 import InlineToolbar, {toolBarActions} from './toolbars/InlineToolbar'
 import CodeUtils from 'draft-js-code'
+import isJSON from 'is-json';
 
 class ConfigEditor extends Component {
   constructor (props) {
@@ -126,7 +127,13 @@ class ConfigEditor extends Component {
     // setContentRaw in redux and pipe it back down
     this.setState({editorState})
     const content = this.state.editorState.getCurrentContent();
-    this.props.setEditorContent(JSON.stringify(convertToRaw(content)));
+    var text = content.getPlainText();
+    var json = JSON.stringify(convertToRaw(content));
+    this.props.setEditorContent({
+      textContent:text,
+      rawContent:JSON.stringify(convertToRaw(content)),
+      isValid:isJSON.strict(text)
+    });
   }
 
   _toggleToolbarActions (action) {

@@ -1,7 +1,7 @@
-export function setEditorContent(rawContent){
+export function setEditorContent(configEditor){
     return {
         type: "SET_EDITOR_CONTENT",
-        rawContent
+        configEditor
     }
 }
 
