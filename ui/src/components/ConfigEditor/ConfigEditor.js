@@ -12,6 +12,7 @@ class ConfigEditor extends Component {
       editorState: EditorState.createWithContent(this._resetState()),
       inlineToolbar: { show: false }
     }
+    this._onChange(this.state.editorState);
     this.toggleToolbarActions = (action) => this._toggleToolbarActions(action)
     this._onChange = this._onChange.bind(this)
     this.focus = () => this.refs.editor.focus()

@@ -14,25 +14,24 @@ export default class TransformerEditor extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    var configEditor = newProps.state.configEditor;
-    var transformerEditor = newProps.state.transformerEditor;
-    var contentParsed = JSON.parse(configEditor.rawContent)
-      if (isJSON.strict(transformerEditor.isValid)) {
-        // send rawContent with transformer Object
-        var transformer = JSON.parse(transformerEditor.textContent);
-        console.log(transformer);
-        var formatted = format(configEditor.rawContent, transformer)
-        var transformedContent = JSON.parse(formatted)
-        var formatParsed = Object.assign({}, contentParsed, transformedContent)
-        const newContentState = convertFromRaw(formatParsed)
-        const editorState = EditorState.push(this.state.editorState, newContentState)
-        this.setState({editorState})
-      }
-      else {
-        const newContentState = convertFromRaw(contentParsed)
-        const editorState = EditorState.push(this.state.editorState, newContentState)
-        this.setState({editorState})
-      }
+    let configEditor = newProps.state.configEditor
+    let transformerEditor = newProps.state.transformerEditor
+    let contentParsed = JSON.parse(configEditor.rawContent)
+    if (transformerEditor.isValid) {
+        let transformer = JSON.parse(transformerEditor.textContent)
+        let formatted = format(configEditor.rawContent, transformer)
+        console.log(formatted);
+        let transformedContent = JSON.parse(formatted)
+        console.log(transformedContent);
+        let formatParsed = Object.assign({}, contentParsed, transformedContent)
+        let newContentState = convertFromRaw(formatParsed)
+        let editorState = EditorState.push(this.state.editorState, newContentState)
+        this.setState({editorState});
+    } else {
+      let newContentState = convertFromRaw(contentParsed)
+      let editorState = EditorState.push(this.state.editorState, newContentState)
+      this.setState({editorState})
+    }
   }
 
   render () {

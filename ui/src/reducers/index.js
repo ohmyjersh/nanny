@@ -14,9 +14,21 @@ function setTransformerContent(state, transformerEditor){
    return Object.assign({},state,{transformerEditor: transformerEditor});
 }
 
+function startState(){
+    return  {
+      entityMap: {},
+      blocks: [
+        {
+          type: 'code-block',
+          text: '{\n}'
+        }
+      ]
+    }
+}
+
 function reducers (state = {
-                configEditor: {rawContent:'',textContent:'',isValid:false},
-                transformerEditor: {rawContent:'',textContent:'',isValid:false}
+                configEditor: {rawContent:'',textContent:''},
+                transformerEditor: {rawContent:'',textContent:''}
             }, action) {
             switch(action.type) {
                 case "REGISTER_REQUEST":
