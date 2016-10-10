@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Draft, { Editor, EditorState, ContentState, RichUtils, convertFromRaw } from 'draft-js'
+import Draft, { Editor, EditorState, ContentState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js'
 import CodeUtils from 'draft-js-code'
 import isJSON from 'is-json';
 
@@ -25,10 +25,13 @@ export default class TransformerEditor extends Component {
       Object.assign({}, editorState, pushedState)
     }
     this.setState({editorState})
-    var content = this.state.editorState.getCurrentContent().getPlainText();
-    if(isJSON.strict(content)) {
-        this.props.setTransformerContent(content);
-    }
+
+    const content = this.state.editorState.getCurrentContent();
+    this.props.setTransformerContent({
+      textContent:content.getPlainText(),
+      rawContent:JSON.stringify(convertToRaw(content)),
+      isValid:isJSON.strict(content.getPlainText())
+    });
   }
 
   _resetState () {

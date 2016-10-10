@@ -126,13 +126,12 @@ class ConfigEditor extends Component {
     }
     // setContentRaw in redux and pipe it back down
     this.setState({editorState})
+
     const content = this.state.editorState.getCurrentContent();
-    var text = content.getPlainText();
-    var json = JSON.stringify(convertToRaw(content));
     this.props.setEditorContent({
-      textContent:text,
+      textContent:content.getPlainText(),
       rawContent:JSON.stringify(convertToRaw(content)),
-      isValid:isJSON.strict(text)
+      isValid:isJSON.strict(content.getPlainText())
     });
   }
 

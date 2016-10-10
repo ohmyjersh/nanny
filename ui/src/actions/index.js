@@ -5,10 +5,10 @@ export function setEditorContent(configEditor){
     }
 }
 
-export function setTransformerContent(rawTransformer){
+export function setTransformerContent(transformerEditor){
     return {
         type: "SET_TRANSFORMER_CONTENT",
-        rawTransformer
+        transformerEditor
     }
 }
 

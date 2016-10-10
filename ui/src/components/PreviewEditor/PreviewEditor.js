@@ -14,23 +14,25 @@ export default class TransformerEditor extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    var rawContent = newProps.state.configEditor.rawContent;
-    var rawTransformer = newProps.state.rawTransformer;
-    var contentParsed = JSON.parse(rawContent);
-
-    if (isJSON.strict(rawTransformer) && rawTransformer != '{}') {
-      // send rawContent with transformer Object
-      var transformer = JSON.parse(rawTransformer)
-      console.log(transformer);
-      //console.log(transformer);
-      var formatted = format(rawContent, transformer)
-      var transformedContent = JSON.parse(formatted);
-      contentParsed = Object.assign({}, contentParsed, transformedContent);
-    }
-
-    const newContentState = convertFromRaw(contentParsed)
-    const editorState = EditorState.push(this.state.editorState, newContentState)
-    this.setState({editorState})
+    var configEditor = newProps.state.configEditor;
+    var transformerEditor = newProps.state.transformerEditor;
+    var contentParsed = JSON.parse(configEditor.rawContent)
+      if (isJSON.strict(transformerEditor.isValid)) {
+        // send rawContent with transformer Object
+        var transformer = JSON.parse(transformerEditor.textContent);
+        console.log(transformer);
+        var formatted = format(configEditor.rawContent, transformer)
+        var transformedContent = JSON.parse(formatted)
+        var formatParsed = Object.assign({}, contentParsed, transformedContent)
+        const newContentState = convertFromRaw(formatParsed)
+        const editorState = EditorState.push(this.state.editorState, newContentState)
+        this.setState({editorState})
+      }
+      else {
+        const newContentState = convertFromRaw(contentParsed)
+        const editorState = EditorState.push(this.state.editorState, newContentState)
+        this.setState({editorState})
+      }
   }
 
   render () {
