@@ -1,3 +1,5 @@
+import * as ActionTypes from '../constants/actionTypes';
+
 function registerResponse(state, response) {
     return state;
 }
@@ -24,13 +26,13 @@ function reducers (state = {
 
             }, action) {
             switch(action.type) {
-                case "REGISTER_REQUEST":
+                case ActionTypes.REGISTER_REQUEST:
                     return registeringRequest(state);
-                case "REGISTER_RESPONSE":
+                case ActionTypes.REGISTER_RESPONSE:
                     return registerResponse(state, action.response);
-                case "SET_EDITOR_CONTENT":
+                case ActionTypes.SET_EDITOR_CONTENT:
                     return setConfigContent(state,action.configEditor);
-                case "SET_TRANSFORMER_CONTENT":
+                case ActionTypes.SET_TRANSFORMER_CONTENT:
                     return setTransformerContent(state, action.transformerEditor);
                 default:
                     return state;

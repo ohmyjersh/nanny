@@ -1,39 +1,41 @@
+import * as ActionTypes from '../constants/actionTypes';
+
 export function loadConfigurations(configurations) {
     return {
-        type: "LOAD_CONFIGURATIONS",
+        type: ActionTypes.LOAD_CONFIGURATIONS,
         configurations
     }
 }
 
 export function loadManifests(manifests) {
     return {
-        type: "LOAD_MANIFESTS",
+        type: ActionTypes.LOAD_MANIFESTS,
         manifests
     }
 }
 
 export function setEditorContent(configEditor){
     return {
-        type: "SET_EDITOR_CONTENT",
+        type: ActionTypes.SET_EDITOR_CONTENT,
         configEditor
     }
 }
 
 export function setTransformerContent(transformerEditor){
     return {
-        type: "SET_TRANSFORMER_CONTENT",
+        type: ActionTypes.SET_TRANSFORMER_CONTENT,
         transformerEditor
     }
 }
 
 export function registerRequest() {
   return {
-  type: 'REGISTER_REQUEST'
+  type: ActionTypes.REGISTER_REQUEST,
   }
 }
 export function registerResponse(response) {
   return {
-    type:'REGISTER_RESPONSE',
+    type: ActionTypes.REGISTER_RESPONSE,
     response: response
   }
 }
