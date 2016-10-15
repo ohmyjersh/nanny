@@ -1,22 +1,23 @@
 .dashboard {
     display:flex;
-    flex-wrap: nowrap;
-    height: 600px;
+    flex-wrap: wrap;
     padding: 12px;
     position: relative;
 }
 .configEditor {
-    position: relative;
-    float: left;
-    width: 600px;
+    float:left;
+    display: flex;
+    width: 25%;
 }
 
 .previewEditor {
-    position: relative;
-    height: 50%;
+    float:left;
+    display: flex;
+    width: 25%;
 }
 
 .transformerEditor {
-    position: relative;
-    height: 50%;
+    float:left;
+    display: flex;
+    width:25%;
 }

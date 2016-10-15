@@ -20,9 +20,7 @@ export default class TransformerEditor extends Component {
     if (transformerEditor.isValid) {
         let transformer = JSON.parse(transformerEditor.textContent)
         let formatted = format(configEditor.rawContent, transformer)
-        console.log(formatted);
         let transformedContent = JSON.parse(formatted)
-        console.log(transformedContent);
         let formatParsed = Object.assign({}, contentParsed, transformedContent)
         let newContentState = convertFromRaw(formatParsed)
         let editorState = EditorState.push(this.state.editorState, newContentState)

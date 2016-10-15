@@ -18,7 +18,6 @@ const muiTheme = getMuiTheme({
 class App extends Component {
   constructor (props) {
     super(props)
-      console.log(this.props);
   }
   render () {
     var loggedIn = false
@@ -51,10 +50,10 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch),
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     actions: bindActionCreators(actions, dispatch),
+//   }
+// }
 
 export const AppContainer = connect(mapStateToProps, actions)(App)

@@ -9,7 +9,12 @@ import { mapEditorContent, startState, paddedStrategy } from '../Helpers/EditorH
 class ConfigEditor extends Component {
   constructor (props) {
     super(props)
-    this.props.state.configEditor.editorState ? EditorState.createWithContent(convertFromRaw(this.props.configEditor.contentRaw)) : this.initNewEditor();
+
+    console.log(this.props);
+
+    this.props.state.configEditor.editorState 
+    ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.configEditor.rawContent))) 
+    : this.initNewEditor();
     this.state = {
       inlineToolbar: { show: false }
     }
@@ -105,7 +110,6 @@ class ConfigEditor extends Component {
   render () {
     const { selectedBlock, selectionRange } = this.state;
     const { editorState } = this.props.state.configEditor;
-    console.log(editorState);
     if (selectedBlock) {
       const editor = document.getElementById('richEditor')
       const editorBounds = editor.getBoundingClientRect()

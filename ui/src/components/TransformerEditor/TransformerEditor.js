@@ -7,7 +7,9 @@ import { mapEditorContent, startState, paddedStrategy } from '../Helpers/EditorH
 export default class TransformerEditor extends Component {
   constructor (props) {
     super(props)
-    this.props.state.transformerEditor.editorState ? EditorState.createWithContent(convertFromRaw(this.props.transformerEditor.contentRaw)) : this.initNewEditor();
+    this.props.state.transformerEditor.editorState 
+    ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.transformerEditor.rawContent)))
+    : this.initNewEditor();
     this.state = {
       inlineToolbar: { show: false }
     }
