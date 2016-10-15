@@ -16,7 +16,12 @@ function setTransformerContent(state, transformerEditor){
 
 function reducers (state = {
                 configEditor: {rawContent:'',textContent:''},
-                transformerEditor: {rawContent:'',textContent:''}
+                transformerEditor: {rawContent:'',textContent:''},
+                loadedConfiguration: {},
+                loadedManifest:{},
+                configurations: [],
+                manifests:[]
+
             }, action) {
             switch(action.type) {
                 case "REGISTER_REQUEST":

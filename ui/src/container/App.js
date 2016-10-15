@@ -41,7 +41,11 @@ class App extends Component {
 function mapStateToProps (state) {
   return {state: {
       configEditor: state.module.configEditor,
-      transformerEditor: state.module.transformerEditor
+      transformerEditor: state.module.transformerEditor,
+      loadedConfiguration: state.module.loadedConfiguration,
+      loadedManifest: state.module.loadedManifest,
+      configurations:[],
+      manifests:[]
     }
   }
 }
