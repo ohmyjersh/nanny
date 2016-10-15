@@ -18,6 +18,7 @@ const muiTheme = getMuiTheme({
 class App extends Component {
   constructor (props) {
     super(props)
+      console.log(this.props);
   }
   render () {
     var loggedIn = false
@@ -32,14 +33,13 @@ class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>
           <AppBar iconElementRight={rightButtons} />
-          {React.cloneElement(this.props.children, { ...this.props })}
+              {this.props.children && React.cloneElement(this.props.children, { ...this.props })}
         </div>
       </MuiThemeProvider>
     )
   }
 }
 function mapStateToProps (state) {
-  console.log(state);
   return {state: {
       configEditor: state.module.configEditor,
       transformerEditor: state.module.transformerEditor,
