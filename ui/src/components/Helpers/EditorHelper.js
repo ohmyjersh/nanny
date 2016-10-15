@@ -1,7 +1,8 @@
 import isJSON from 'is-json';
 
-export function mapEditorContent(raw, text) {
+export function mapEditorContent(editorState, raw, text) {
     return {
+        editorState:editorState,
         rawContent: raw,
         textContent: text,
         isValid: isJSON.strict(text),

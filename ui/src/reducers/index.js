@@ -15,8 +15,8 @@ function setTransformerContent(state, transformerEditor){
 }
 
 function reducers (state = {
-                configEditor: {rawContent:'',textContent:''},
-                transformerEditor: {rawContent:'',textContent:''},
+                configEditor: {editorState:null, rawContent:'',textContent:''},
+                transformerEditor: {editorState:null, rawContent:'',textContent:''},
                 loadedConfiguration: {},
                 loadedManifest:{},
                 configurations: [],
