@@ -9,9 +9,7 @@ import { mapEditorContent, startState, paddedStrategy } from '../Helpers/EditorH
 class ConfigEditor extends Component {
   constructor (props) {
     super(props)
-
     this.props.state.configEditor.editorState ? EditorState.createWithContent(convertFromRaw(this.props.configEditor.contentRaw)) : this.initNewEditor();
-
     this.state = {
       inlineToolbar: { show: false }
     }
@@ -72,8 +70,8 @@ class ConfigEditor extends Component {
   _onChange (editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
-      const pushedState = EditorState.push(this.state.editorState, convertFromRaw(startState()))
-      Object.assign(editorState, pushedState)
+      const pushedState = EditorState.push(this.props.state.configEditor.editorState, convertFromRaw(startState()))
+      Object.assign({}, editorState, pushedState)
     }
 
     if (!editorState.getSelection().isCollapsed()) {

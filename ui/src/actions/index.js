@@ -1,3 +1,17 @@
+export function loadConfigurations(configurations) {
+    return {
+        type: "LOAD_CONFIGURATIONS",
+        configurations
+    }
+}
+
+export function loadManifests(manifests) {
+    return {
+        type: "LOAD_MANIFESTS",
+        manifests
+    }
+}
+
 export function setEditorContent(configEditor){
     return {
         type: "SET_EDITOR_CONTENT",
