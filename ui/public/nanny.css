@@ -10,3 +10,9 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+/* add max height */
+.public-DraftEditor-content {
+    max-height: 600px;
+    overflow: auto;
+}

@@ -46,18 +46,19 @@ class Registration extends Component {
         }
     }
     submit(){
-        const { dispatch } = this.props
-        register({
-                username:this.state.email,
-                password:this.state.password
+        console.log(this.props);
+            this.props.register({
+                    username:this.state.email,
+                    password:this.state.password
             });
     }
+    
     render() {
         return(
         <Card style={{'display': 'flex',
-            'justify-content': 'center',
-            'align-items':'center', 
-            'width':'50%', 'margin':'0 auto', 'margin-top':'30px'}}>
+            'justifyContent': 'center',
+            'alignItems':'center', 
+            'width':'50%', 'margin':'0 auto', 'marginTop':'30px'}}>
             <TextField
                 value={this.state.identity}
                 id="identity"
@@ -90,8 +91,8 @@ class Registration extends Component {
                 floatingLabelText="Verify Password"
                 onChange={(e) => this.handleInputChange(e)}
             /><br />
-            {!this.state.valid ? <p style={{'justify-content': 'center',
-            'align-items':'center', 'text-align':'center', 'color':'red'}}>Passwords do not match</p>: null }
+            {!this.state.valid ? <p style={{'justifyContent': 'center',
+            'alignItems':'center', 'textAlign':'center', 'color':'red'}}>Passwords do not match</p>: null }
             <FlatButton label="Clear" onClick={(e) => this.clearAll()} primary={true} />
             <FlatButton label="Submit" onClick={(e) => this.submit()} primary={true} />
         </Card>);

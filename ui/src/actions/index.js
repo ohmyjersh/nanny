@@ -14,14 +14,14 @@ export function loadManifests(manifests) {
     }
 }
 
-export function setEditorContent(configEditor){
+export function setEditorContent(configEditor) {
     return {
         type: ActionTypes.SET_EDITOR_CONTENT,
         configEditor
     }
 }
 
-export function setTransformerContent(transformerEditor){
+export function setTransformerContent(transformerEditor) {
     return {
         type: ActionTypes.SET_TRANSFORMER_CONTENT,
         transformerEditor
@@ -29,38 +29,81 @@ export function setTransformerContent(transformerEditor){
 }
 
 export function registerRequest() {
-  return {
-  type: ActionTypes.REGISTER_REQUEST,
-  }
+    return {
+        type: ActionTypes.REGISTER_REQUEST,
+    }
 }
 export function registerResponse(response) {
-  return {
-    type: ActionTypes.REGISTER_RESPONSE,
-    response: response
-  }
+    return {
+        type: ActionTypes.REGISTER_RESPONSE,
+        response: response
+    }
+}
+
+export function loginRequest() {
+    return {
+        type: ActionTypes.LOGIN_REQUEST,
+    }
+}
+export function loginResponse(response) {
+    return {
+        type: ActionTypes.LOGIN_RESPONSE,
+        response: response
+    }
 }
 
 export function register(register) {
-    return dispatch =>  {
+    console.log(register);
+    return dispatch => {
         dispatch(registerRequest())
-        return fetch('localhost:3003/api/configuration/generator',
-              { method: 'GET',
-               mode: 'cors',
-               body: {
-                    "username":register.email,
-                    "password":register.password
+        return fetch('http://localhost:3003/api/authentication/register',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-               cache: 'default' }).then(response => {
-            if(response.status !== 200)
-            { 
-                console.log(response);
-                //dispatch(setError("error"));
-            }
-            console.log(response);
+                mode: 'cors',
+                body: JSON.stringify({
+                    username: register.username,
+                    password: register.password
+                }),
+                'content-type': 'application/json',
+                cache: 'default'
+            }).then(response => {
+                if (response.status !== 200) {
+                    console.log("error");
+                    //dispatch(setError("error"));
+                }
                 return response.json();
             })
-        .then((json) => {
-            dispatch(registerResponse(json));
-        })
+            .then((json) => {
+                dispatch(registerResponse(json));
+            })
+    };
+}
+
+export function login(login) {
+    return dispatch => {
+        dispatch(loginRequest())
+        return fetch('http://localhost:3003/api/authentication/login',
+            {
+                method: 'POST',
+                mode: 'cors',
+                body: {
+                    "username": register.username,
+                    "password": register.password
+                },
+                cache: 'default'
+            }).then(response => {
+                if (response.status !== 200) {
+                    console.log(response);
+                    //dispatch(setError("error"));
+                }
+                return response.json();
+            })
+            .then((json) => {
+                dispatch(loginResponse(json));
+            })
     };
 }

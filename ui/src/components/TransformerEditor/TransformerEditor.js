@@ -34,8 +34,7 @@ export default class TransformerEditor extends Component {
   _onChange(editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
-      const pushedState = EditorState.push(this.props.state.transformerEditor.editorState, convertFromRaw(startState()))
-      Object.assign({}, editorState, pushedState)
+      return this.initNewEditor()
     }
     this.props.setTransformerContent(
       mapEditorContent(

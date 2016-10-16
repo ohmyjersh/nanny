@@ -9,9 +9,6 @@ import Subheader from 'material-ui/Subheader';
 class ConfigEditor extends Component {
   constructor(props) {
     super(props)
-
-    console.log(this.props);
-
     this.props.state.configEditor.editorState
       ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.configEditor.rawContent)))
       : this.initNewEditor();
@@ -76,8 +73,7 @@ class ConfigEditor extends Component {
   _onChange(editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
-      const pushedState = EditorState.push(this.props.state.configEditor.editorState, convertFromRaw(startState()))
-      Object.assign({}, editorState, pushedState)
+      return this.initNewEditor()
     }
 
     if (!editorState.getSelection().isCollapsed()) {
