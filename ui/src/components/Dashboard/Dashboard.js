@@ -62,15 +62,15 @@ class Dashboard extends Component {
         </Toolbar>
         <div className='dashboard'>
           {this.state.editors.configuration ?
-            <div className='configEditor' style={{width:widthProps}}>
-              <Subheader>Configurations</Subheader>
+            <div className='editorDashboard' style={{width:widthProps}}>
+              <Subheader>Configuration</Subheader>
               <ConfigEditor {...this.props} editorSize={widthProps}/>
             </div> : null}
-          {this.state.editors.transformer ? <div className='transformerEditor' style={{width:widthProps}}>
+          {this.state.editors.transformer ? <div className='editorDashboard' style={{width:widthProps}}>
             <Subheader>Transformer</Subheader>
             <TransformerEditor {...this.props} editorSize={widthProps}/>
           </div> : null}
-          {this.state.editors.preview ? <div className='previewEditor' style={{width:widthProps}}>
+          {this.state.editors.preview ? <div className='editorDashboard' style={{width:widthProps}}>
             <Subheader>Preview</Subheader>
             <PreviewEditor {...this.props} editorSize={widthProps}/>
           </div> : null}
@@ -78,16 +78,5 @@ class Dashboard extends Component {
       </div>)
   }
 }
-
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import RaisedButton from 'material-ui/RaisedButton';
-
-
-
 
 export default Dashboard

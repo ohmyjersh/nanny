@@ -5,17 +5,8 @@
     padding: 12px;
     position: relative;
 }
-.configEditor {
+.editorDashboard {
     float:left;
     display: flex;
-}
-
-.previewEditor {
-    float:left;
-    display: flex;
-}
-
-.transformerEditor {
-    float:left;
-    display: flex;
+    flex-wrap: wrap;
 }

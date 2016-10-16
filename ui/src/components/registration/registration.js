@@ -53,8 +53,11 @@ class Registration extends Component {
             });
     }
     render() {
-        return(<div className="Registration">
-        <Card>
+        return(
+        <Card style={{'display': 'flex',
+            'justify-content': 'center',
+            'align-items':'center', 
+            'width':'50%', 'margin':'0 auto', 'margin-top':'30px'}}>
             <TextField
                 value={this.state.identity}
                 id="identity"
@@ -62,7 +65,7 @@ class Registration extends Component {
                 floatingLabelText="Add company identity"
                 onChange={(e) => this.handleInputChange(e)}
             /><br />
-            <TextField
+            <TextField 
                 value={this.state.email}
                 id="email"
                 hintText="Email"
@@ -87,9 +90,11 @@ class Registration extends Component {
                 floatingLabelText="Verify Password"
                 onChange={(e) => this.handleInputChange(e)}
             /><br />
+            {!this.state.valid ? <p style={{'justify-content': 'center',
+            'align-items':'center', 'text-align':'center', 'color':'red'}}>Passwords do not match</p>: null }
             <FlatButton label="Clear" onClick={(e) => this.clearAll()} primary={true} />
             <FlatButton label="Submit" onClick={(e) => this.submit()} primary={true} />
-        </Card></div>);
+        </Card>);
     }
 }
 

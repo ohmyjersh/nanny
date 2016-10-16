@@ -2,42 +2,48 @@ import React, { Component } from 'react'
 import Draft, { Editor, EditorState, RichUtils, convertFromRaw, createFromRaw, createEmpty, ContentState } from 'draft-js'
 var format = require('string-template')
 var isJSON = require('is-json')
+import { mapEditorContent, startState, paddedStrategy } from '../Helpers/EditorHelper'
 
 export default class TransformerEditor extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-    //var state = this.props.state.configEditor ? convertFromRaw(JSON.parse(this.props.configEditor)) : {};
+    var editorState = this.props.state.configEditor.rawContent
+      ? EditorState.createWithContent(this.mapPropsToPreviewState(props))
+      : EditorState.createWithContent(convertFromRaw(startState()));;
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: editorState
     }
-    this.onChange = (editorState) => this.setState({editorState})
+    this.onChange = (editorState) => this.setState({ editorState })
     this.focus = () => this.refs.editor.focus()
   }
 
-  componentWillReceiveProps (newProps) {
-    let configEditor = newProps.state.configEditor
-    let transformerEditor = newProps.state.transformerEditor
-    let contentParsed = JSON.parse(configEditor.rawContent)
-    if (transformerEditor.isValid) {
-        let transformer = JSON.parse(transformerEditor.textContent)
-        let formatted = format(configEditor.rawContent, transformer)
-        let transformedContent = JSON.parse(formatted)
-        let formatParsed = Object.assign({}, contentParsed, transformedContent)
-        let newContentState = convertFromRaw(formatParsed)
-        let editorState = EditorState.push(this.state.editorState, newContentState)
-        this.setState({editorState});
-    } else {
-      let newContentState = convertFromRaw(contentParsed)
+  componentWillReceiveProps(newProps) {
+      let newContentState = this.mapPropsToPreviewState(newProps);
       let editorState = EditorState.push(this.state.editorState, newContentState)
-      this.setState({editorState})
-    }
+      this.setState({ editorState })
   }
 
-  render () {
+  mapPropsToPreviewState(props) {
+    let configEditor = props.state.configEditor
+    let transformerEditor = props.state.transformerEditor
+    let contentParsed = JSON.parse(configEditor.rawContent)
+    let newContentState;
+    if (transformerEditor.isValid) {
+      let transformer = JSON.parse(transformerEditor.textContent)
+      let formatted = format(configEditor.rawContent, transformer)
+      let transformedContent = JSON.parse(formatted)
+      let formatParsed = Object.assign({}, contentParsed, transformedContent)
+      newContentState = convertFromRaw(formatParsed)
+    } else {
+      newContentState = convertFromRaw(contentParsed)
+    }
+    return newContentState;
+  }
+
+  render() {
     const {editorState} = this.state
-    let className = 'RichEditor-editor'
     return (
-      <div className='editor' id='richEditor' onClick={this.focus} style={{'width':this.props.editorSize}}>
+      <div className='editor' id='richEditor' onClick={this.focus} style={{ 'width': this.props.editorSize }}>
         <Editor
           editorState={editorState}
           onChange={this.onChange}
