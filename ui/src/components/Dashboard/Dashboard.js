@@ -4,6 +4,9 @@ import PreviewEditor from '../PreviewEditor/PreviewEditor'
 import TransformerEditor from '../TransformerEditor/TransformerEditor'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
+// import DashboardToolbar from './DashboardToolbar';
+// import EditorToolbar from './EditorToolbar';
+import Subheader from 'material-ui/Subheader';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -46,7 +49,7 @@ class Dashboard extends Component {
     var widthProps = `${width}%`
     return (
       <div className='toolbar' style={{'width':'100%'}}>
-        <Toolbar>
+        <Toolbar style={{'height':'35px'}}>
           <FlatButton label='Configuration Editor'
             onTouchTap={(e) => this.updateEditor(e, 'configuration')}
             />
@@ -60,17 +63,31 @@ class Dashboard extends Component {
         <div className='dashboard'>
           {this.state.editors.configuration ?
             <div className='configEditor' style={{width:widthProps}}>
+              <Subheader>Configurations</Subheader>
               <ConfigEditor {...this.props} editorSize={widthProps}/>
             </div> : null}
           {this.state.editors.transformer ? <div className='transformerEditor' style={{width:widthProps}}>
+            <Subheader>Transformer</Subheader>
             <TransformerEditor {...this.props} editorSize={widthProps}/>
           </div> : null}
           {this.state.editors.preview ? <div className='previewEditor' style={{width:widthProps}}>
+            <Subheader>Preview</Subheader>
             <PreviewEditor {...this.props} editorSize={widthProps}/>
           </div> : null}
         </div>
       </div>)
   }
 }
+
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import MenuItem from 'material-ui/MenuItem';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import RaisedButton from 'material-ui/RaisedButton';
+
+
+
 
 export default Dashboard

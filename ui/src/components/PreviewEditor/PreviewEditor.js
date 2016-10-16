@@ -6,6 +6,7 @@ var isJSON = require('is-json')
 export default class TransformerEditor extends Component {
   constructor (props) {
     super(props)
+    //var state = this.props.state.configEditor ? convertFromRaw(JSON.parse(this.props.configEditor)) : {};
     this.state = {
       editorState: EditorState.createEmpty()
     }
@@ -34,9 +35,6 @@ export default class TransformerEditor extends Component {
 
   render () {
     const {editorState} = this.state
-
-    // If the user changes block type before entering any text, we can
-    // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor'
     return (
       <div className='editor' id='richEditor' onClick={this.focus} style={{'width':this.props.editorSize}}>
