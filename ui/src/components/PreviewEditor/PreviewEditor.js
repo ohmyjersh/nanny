@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Draft, { Editor, EditorState, RichUtils, convertFromRaw, createFromRaw, createEmpty, ContentState } from 'draft-js'
+import Draft, { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js'
 var format = require('string-template')
-var isJSON = require('is-json')
-import { mapEditorContent, startState, paddedStrategy } from '../Helpers/EditorHelper'
+import { startState } from '../Helpers/EditorHelper'
 
 export default class TransformerEditor extends Component {
   constructor(props) {
@@ -48,7 +47,6 @@ export default class TransformerEditor extends Component {
           editorState={editorState}
           onChange={this.onChange}
           readOnly={true}
-          placeholder='Preview....'
           ref='editor' />
       </div>
     )
