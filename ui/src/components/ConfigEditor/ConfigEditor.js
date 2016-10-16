@@ -117,7 +117,7 @@ class ConfigEditor extends Component {
     }
 
     return (
-      <div className='editor' id='richEditor' onClick={this.focus}>
+      <div className='editor' id='richEditor' onClick={this.focus} style={{'width':this.props.editorSize}}>
         {this.state.inlineToolbar.show
            ? <InlineToolbar editorState={editorState} onToggle={this.toggleToolbarActions} position={this.state.inlineToolbar.position} />
            : null}

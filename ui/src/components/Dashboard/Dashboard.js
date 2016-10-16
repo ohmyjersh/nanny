@@ -31,9 +31,21 @@ class Dashboard extends Component {
     this.setState({ editors: newState });
   }
 
+  _visibleEditors() {
+    var count = 0;
+    for (var k in this.state.editors) {
+        if (this.state.editors[k] == true) {
+          count ++;
+        }
+    }
+    return count;
+  }
+
   render() {
+    var width = 100 / this._visibleEditors();
+    var widthProps = `${width}%`
     return (
-      <div className='toolbar'>
+      <div className='toolbar' style={{'width':'100%'}}>
         <Toolbar>
           <FlatButton label='Configuration Editor'
             onTouchTap={(e) => this.updateEditor(e, 'configuration')}
@@ -47,14 +59,14 @@ class Dashboard extends Component {
         </Toolbar>
         <div className='dashboard'>
           {this.state.editors.configuration ?
-            <div className='configEditor'>
-              <ConfigEditor {...this.props} />
+            <div className='configEditor' style={{width:widthProps}}>
+              <ConfigEditor {...this.props} editorSize={widthProps}/>
             </div> : null}
-          {this.state.editors.transformer ? <div className='transformerEditor'>
-            <TransformerEditor {...this.props} />
+          {this.state.editors.transformer ? <div className='transformerEditor' style={{width:widthProps}}>
+            <TransformerEditor {...this.props} editorSize={widthProps}/>
           </div> : null}
-          {this.state.editors.preview ? <div className='previewEditor'>
-            <PreviewEditor {...this.props} />
+          {this.state.editors.preview ? <div className='previewEditor' style={{width:widthProps}}>
+            <PreviewEditor {...this.props} editorSize={widthProps}/>
           </div> : null}
         </div>
       </div>)

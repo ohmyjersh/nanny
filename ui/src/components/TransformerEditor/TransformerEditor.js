@@ -77,7 +77,7 @@ export default class TransformerEditor extends Component {
     // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor'
     return (
-      <div className='editor' id='richEditor' onClick={this.focus}>
+      <div className='editor' id='richEditor' onClick={this.focus} style={{'width':this.props.editorSize}}>
         {editorState ? <Editor
           editorState={editorState}
           onChange={this.onChange}

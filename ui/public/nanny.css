@@ -1,4 +1,5 @@
 .dashboard {
+    width:100%;
     display:flex;
     flex-wrap: wrap;
     padding: 12px;
@@ -7,17 +8,14 @@
 .configEditor {
     float:left;
     display: flex;
-    width: 25%;
 }
 
 .previewEditor {
     float:left;
     display: flex;
-    width: 25%;
 }
 
 .transformerEditor {
     float:left;
     display: flex;
-    width:25%;
 }
