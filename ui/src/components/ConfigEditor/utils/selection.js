@@ -20,7 +20,6 @@ export const getSelectionCoords = (selectionRange) => {
   const editorBounds = document.getElementById('richEditor').getBoundingClientRect();
   const rangeBounds = selectionRange.getBoundingClientRect();
   const rangeWidth = rangeBounds.right - rangeBounds.left;
-  const rangeHeight = rangeBounds.bottom - rangeBounds.top;
   const offsetLeft = (rangeBounds.left - editorBounds.left)
             + (rangeWidth / 2)
             /* 72px is width of inline toolbar */

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Draft, { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js'
+import { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js'
 var format = require('string-template')
 import { startState } from '../Helpers/EditorHelper'
 

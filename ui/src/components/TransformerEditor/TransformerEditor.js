@@ -1,8 +1,7 @@
-import React, { Component, PropTypes } from 'react'
-import Draft, { CompositeDecorator, convertFromRaw, convertToRaw, Modifier, Editor, EditorState, RichUtils, ContentState, Decorator, SelectionState } from 'draft-js'
+import React, { Component } from 'react'
+import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
 import CodeUtils from 'draft-js-code'
-import isJSON from 'is-json'
-import { mapEditorContent, startState, paddedStrategy } from '../Helpers/EditorHelper'
+import { mapEditorContent, startState } from '../Helpers/EditorHelper'
 
 export default class TransformerEditor extends Component {
   constructor (props) {
@@ -72,10 +71,6 @@ export default class TransformerEditor extends Component {
 
   render () {
     const {editorState} = this.props.state.transformerEditor;
-
-    // If the user changes block type before entering any text, we can
-    // either style the placeholder or hide it. Let's just hide it now.
-    let className = 'RichEditor-editor'
     return (
       <div className='editor' id='richEditor' onClick={this.focus} style={{'width':this.props.editorSize}}>
         {editorState ? <Editor

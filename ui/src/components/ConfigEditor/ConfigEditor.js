@@ -1,10 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import Draft, { CompositeDecorator, convertFromRaw, convertToRaw, Modifier, Editor, EditorState, RichUtils, ContentState, Decorator, SelectionState } from 'draft-js'
+import React, { Component } from 'react'
+import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
 import { getSelectionRange, getSelectedBlockElement, getSelectionCoords } from './utils/selection'
 import InlineToolbar, { toolBarActions } from './toolbars/InlineToolbar'
 import CodeUtils from 'draft-js-code'
-import isJSON from 'is-json'
-import { mapEditorContent, startState, paddedStrategy } from '../Helpers/EditorHelper'
+import { mapEditorContent, startState } from '../Helpers/EditorHelper'
 
 class ConfigEditor extends Component {
   constructor (props) {
@@ -108,7 +107,7 @@ class ConfigEditor extends Component {
   }
 
   render () {
-    const { selectedBlock, selectionRange } = this.state;
+    const { selectedBlock } = this.state;
     const { editorState } = this.props.state.configEditor;
     if (selectedBlock) {
       const editor = document.getElementById('richEditor')
