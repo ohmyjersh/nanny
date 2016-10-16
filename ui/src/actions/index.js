@@ -1,4 +1,5 @@
 import * as ActionTypes from '../constants/actionTypes';
+import cookie from 'react-cookie';
 
 export function loadConfigurations(configurations) {
     return {
@@ -77,6 +78,7 @@ export function register(register) {
                 return response.json();
             })
             .then((json) => {
+                cookie.save('token', json.token, { path: '/' });
                 dispatch(registerResponse(json));
             })
     };
@@ -106,7 +108,9 @@ export function login(login) {
                 return response.json();
             })
             .then((json) => {
+                cookie.save('token', json.token, { path: '/' });
                 dispatch(loginResponse(json));
+                //window.location.href = 'http://localhost:3000/dashboard';
             })
     };
 }

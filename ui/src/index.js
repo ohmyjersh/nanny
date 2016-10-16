@@ -6,10 +6,14 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { AppContainer } from './container/App';
+import RequireAuth from './components/auth/Authentication';
 import Registration from './components/registration/registration';
 import Login from './components/login/login';
+import {loginResponse} from './actions/index';
 import Dashboard from './components/Dashboard/Dashboard';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import cookie from 'react-cookie';
+
 injectTapEventPlugin();
 
 import reducers from './reducers/index';
@@ -30,12 +34,21 @@ const store = createStore(
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
 
+const token = cookie.load('token');
+console.log(token);
+if (token) {
+  console.log('cookie found');
+  // Update application state. User has token and is probably authenticated
+  store.dispatch(loginResponse({token:token}));
+}
+
+
 ReactDOM.render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
       <Route path="/" component={AppContainer}>
-        <Route title='Dashboard' path='dashboard' component={Dashboard}/>
+        <Route title='Dashboard' path='dashboard' component={RequireAuth(Dashboard)} />
         <Route title='Registration' path='registration' component={Registration}/>
         <Route title='Login' path='login' component={Login}/>
       </Route>

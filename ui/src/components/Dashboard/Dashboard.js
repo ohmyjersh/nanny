@@ -4,7 +4,7 @@ import PreviewEditor from '../PreviewEditor/PreviewEditor'
 import TransformerEditor from '../TransformerEditor/TransformerEditor'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
-// import DashboardToolbar from './DashboardToolbar';
+import DashboardToolbar from './DashboardToolbar';
 // import EditorToolbar from './EditorToolbar';
 
 class Dashboard extends Component {
@@ -59,6 +59,7 @@ class Dashboard extends Component {
             onTouchTap={(e) => this.updateEditor(e, 'preview')}
             />
         </Toolbar>
+        <DashboardToolbar />
         <div className='dashboard'>
           {this.state.editors.configuration ?
               <ConfigEditor {...this.props} editorSize={widthProps}/> : null}

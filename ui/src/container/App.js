@@ -26,13 +26,13 @@ class App extends Component {
   handleToggle = () => this.setState({open: !this.state.open});
 
   render () {
-    var loggedIn = false
     let rightButtons
-    if (loggedIn) {
+    if (this.props.state.auth.authenticated) {
       rightButtons = <span>jjarmain@gmail.com</span>
     }else {
       rightButtons =
-        <span><Link to='login'>
+        <span>
+        <Link to='login'>
           <FlatButton label='Login' />
           </Link>/<Link to='registration'>
           <FlatButton label='Register' /></Link>
@@ -62,7 +62,7 @@ function mapStateToProps (state) {
       configurations: state.module.configurations,
       manifests: state.module.manifests,
       isFetching: state.module.isFetching,
-      token: state.module.token
+      auth: state.module.auth
     }
   }
 }

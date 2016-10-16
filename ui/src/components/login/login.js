@@ -4,8 +4,9 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton'
 
 class Login extends Component {
- constructor() {
-        super();
+ constructor(props) {
+        super(props);
+        console.log(this.props);
         this.state = {
             email:'',
             password:'',
@@ -49,4 +50,5 @@ class Login extends Component {
         </Card>);
     }
 }
+
 export default Login;

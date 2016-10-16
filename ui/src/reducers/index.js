@@ -2,8 +2,8 @@ import * as ActionTypes from '../constants/actionTypes';
 
 function registerResponse(state, response) {
     return Object.assign({}, state, {
-        token: response.token,
-        isFetching:false
+        auth: { token: response.token, authenticated: true },
+        isFetching: false
     });
 }
 
@@ -14,10 +14,9 @@ function registeringRequest(state) {
 }
 
 function loginResponse(state, response) {
-    console.log(response.token);
     return Object.assign({}, state, {
-        token: response.token,
-        isFetching:false
+        auth: { token: response.token, authenticated: true },
+        isFetching: false
     });
 }
 
@@ -43,7 +42,7 @@ function reducers(state = {
     configurations: [],
     manifests: [],
     isFetching: false,
-    token: null
+    auth: { token: null, authenticated: false }
 }, action) {
     switch (action.type) {
         case ActionTypes.REGISTER_REQUEST:
