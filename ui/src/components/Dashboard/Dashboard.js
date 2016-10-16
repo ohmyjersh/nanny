@@ -6,7 +6,6 @@ import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-
 import FlatButton from 'material-ui/FlatButton'
 // import DashboardToolbar from './DashboardToolbar';
 // import EditorToolbar from './EditorToolbar';
-import Subheader from 'material-ui/Subheader';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -62,18 +61,11 @@ class Dashboard extends Component {
         </Toolbar>
         <div className='dashboard'>
           {this.state.editors.configuration ?
-            <div className='editorDashboard' style={{width:widthProps}}>
-              <Subheader>Configuration</Subheader>
-              <ConfigEditor {...this.props} editorSize={widthProps}/>
-            </div> : null}
-          {this.state.editors.transformer ? <div className='editorDashboard' style={{width:widthProps}}>
-            <Subheader>Transformer</Subheader>
-            <TransformerEditor {...this.props} editorSize={widthProps}/>
-          </div> : null}
-          {this.state.editors.preview ? <div className='editorDashboard' style={{width:widthProps}}>
-            <Subheader>Preview</Subheader>
-            <PreviewEditor {...this.props} editorSize={widthProps}/>
-          </div> : null}
+              <ConfigEditor {...this.props} editorSize={widthProps}/> : null}
+          {this.state.editors.transformer ?
+            <TransformerEditor {...this.props} editorSize={widthProps}/> : null}
+          {this.state.editors.preview ? 
+            <PreviewEditor {...this.props} editorSize={widthProps}/> : null}
         </div>
       </div>)
   }

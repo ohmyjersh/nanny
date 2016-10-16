@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
 import CodeUtils from 'draft-js-code'
 import { mapEditorContent, startState } from '../Helpers/EditorHelper'
+import Subheader from 'material-ui/Subheader';
 
 export default class TransformerEditor extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-    this.props.state.transformerEditor.editorState 
-    ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.transformerEditor.rawContent)))
-    : this.initNewEditor();
+    this.props.state.transformerEditor.editorState
+      ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.transformerEditor.rawContent)))
+      : this.initNewEditor();
     this.state = {
       inlineToolbar: { show: false }
     }
@@ -19,18 +20,18 @@ export default class TransformerEditor extends Component {
     this.onReturn = (e) => this._onReturn(e)
   }
 
-    initNewEditor() {
+  initNewEditor() {
     var state = EditorState.createWithContent(convertFromRaw(startState()));
     const content = state.getCurrentContent()
-        this.props.setTransformerContent(
-        mapEditorContent(
+    this.props.setTransformerContent(
+      mapEditorContent(
         state,
         JSON.stringify(convertToRaw(content)),
         content.getPlainText()));
   }
 
 
-  _onChange (editorState) {
+  _onChange(editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
       const pushedState = EditorState.push(this.props.state.transformerEditor.editorState, convertFromRaw(startState()))
@@ -44,7 +45,7 @@ export default class TransformerEditor extends Component {
       ));
   }
 
-  _onTab (e) {
+  _onTab(e) {
     let editorState = this.props.state.transformerEditor.editorState;
 
     if (!CodeUtils.hasSelectionInBlock(editorState)) {
@@ -56,7 +57,7 @@ export default class TransformerEditor extends Component {
     )
   }
 
-  _onReturn (e) {
+  _onReturn(e) {
     let editorState = this.props.state.transformerEditor.editorState;
 
     if (!CodeUtils.hasSelectionInBlock(editorState)) {
@@ -69,17 +70,20 @@ export default class TransformerEditor extends Component {
     return true
   }
 
-  render () {
+  render() {
     const {editorState} = this.props.state.transformerEditor;
     return (
-      <div className='editor' id='richEditor' onClick={this.focus} style={{'width':this.props.editorSize}}>
-        {editorState ? <Editor
-          editorState={editorState}
-          onChange={this.onChange}
-          ref='editor'
-          spellCheck={true}
-          handleReturn={this.onReturn}
-          onTab={this.onTab} /> : null}
+      <div className='editorDashboard' style={{ 'width': this.props.editorSize }}>
+        <Subheader>Transformer</Subheader>
+        <div className='editor' id='richEditor' onClick={this.focus} style={{ 'width': this.props.editorSize }}>
+          {editorState ? <Editor
+            editorState={editorState}
+            onChange={this.onChange}
+            ref='editor'
+            spellCheck={true}
+            handleReturn={this.onReturn}
+            onTab={this.onTab} /> : null}
+        </div>
       </div>
     )
   }

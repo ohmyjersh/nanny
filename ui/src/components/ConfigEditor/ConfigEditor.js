@@ -4,16 +4,17 @@ import { getSelectionRange, getSelectedBlockElement, getSelectionCoords } from '
 import InlineToolbar, { toolBarActions } from './toolbars/InlineToolbar'
 import CodeUtils from 'draft-js-code'
 import { mapEditorContent, startState } from '../Helpers/EditorHelper'
+import Subheader from 'material-ui/Subheader';
 
 class ConfigEditor extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     console.log(this.props);
 
-    this.props.state.configEditor.editorState 
-    ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.configEditor.rawContent))) 
-    : this.initNewEditor();
+    this.props.state.configEditor.editorState
+      ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.configEditor.rawContent)))
+      : this.initNewEditor();
     this.state = {
       inlineToolbar: { show: false }
     }
@@ -28,14 +29,14 @@ class ConfigEditor extends Component {
   initNewEditor() {
     var state = EditorState.createWithContent(convertFromRaw(startState()));
     const content = state.getCurrentContent()
-        this.props.setEditorContent(
-        mapEditorContent(
+    this.props.setEditorContent(
+      mapEditorContent(
         state,
         JSON.stringify(convertToRaw(content)),
         content.getPlainText()));
   }
 
-  _updateSelection () {
+  _updateSelection() {
     const selectionRange = getSelectionRange()
     let selectedBlock
     if (selectionRange) {
@@ -43,10 +44,11 @@ class ConfigEditor extends Component {
     }
     this.setState({
       selectedBlock,
-    selectionRange})
+      selectionRange
+    })
   }
 
-  _onTab (e) {
+  _onTab(e) {
     let editorState = this.props.state.configEditor.editorState;
 
     if (!CodeUtils.hasSelectionInBlock(editorState)) {
@@ -58,7 +60,7 @@ class ConfigEditor extends Component {
     )
   }
 
-  _onReturn (e) {
+  _onReturn(e) {
     let editorState = this.props.state.configEditor.editorState;
 
     if (!CodeUtils.hasSelectionInBlock(editorState)) {
@@ -71,7 +73,7 @@ class ConfigEditor extends Component {
     return true
   }
 
-  _onChange (editorState) {
+  _onChange(editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
       const pushedState = EditorState.push(this.props.state.configEditor.editorState, convertFromRaw(startState()))
@@ -100,13 +102,13 @@ class ConfigEditor extends Component {
         currentContent.getPlainText()));
   }
 
-  _toggleToolbarActions (action) {
+  _toggleToolbarActions(action) {
     let {editorState} = this.props.state.configEditor
     let state = toolBarActions(editorState, action)
     this._onChange(state)
   }
 
-  render () {
+  render() {
     const { selectedBlock } = this.state;
     const { editorState } = this.props.state.configEditor;
     if (selectedBlock) {
@@ -116,17 +118,20 @@ class ConfigEditor extends Component {
     }
 
     return (
-      <div className='editor' id='richEditor' onClick={this.focus} style={{'width':this.props.editorSize}}>
-        {this.state.inlineToolbar.show
-           ? <InlineToolbar editorState={editorState} onToggle={this.toggleToolbarActions} position={this.state.inlineToolbar.position} />
-           : null}
-        {editorState ? <Editor
-          editorState={editorState}
-          onChange={this._onChange}
-          ref='editor'
-          spellCheck={true}
-          handleReturn={this.onReturn}
-          onTab={this.onTab} /> : null }
+      <div className='editorDashboard' style={{ 'width': this.props.editorSize }}>
+        <Subheader>Configuration</Subheader>
+        <div className='editor' id='richEditor' onClick={this.focus} style={{ 'width': this.props.editorSize }}>
+          {this.state.inlineToolbar.show
+            ? <InlineToolbar editorState={editorState} onToggle={this.toggleToolbarActions} position={this.state.inlineToolbar.position} />
+            : null}
+          {editorState ? <Editor
+            editorState={editorState}
+            onChange={this._onChange}
+            ref='editor'
+            spellCheck={true}
+            handleReturn={this.onReturn}
+            onTab={this.onTab} /> : null}
+        </div>
       </div>
     )
   }

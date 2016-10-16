@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js'
 var format = require('string-template')
 import { startState } from '../Helpers/EditorHelper'
+import Subheader from 'material-ui/Subheader';
 
 export default class TransformerEditor extends Component {
   constructor(props) {
@@ -17,9 +18,9 @@ export default class TransformerEditor extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-      let newContentState = this.mapPropsToPreviewState(newProps);
-      let editorState = EditorState.push(this.state.editorState, newContentState)
-      this.setState({ editorState })
+    let newContentState = this.mapPropsToPreviewState(newProps);
+    let editorState = EditorState.push(this.state.editorState, newContentState)
+    this.setState({ editorState })
   }
 
   mapPropsToPreviewState(props) {
@@ -27,7 +28,7 @@ export default class TransformerEditor extends Component {
     let transformerEditor = props.state.transformerEditor
     let contentParsed = JSON.parse(configEditor.rawContent)
     let newContentState;
-    if (transformerEditor.isValid) {
+    if (transformerEditor.isValid && configEditor.isValid) {
       let transformer = JSON.parse(transformerEditor.textContent)
       let formatted = format(configEditor.rawContent, transformer)
       let transformedContent = JSON.parse(formatted)
@@ -42,12 +43,15 @@ export default class TransformerEditor extends Component {
   render() {
     const {editorState} = this.state
     return (
-      <div className='editor' id='richEditor' onClick={this.focus} style={{ 'width': this.props.editorSize }}>
-        <Editor
-          editorState={editorState}
-          onChange={this.onChange}
-          readOnly={true}
-          ref='editor' />
+      <div className='editorDashboard' style={{ 'width': this.props.editorSize }}>
+        <Subheader>Preview</Subheader>
+        <div className='editor' id='richEditor' onClick={this.focus} style={{ 'width': this.props.editorSize }}>
+          <Editor
+            editorState={editorState}
+            onChange={this.onChange}
+            readOnly={true}
+            ref='editor' />
+        </div>
       </div>
     )
   }
