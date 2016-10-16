@@ -14,6 +14,7 @@ function registeringRequest(state) {
 }
 
 function loginResponse(state, response) {
+    console.log(response.token);
     return Object.assign({}, state, {
         token: response.token,
         isFetching:false

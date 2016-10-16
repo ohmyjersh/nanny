@@ -59,8 +59,10 @@ function mapStateToProps (state) {
       transformerEditor: state.module.transformerEditor,
       loadedConfiguration: state.module.loadedConfiguration,
       loadedManifest: state.module.loadedManifest,
-      configurations:[],
-      manifests:[]
+      configurations: state.module.configurations,
+      manifests: state.module.manifests,
+      isFetching: state.module.isFetching,
+      token: state.module.token
     }
   }
 }

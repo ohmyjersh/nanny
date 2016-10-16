@@ -68,7 +68,6 @@ export function register(register) {
                     username: register.username,
                     password: register.password
                 }),
-                'content-type': 'application/json',
                 cache: 'default'
             }).then(response => {
                 if (response.status !== 200) {
@@ -89,11 +88,15 @@ export function login(login) {
         return fetch('http://localhost:3003/api/authentication/login',
             {
                 method: 'POST',
-                mode: 'cors',
-                body: {
-                    "username": register.username,
-                    "password": register.password
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
+                mode: 'cors',
+                body: JSON.stringify({
+                    username: login.username,
+                    password: login.password
+                }),
                 cache: 'default'
             }).then(response => {
                 if (response.status !== 200) {
