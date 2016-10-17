@@ -14,8 +14,13 @@ import MenuItem from 'material-ui/MenuItem';
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500
-  }
+  },
+      zIndex: {
+        popover: 5001,
+        layer: 5000
+    }
 })
+
 
 class App extends Component {
   constructor (props) {
@@ -46,7 +51,8 @@ class App extends Component {
           <MenuItem>Menu Item 2</MenuItem>
         </Drawer>
           <AppBar iconElementRight={rightButtons} 
-          onLeftIconButtonTouchTap={this.handleToggle}/>
+          onLeftIconButtonTouchTap={this.handleToggle}
+          style={{'width':'100%'}}/>
               {this.props.children && React.cloneElement(this.props.children, { ...this.props })}
         </div>
       </MuiThemeProvider>

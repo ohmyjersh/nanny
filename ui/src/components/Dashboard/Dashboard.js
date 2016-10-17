@@ -47,9 +47,11 @@ class Dashboard extends Component {
     var width = 100 / this._visibleEditors();
     var widthProps = `${width}%`
     return (
-      <div className='toolbar' style={{'width':'100%'}}>
+      <div className='dashboardToolbar' style={{'width':'100%'}}>
+        <DashboardToolbar/>
         <Toolbar style={{'height':'35px'}}>
-          <FlatButton label='Configuration Editor'
+          <FlatButton 
+            label='Configuration Editor'
             onTouchTap={(e) => this.updateEditor(e, 'configuration')}
             />
           <FlatButton label='Transformer Editor'
@@ -59,7 +61,6 @@ class Dashboard extends Component {
             onTouchTap={(e) => this.updateEditor(e, 'preview')}
             />
         </Toolbar>
-        <DashboardToolbar />
         <div className='dashboard'>
           {this.state.editors.configuration ?
               <ConfigEditor {...this.props} editorSize={widthProps}/> : null}
