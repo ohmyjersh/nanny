@@ -7,7 +7,6 @@ class AuthenticationRouter {
     }
     getRouter() {
         this.router.post("/authentication/login", (request, response, next) => {
-            console.log(request.body);
             user_1.User
                 .findOne({ username: request.body.username.toLowerCase() })
                 .exec((err, result) => {

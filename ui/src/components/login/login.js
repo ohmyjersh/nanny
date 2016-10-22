@@ -18,7 +18,7 @@ class Login extends Component {
         });
     }
     submit(){
-            this.props.login({
+            this.props.actions.auth.login({
                     username:this.state.email,
                     password:this.state.password
             });

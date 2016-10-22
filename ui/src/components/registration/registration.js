@@ -46,11 +46,10 @@ class Registration extends Component {
         }
     }
     submit(){
-        console.log(this.props);
-            this.props.register({
-                    username:this.state.email,
-                    password:this.state.password
-            });
+        this.props.actions.auth.register({
+                username:this.state.email,
+                password:this.state.password
+        });
     }
     
     render() {

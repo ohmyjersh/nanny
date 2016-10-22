@@ -9,14 +9,14 @@ import { AppContainer } from './container/App';
 import RequireAuth from './components/auth/Authentication';
 import Registration from './components/registration/registration';
 import Login from './components/login/login';
-import {loginResponse} from './actions/index';
+import Actions from './actions/index';
 import Dashboard from './components/Dashboard/Dashboard';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import cookie from 'react-cookie';
 
 injectTapEventPlugin();
 
-import reducers from './reducers/index';
+import reducers from './reducers';
 
 // Add the reducer to your store on the `routing` key
 
@@ -35,11 +35,10 @@ const store = createStore(
 const history = syncHistoryWithStore(browserHistory, store)
 
 const token = cookie.load('token');
-console.log(token);
 if (token) {
   console.log('cookie found');
   // Update application state. User has token and is probably authenticated
-  store.dispatch(loginResponse({token:token}));
+  store.dispatch(Actions.Auth.loginResponse({token:token}));
 }
 
 

@@ -23,7 +23,7 @@ export default class TransformerEditor extends Component {
   initNewEditor() {
     var state = EditorState.createWithContent(convertFromRaw(startState()));
     const content = state.getCurrentContent()
-    this.props.setTransformerContent(
+    this.props.actions.app.setTransformerContent(
       mapEditorContent(
         state,
         JSON.stringify(convertToRaw(content)),
@@ -36,7 +36,7 @@ export default class TransformerEditor extends Component {
     if (!currentContent.hasText()) {
       return this.initNewEditor()
     }
-    this.props.setTransformerContent(
+    this.props.actions.app.setTransformerContent(
       mapEditorContent(
         editorState,
         JSON.stringify(convertToRaw(currentContent)),

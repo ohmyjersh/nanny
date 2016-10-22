@@ -4,7 +4,8 @@ import { mongoose } from "../config/db";
 interface IConfiguration extends mongoose.Document {
     name: string;
     create: Date;
-    configurations: {String:String};
+    configuration: string;
+    raw: string
 }
 
 export interface IConfigurationModel extends IConfiguration, mongoose.Document  {
@@ -16,10 +17,8 @@ let configurationSchema = new mongoose.Schema({
         type: Date,
         "default": Date.now
     },
-    configurations: {String:String}
+    configurations: String,
+    raw: String
 },{timestamps:true});
 
 export let Configuration = mongoose.model<IConfigurationModel>('Configuration', configurationSchema);
-
-//export type ConfigurationModel = Model<IConfiguration> & IConfigurationModel;
-//export const Configuration: ConfigurationModel = <ConfigurationModel>mongoose.model<IConfiguration>("Configuration", configurationSchema);

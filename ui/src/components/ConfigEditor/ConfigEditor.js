@@ -26,7 +26,7 @@ class ConfigEditor extends Component {
   initNewEditor() {
     var state = EditorState.createWithContent(convertFromRaw(startState()));
     const content = state.getCurrentContent()
-    this.props.setEditorContent(
+    this.props.actions.app.setEditorContent(
       mapEditorContent(
         state,
         JSON.stringify(convertToRaw(content)),
@@ -91,7 +91,7 @@ class ConfigEditor extends Component {
     } else {
       this.setState({ inlineToolbar: { show: false } })
     }
-    this.props.setEditorContent(
+    this.props.actions.app.setEditorContent(
       mapEditorContent(
         editorState,
         JSON.stringify(convertToRaw(currentContent)),

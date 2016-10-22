@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import * as actions from '../actions';
+import Actions from '../actions/index';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { deepOrange500 } from 'material-ui/styles/colors';
@@ -33,7 +33,7 @@ class App extends Component {
   render () {
     let rightButtons
     if (this.props.state.auth.authenticated) {
-      rightButtons = <span>jjarmain@gmail.com</span>
+      rightButtons = <span>Logged In!</span>
     }else {
       rightButtons =
         <span>
@@ -60,6 +60,7 @@ class App extends Component {
   }
 }
 function mapStateToProps (state) {
+  console.log(state);
   return {state: {
       configEditor: state.module.configEditor,
       transformerEditor: state.module.transformerEditor,
@@ -73,4 +74,23 @@ function mapStateToProps (state) {
   }
 }
 
-export const AppContainer = connect(mapStateToProps, actions)(App)
+function mapDispatchToProps(dispatch) {
+  {
+    return  {actions: { 
+      auth: bindActionCreators(Actions.Auth, dispatch),
+      app: bindActionCreators(Actions.App, dispatch),
+      configuration: bindActionCreators(Actions.Configuration, dispatch),
+      manifest: bindActionCreators(Actions.Manifest, dispatch)
+    }
+  }
+  }
+}
+
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     actions: bindActionCreators(Object.assign({}, todoActionCreators, counterActionCreators), dispatch)
+//   }
+// }
+
+
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)

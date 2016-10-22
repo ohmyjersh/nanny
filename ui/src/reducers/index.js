@@ -6,39 +6,31 @@ function registerResponse(state, response) {
         isFetching: false
     });
 }
-
 function registeringRequest(state) {
     return Object.assign({}, state, {
         isFetching: true
     })
 }
-
 function loginResponse(state, response) {
     return Object.assign({}, state, {
         auth: { token: response.token, authenticated: true },
         isFetching: false
     });
 }
-
 function loginRequest(state) {
     return Object.assign({}, state, {
         isFetching: true
     })
 }
-
 function setConfigContent(state, configEditor) {
     return Object.assign({}, state, { configEditor: configEditor });
 }
-
 function setTransformerContent(state, transformerEditor) {
     return Object.assign({}, state, { transformerEditor: transformerEditor });
 }
-
 function reducers(state = {
-    configEditor: { editorState: null, rawContent: '', textContent: '' },
+    configEditor: { editorState: null, rawContent: '', textContent: '', selectedConfiguration: ''},
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
-    loadedConfiguration: {},
-    loadedManifest: {},
     configurations: [],
     manifests: [],
     isFetching: false,
@@ -61,5 +53,4 @@ function reducers(state = {
             return state;
     }
 }
-
 exports.module = reducers;

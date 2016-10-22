@@ -3,7 +3,14 @@ import ConfigurationHandler from "../handlers/configuration";
 var jwt = require('express-jwt');
 var auth = jwt({
     secret: 'SecretKey',
-    userProperty: 'payload'
+    getToken: function fromHeaderOrQuerystring (req) {
+        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            return req.headers.authorization.split(' ')[1];
+        } else if (req.query && req.query.token) {
+        return req.query.token;
+        }
+        return null;
+    }
 });
 
 export class ConfigurationRouter {
@@ -21,7 +28,17 @@ export class ConfigurationRouter {
         });
 
         this.router.get("/configuration", auth, async(request: Request, response: Response) => {
-            response.json("hi");
+            var result = await this._configurationHandler.getAll();
+            response.send(result);
+        });
+
+        this.router.put("/configuration", auth, async(request: Request, response: Response) => {
+            await this._configurationHandler.update(request.body.id, request.body);
+            response.status(200);
+        });
+
+        this.router.delete("/configuration", auth, async(request: Request, response: Response) => {
+            await this._configurationHandler.delete(request.body.id);
         });
 
         return this.router;

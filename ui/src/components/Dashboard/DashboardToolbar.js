@@ -12,23 +12,50 @@ class DashboardToolbar extends React.Component {
     this.state = {
       value: 3,
     };
+    this.saveConfiguration = this._saveConfiguration.bind(this);
+    this.resetEditor = this._resetEditor.bind(this);
+    this.deleteConfiguration = this._deleteConfiguration.bind(this);
   }
 
+  _saveConfiguration () {
+    if(!this.props.state.editorState.selectedConfiguration) {
+      this.props.actions.configuration.saveConfiguration({
+    name: 'test',
+    configuration: this.props.state.configEditor.rawText,
+    raw: ''
+      });
+    }
+    else {
+      this.props.actions.configuration.updateConfiguration({
+          name: 'test',
+          configuration: this.props.state.configEditor.rawText,
+          raw: ''
+      });
+    }
+
+  }
+
+  _resetEditor() {
+
+  }
+
+  _deleteConfiguration () {
+
+  }
+
+  // set current selected configuration to reducer to set state of configuration
   handleChange = (event, index, value) => this.setState({value});
 
   render() {
+    var menuItems = this.props.state.configurations.map((configuration, index) =>
+            <MenuItem key={index} value={index} primaryText={configuration.name} />
+          );
     return (
       <Toolbar>
         <ToolbarGroup>
           <RaisedButton label="Clone" secondary={true} />
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={1} primaryText="All Broadcasts" />
-            <MenuItem value={2} primaryText="All Voice" />
-            <MenuItem value={3} primaryText="All Text" />
-            <MenuItem value={4} primaryText="Complete Voice" />
-            <MenuItem value={5} primaryText="Complete Text" />
-            <MenuItem value={6} primaryText="Active Voice" />
-            <MenuItem value={7} primaryText="Active Text" />
+            {menuItems}
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup>

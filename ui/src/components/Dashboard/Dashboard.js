@@ -19,7 +19,10 @@ class Dashboard extends Component {
       }
     }
     this.updateEditor = this._updateEditor.bind(this);
+  }
 
+  componentWillMount() {
+      this.props.actions.configuration.getConfigurations(this.props.state.auth);
   }
 
   _updateEditor(e, editor) {
@@ -48,7 +51,7 @@ class Dashboard extends Component {
     var widthProps = `${width}%`
     return (
       <div className='dashboardToolbar' style={{'width':'100%'}}>
-        <DashboardToolbar/>
+        <DashboardToolbar {...this.props}/>
         <Toolbar style={{'height':'35px'}}>
           <FlatButton 
             label='Configuration Editor'
