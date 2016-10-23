@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
 import CodeUtils from 'draft-js-code'
-import { mapEditorContent, startState } from '../Helpers/EditorHelper'
+import { mapEditorContent, initNewEditor } from '../Helpers/EditorHelper'
 import Subheader from 'material-ui/Subheader';
 
 export default class TransformerEditor extends Component {
@@ -9,7 +9,7 @@ export default class TransformerEditor extends Component {
     super(props)
     this.props.state.transformerEditor.editorState
       ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.transformerEditor.rawContent)))
-      : this.initNewEditor();
+      : initNewEditor(this.props.actions.app.setTransformerContent);
     this.state = {
       inlineToolbar: { show: false }
     }
@@ -20,21 +20,10 @@ export default class TransformerEditor extends Component {
     this.onReturn = (e) => this._onReturn(e)
   }
 
-  initNewEditor() {
-    var state = EditorState.createWithContent(convertFromRaw(startState()));
-    const content = state.getCurrentContent()
-    this.props.actions.app.setTransformerContent(
-      mapEditorContent(
-        state,
-        JSON.stringify(convertToRaw(content)),
-        content.getPlainText()));
-  }
-
-
   _onChange(editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
-      return this.initNewEditor()
+      return initNewEditor(this.props.actions.app.setTransformerContent);
     }
     this.props.actions.app.setTransformerContent(
       mapEditorContent(

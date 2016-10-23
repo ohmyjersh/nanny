@@ -30,7 +30,7 @@ class ConfigurationRouter {
     getRouter() {
         this.router.post("/configuration", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             yield this._configurationHandler.create(request.body);
-            response.status(200);
+            response.status(200).send();
         }));
         this.router.get("/configuration", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             var result = yield this._configurationHandler.getAll();
@@ -38,10 +38,11 @@ class ConfigurationRouter {
         }));
         this.router.put("/configuration", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             yield this._configurationHandler.update(request.body.id, request.body);
-            response.status(200);
+            response.status(200).send();
         }));
         this.router.delete("/configuration", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             yield this._configurationHandler.delete(request.body.id);
+            response.status(200).send();
         }));
         return this.router;
     }

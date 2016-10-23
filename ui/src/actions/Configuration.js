@@ -8,7 +8,7 @@ export function getConfigurationsReponse(configurations) {
     }
 }
 
-export function CreateConfiguration(auth, configuration) {
+export function createConfiguration(auth, configuration) {
     return dispatch => {
         return fetch(`${Config.API_HOST}/configuration`,
             {
@@ -25,7 +25,7 @@ export function CreateConfiguration(auth, configuration) {
                 if (response.status !== 200) {
                     console.log(response);
                 }
-                return getConfigurations(auth.token);
+                return dispatch(getConfigurations(auth));
             })
     };
 }
@@ -59,7 +59,6 @@ export function updateConfiguration(auth, configuration) {
 }
 
 export function getConfigurations(auth) {
-    console.log(auth);
     return dispatch => {
         //dispatch(registerRequest())
         return fetch(`${Config.API_HOST}/configuration`,
@@ -88,7 +87,7 @@ export function getConfigurations(auth) {
 export function deleteConfiguration(auth, configuration) {
     return dispatch => {
         //dispatch(loginRequest())
-        return fetch(`${Config.API_HOST}/configuration`,
+        return fetch(`${Config.API_HOST}/configuration/${configuration.id}`,
             {
                 method: 'DELETE',
                 headers: {

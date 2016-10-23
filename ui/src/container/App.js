@@ -34,7 +34,7 @@ class App extends Component {
     let rightButtons
     if (this.props.state.auth.authenticated) {
       rightButtons = <span>Logged In!</span>
-    }else {
+    } else {
       rightButtons =
         <span>
         <Link to='login'>
@@ -61,10 +61,10 @@ class App extends Component {
 }
 function mapStateToProps (state) {
   console.log(state);
-  return {state: {
+  return { state: {
       configEditor: state.module.configEditor,
       transformerEditor: state.module.transformerEditor,
-      loadedConfiguration: state.module.loadedConfiguration,
+      loadedConfiguration: state.loadedConfiguration,
       loadedManifest: state.module.loadedManifest,
       configurations: state.module.configurations,
       manifests: state.module.manifests,

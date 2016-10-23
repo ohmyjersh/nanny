@@ -36,7 +36,6 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 const token = cookie.load('token');
 if (token) {
-  console.log('cookie found');
   // Update application state. User has token and is probably authenticated
   store.dispatch(Actions.Auth.loginResponse({token:token}));
 }

@@ -22,9 +22,8 @@ export class ConfigurationRouter {
     getRouter(): Router {
 
         this.router.post("/configuration", auth, async(request: Request, response: Response) => {
-
             await this._configurationHandler.create(request.body);
-            response.status(200);
+            response.status(200).send();
         });
 
         this.router.get("/configuration", auth, async(request: Request, response: Response) => {
@@ -34,11 +33,12 @@ export class ConfigurationRouter {
 
         this.router.put("/configuration", auth, async(request: Request, response: Response) => {
             await this._configurationHandler.update(request.body.id, request.body);
-            response.status(200);
+            response.status(200).send();
         });
 
         this.router.delete("/configuration", auth, async(request: Request, response: Response) => {
             await this._configurationHandler.delete(request.body.id);
+            response.status(200).send();
         });
 
         return this.router;

@@ -20,3 +20,10 @@ export function setTransformerContent(transformerEditor) {
         transformerEditor
     }
 }
+
+export function setTitle(title) {
+    return {
+        type:ActionTypes.SET_TITLE,
+        title
+    }
+}

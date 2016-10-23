@@ -3,7 +3,7 @@ import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
 import { getSelectionRange, getSelectedBlockElement, getSelectionCoords } from './utils/selection'
 import InlineToolbar, { toolBarActions } from './toolbars/InlineToolbar'
 import CodeUtils from 'draft-js-code'
-import { mapEditorContent, startState } from '../Helpers/EditorHelper'
+import { mapEditorContent, initNewEditor } from '../Helpers/EditorHelper'
 import Subheader from 'material-ui/Subheader';
 
 class ConfigEditor extends Component {
@@ -11,7 +11,7 @@ class ConfigEditor extends Component {
     super(props)
     this.props.state.configEditor.editorState
       ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.configEditor.rawContent)))
-      : this.initNewEditor();
+      : initNewEditor(this.props.actions.app.setEditorContent);
     this.state = {
       inlineToolbar: { show: false }
     }
@@ -21,16 +21,6 @@ class ConfigEditor extends Component {
     this.focus = () => this.refs.editor.focus()
     this.onTab = (e) => this._onTab(e)
     this.onReturn = (e) => this._onReturn(e)
-  }
-
-  initNewEditor() {
-    var state = EditorState.createWithContent(convertFromRaw(startState()));
-    const content = state.getCurrentContent()
-    this.props.actions.app.setEditorContent(
-      mapEditorContent(
-        state,
-        JSON.stringify(convertToRaw(content)),
-        content.getPlainText()));
   }
 
   _updateSelection() {
@@ -73,7 +63,7 @@ class ConfigEditor extends Component {
   _onChange(editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
-      return this.initNewEditor()
+      return initNewEditor(this.props.actions.app.setEditorContent);
     }
 
     if (!editorState.getSelection().isCollapsed()) {

@@ -17,7 +17,6 @@ export default function(ComposedComponent) {
     }
 
     componentWillUpdate(nextProps) {
-      console.log(nextProps);
       if(!nextProps.state.auth.authenticated) {
         this.context.router.push('/login');
       }
@@ -29,7 +28,6 @@ export default function(ComposedComponent) {
   }
 
   function mapStateToProps(state) {
-    console.log(state);
     return { auth: state.module.auth };
   }
 
