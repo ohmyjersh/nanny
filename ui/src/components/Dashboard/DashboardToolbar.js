@@ -80,12 +80,12 @@ class DashboardToolbar extends React.Component {
     return (
       <Toolbar>
         <ToolbarGroup>
+          <RaisedButton label='Delete' secondary={true} disabled={this.props.state.configEditor.id ? false : true } onTouchTap={(e) => this.delete()}/>
           <RaisedButton label='Clone' secondary={true} disabled={this.props.state.configEditor.id ? false : true } onTouchTap={(e) => this.clone()}/>
           <DropDownMenu value={this.state.value} onChange={(e, index, value) => this.handleChange(e, index, value)}>
             <MenuItem key={-1} value={-1} primaryText='New Configuration' />
             {menuItems}
           </DropDownMenu>
-          <RaisedButton label='Delete' secondary={true} disabled={this.props.state.configEditor.id ? false : true } onTouchTap={(e) => this.delete()}/>
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarSeparator />
