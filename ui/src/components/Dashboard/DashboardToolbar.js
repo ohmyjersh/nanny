@@ -10,7 +10,7 @@ class DashboardToolbar extends React.Component {
 
   constructor (props) {
     super(props)
-    var value = this.props.state.configEditor.selectedConfiguration ? this.props.state.configEditor.selectedConfiguration : 0
+    var value = this.props.state.configEditor.selectedConfiguration ? this.props.state.configEditor.selectedConfiguration : -1
     this.state = {
       value: value
     }
@@ -18,7 +18,7 @@ class DashboardToolbar extends React.Component {
     this.clone = this._clone.bind(this)
     this.resetEditor = this._resetEditor.bind(this)
     this.delete = this._delete.bind(this)
-    this.handleChange = this._handleChange;
+    this.handleChange = this._handleChange
   }
 
   _clone () {
@@ -27,7 +27,6 @@ class DashboardToolbar extends React.Component {
 
   _save () {
     if (this.props.state.configEditor.isValid) {
-      console.log('valid')
       if (!this.props.state.configEditor.id) {
         this.props.actions.configuration.createConfiguration(this.props.state.auth, {
           title: this.props.state.configEditor.title,
@@ -57,21 +56,23 @@ class DashboardToolbar extends React.Component {
 
   // set current selected configuration to reducer to set state of configuration
   _handleChange (event, index, value) {
-    this.setState({value});
-    if(value === 0) {
-      return this._resetEditor();
+    this.setState({value})
+    if (value === -1) {
+      return this._resetEditor()
+    }else {
+      this.props.actions.app.loadSelection(value)
     }
   }
 
   render () {
-    var menuItems = this.props.state.configurations.map((configuration, index) => <MenuItem key={index + 1} value={index + 1} primaryText={configuration.title} />
+    var menuItems = this.props.state.configurations.map((configuration, index) => <MenuItem key={index} value={index} primaryText={configuration.title} />
     )
     return (
       <Toolbar>
         <ToolbarGroup>
           <RaisedButton label='Clone' secondary={true} />
           <DropDownMenu value={this.state.value} onChange={(e, index, value) => this.handleChange(e, index, value)}>
-            <MenuItem key={0} value={0} primaryText='New Configuration' />
+            <MenuItem key={-1} value={-1} primaryText='New Configuration' />
             {menuItems}
           </DropDownMenu>
         </ToolbarGroup>

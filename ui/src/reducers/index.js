@@ -75,19 +75,20 @@ function loadManifests (state, manifests) {
   })
 }
 
-function loadSelection(state, selection) {
+function loadSelection(state, selection ) {
+  var configuration = state.configurations[selection];
   return Object.assign({}, state, { configEditor: {
-      rawContent: selection.rawContent,
-      textContent: selection.textContent,
-      editorState: null,
-      title: selection.title,
-      currentSelection: selection.currentSelection,
-      isValid:true
+      rawContent: configuration.raw,
+      textContent: configuration.configuration,
+      editorState: state.configEditor.editorState,
+      title: configuration.title,
+      currentSelection: selection,
+      isValid:false
   }});
 }
 
 function reducers (state = {
-    configEditor: { editorState: null, rawContent: '', textContent: '', isValid:false, currentSelection: 0, title: ''},
+    configEditor: { editorState: null, rawContent: '', textContent: '', isValid:false, currentSelection: -1, title: ''},
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
     configurations: [],
     manifests: [],

@@ -4,14 +4,15 @@ import { getSelectionRange, getSelectedBlockElement, getSelectionCoords } from '
 import InlineToolbar, { toolBarActions } from './toolbars/InlineToolbar'
 import CodeUtils from 'draft-js-code'
 import { mapEditorContent, initNewEditor } from '../Helpers/EditorHelper'
-import Subheader from 'material-ui/Subheader';
+import Subheader from 'material-ui/Subheader'
 
 class ConfigEditor extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
+    console.log(this.props.state.configEditor.editorState)
     this.props.state.configEditor.editorState
       ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.configEditor.rawContent)))
-      : initNewEditor(this.props.actions.app.setEditorContent);
+      : initNewEditor(this.props.actions.app.setEditorContent)
     this.state = {
       inlineToolbar: { show: false }
     }
@@ -22,8 +23,21 @@ class ConfigEditor extends Component {
     this.onTab = (e) => this._onTab(e)
     this.onReturn = (e) => this._onReturn(e)
   }
+  componentWillReceiveProps (newProps) {
+    if (this.props.state.configEditor.currentSelection != newProps.state.configEditor.currentSelection) {
+    let contentParsed = JSON.parse(newProps.state.configEditor.rawContent);
+    let newContentState = convertFromRaw(contentParsed);
+    let editorState = EditorState.push(newProps.state.configEditor.editorState, newContentState)
+    var currentContent = editorState.getCurrentContent()
+    this.props.actions.app.setEditorContent(
+      mapEditorContent(
+        editorState,
+        JSON.stringify(convertToRaw(currentContent)),
+        currentContent.getPlainText()))
+    }
+  }
 
-  _updateSelection() {
+  _updateSelection () {
     const selectionRange = getSelectionRange()
     let selectedBlock
     if (selectionRange) {
@@ -31,12 +45,11 @@ class ConfigEditor extends Component {
     }
     this.setState({
       selectedBlock,
-      selectionRange
-    })
+    selectionRange})
   }
 
-  _onTab(e) {
-    let editorState = this.props.state.configEditor.editorState;
+  _onTab (e) {
+    let editorState = this.props.state.configEditor.editorState
 
     if (!CodeUtils.hasSelectionInBlock(editorState)) {
       return
@@ -47,8 +60,8 @@ class ConfigEditor extends Component {
     )
   }
 
-  _onReturn(e) {
-    let editorState = this.props.state.configEditor.editorState;
+  _onReturn (e) {
+    let editorState = this.props.state.configEditor.editorState
 
     if (!CodeUtils.hasSelectionInBlock(editorState)) {
       return
@@ -60,10 +73,10 @@ class ConfigEditor extends Component {
     return true
   }
 
-  _onChange(editorState) {
+  _onChange (editorState) {
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
-      return initNewEditor(this.props.actions.app.setEditorContent);
+      return initNewEditor(this.props.actions.app.setEditorContent)
     }
 
     if (!editorState.getSelection().isCollapsed()) {
@@ -85,18 +98,18 @@ class ConfigEditor extends Component {
       mapEditorContent(
         editorState,
         JSON.stringify(convertToRaw(currentContent)),
-        currentContent.getPlainText()));
+        currentContent.getPlainText()))
   }
 
-  _toggleToolbarActions(action) {
+  _toggleToolbarActions (action) {
     let {editorState} = this.props.state.configEditor
     let state = toolBarActions(editorState, action)
     this._onChange(state)
   }
 
-  render() {
-    const { selectedBlock } = this.state;
-    const { editorState } = this.props.state.configEditor;
+  render () {
+    const { selectedBlock } = this.state
+    const { editorState } = this.props.state.configEditor
     if (selectedBlock) {
       const editor = document.getElementById('richEditor')
       const editorBounds = editor.getBoundingClientRect()
@@ -105,18 +118,24 @@ class ConfigEditor extends Component {
 
     return (
       <div className='editorDashboard' style={{ 'width': this.props.editorSize }}>
-        <Subheader>Configuration</Subheader>
-        <div className='editor' id='richEditor' onClick={this.focus} style={{ 'width': this.props.editorSize }}>
+        <Subheader>
+          Configuration
+        </Subheader>
+        <div
+          className='editor'
+          id='richEditor'
+          onClick={this.focus}
+          style={{ 'width': this.props.editorSize }}>
           {this.state.inlineToolbar.show
-            ? <InlineToolbar editorState={editorState} onToggle={this.toggleToolbarActions} position={this.state.inlineToolbar.position} />
-            : null}
+             ? <InlineToolbar editorState={editorState} onToggle={this.toggleToolbarActions} position={this.state.inlineToolbar.position} />
+             : null}
           {editorState ? <Editor
-            editorState={editorState}
-            onChange={this._onChange}
-            ref='editor'
-            spellCheck={true}
-            handleReturn={this.onReturn}
-            onTab={this.onTab} /> : null}
+                           editorState={editorState}
+                           onChange={this._onChange}
+                           ref='editor'
+                           spellCheck={true}
+                           handleReturn={this.onReturn}
+                           onTab={this.onTab} /> : null}
         </div>
       </div>
     )
