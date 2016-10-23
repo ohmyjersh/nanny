@@ -40,8 +40,8 @@ class ConfigurationRouter {
             yield this._configurationHandler.update(request.params.id, request.body);
             response.status(200).send();
         }));
-        this.router.delete("/configuration", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._configurationHandler.delete(request.body.id);
+        this.router.delete("/configuration/:id", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            yield this._configurationHandler.delete(request.params.id);
             response.status(200).send();
         }));
         return this.router;

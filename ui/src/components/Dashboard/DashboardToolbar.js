@@ -58,7 +58,9 @@ class DashboardToolbar extends React.Component {
   }
 
   _delete () {
-    this.props.actions.configuration.deleteConfiguration();
+    this.props.actions.configuration.deleteConfiguration(this.props.state.auth, this.props.state.configEditor.id);
+    initNewEditor(this.props.actions.app.setEditorContent);
+    this.props.actions.app.setTitle('');
   }
 
   // set current selected configuration to reducer to set state of configuration
@@ -83,6 +85,7 @@ class DashboardToolbar extends React.Component {
             <MenuItem key={-1} value={-1} primaryText='New Configuration' />
             {menuItems}
           </DropDownMenu>
+          <RaisedButton label='Delete' secondary={true} disabled={this.props.state.configEditor.id ? false : true } onTouchTap={(e) => this.delete()}/>
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarSeparator />

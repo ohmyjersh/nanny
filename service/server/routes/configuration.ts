@@ -36,8 +36,8 @@ export class ConfigurationRouter {
             response.status(200).send();
         });
 
-        this.router.delete("/configuration", auth, async(request: Request, response: Response) => {
-            await this._configurationHandler.delete(request.body.id);
+        this.router.delete("/configuration/:id", auth, async(request: Request, response: Response) => {
+            await this._configurationHandler.delete(request.params.id);
             response.status(200).send();
         });
 

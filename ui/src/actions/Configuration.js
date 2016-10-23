@@ -79,10 +79,11 @@ export function getConfigurations(auth) {
     };
 }
 
-export function deleteConfiguration(auth, configuration) {
+export function deleteConfiguration(auth, id) {
+    console.log('delete');
     return dispatch => {
         //dispatch(loginRequest())
-        return fetch(`${Config.API_HOST}/configuration/${configuration.id}`,
+        return fetch(`${Config.API_HOST}/configuration/${id}`,
             {
                 method: 'DELETE',
                 headers: {
@@ -95,14 +96,8 @@ export function deleteConfiguration(auth, configuration) {
             }).then(response => {
                 if (response.status !== 200) {
                     console.log(response);
-                    //dispatch(setError("error"));
                 }
-                return response.json();
-            })
-            .then((json) => {
-                //cookie.save('token', json.token, { path: '/' });
-                //dispatch(loginResponse(json));
-                //window.location.href = 'http://localhost:3000/dashboard';
+                return dispatch(getConfigurations(auth));
             })
     };
 }
