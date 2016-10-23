@@ -113,6 +113,8 @@ function reducers (state = {
       return setTransformerContent(state, action.transformerEditor)
     case ActionTypes.LOAD_CONFIGURATIONS:
       return loadConfigurations(state, action.configurations)
+    case ActionTypes.LOAD_MANIFESTS:
+      return loadManifests(state, action.manifests);
     case ActionTypes.SET_TITLE:
       return setTitle(state, action.title)
     case ActionTypes.LOAD_SELECTION:

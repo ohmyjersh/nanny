@@ -5,6 +5,7 @@ import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 
+
 class DashboardToolbar extends React.Component {
 
   constructor (props) {
@@ -71,7 +72,8 @@ class DashboardToolbar extends React.Component {
   }
 
   render () {
-    var menuItems = this.props.state.configurations.map((configuration, index) => <MenuItem key={index} value={index} primaryText={configuration.title} />
+    var menuItems = this.props.state.configurations.map((configuration, index) => 
+          <MenuItem key={index} value={index} primaryText={configuration.title}/>
     )
     return (
       <Toolbar>
@@ -84,7 +86,7 @@ class DashboardToolbar extends React.Component {
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarSeparator />
-          <RaisedButton label='Reset' primary={false} disabled={this.props.state.configEditor.id ? true : false} onTouchTap={(e) => this.resetEditor()} />
+          <RaisedButton label='Reset' primary={false} disabled={this.props.state.configEditor.id || !this.props.state.configEditor.title ? true : false} onTouchTap={(e) => this.resetEditor()} />
           <RaisedButton label={this.props.state.configEditor.id ? 'Update' :'Save'} disabled={this.props.state.configEditor.title ? false : true} primary={true} onTouchTap={(e) => this.save()} />
         </ToolbarGroup>
       </Toolbar>

@@ -9,9 +9,8 @@ import Subheader from 'material-ui/Subheader'
 class ConfigEditor extends Component {
   constructor (props) {
     super(props)
-    this.props.state.configEditor.editorState
-      ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.configEditor.rawContent)))
-      : initNewEditor(this.props.actions.app.setEditorContent)
+    if(!this.props.state.configEditor.editorState)
+      initNewEditor(this.props.actions.app.setEditorContent)
     this.state = {
       inlineToolbar: { show: false }
     }

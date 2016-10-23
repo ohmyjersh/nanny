@@ -34,3 +34,10 @@ export function loadSelection(selection) {
         selection
     }
 }
+
+export function setNannyEditor(editor) {
+    return {
+        type:ActionTypes.SET_NANNY_EDITOR,
+        editor
+    }
+}

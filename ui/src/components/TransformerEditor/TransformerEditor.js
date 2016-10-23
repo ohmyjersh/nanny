@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
+import { convertToRaw, Editor } from 'draft-js'
 import CodeUtils from 'draft-js-code'
 import { mapTransformerContent, initNewTransformer } from '../Helpers/EditorHelper'
 import Subheader from 'material-ui/Subheader';
@@ -7,9 +7,8 @@ import Subheader from 'material-ui/Subheader';
 export default class TransformerEditor extends Component {
   constructor(props) {
     super(props)
-    this.props.state.transformerEditor.editorState
-      ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.transformerEditor.rawContent)))
-      : initNewTransformer(this.props.actions.app.setTransformerContent);
+    if(!this.props.state.transformerEditor.editorState)
+      initNewTransformer(this.props.actions.app.setTransformerContent);
     this.state = {
       inlineToolbar: { show: false }
     }
