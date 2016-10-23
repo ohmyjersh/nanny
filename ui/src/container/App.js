@@ -60,12 +60,10 @@ class App extends Component {
   }
 }
 function mapStateToProps (state) {
-  console.log(state);
+  //console.log(state);
   return { state: {
       configEditor: state.module.configEditor,
       transformerEditor: state.module.transformerEditor,
-      loadedConfiguration: state.loadedConfiguration,
-      loadedManifest: state.module.loadedManifest,
       configurations: state.module.configurations,
       manifests: state.module.manifests,
       isFetching: state.module.isFetching,

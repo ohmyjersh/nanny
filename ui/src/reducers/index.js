@@ -28,7 +28,8 @@ function setConfigContent (state, configEditor) {
       textContent: configEditor.textContent,
       editorState: configEditor.editorState,
       title: state.configEditor.title,
-      currentSelection: state.configEditor.currentSelection
+      currentSelection: state.configEditor.currentSelection,
+      isValid: configEditor.isValid
   }})
 }
 function setTransformerContent (state, transformerEditor) {
@@ -41,7 +42,8 @@ function setTitle (state, title) {
       textContent: state.configEditor.textContent,
       editorState: state.configEditor.editorState,
       title: title,
-      currentSelection: state.configEditor.currentSelection
+      currentSelection: state.configEditor.currentSelection,
+      isValid: state.configEditor.isValid
   }})
 }
 
@@ -73,8 +75,19 @@ function loadManifests (state, manifests) {
   })
 }
 
+function loadSelection(state, selection) {
+  return Object.assign({}, state, { configEditor: {
+      rawContent: selection.rawContent,
+      textContent: selection.textContent,
+      editorState: null,
+      title: selection.title,
+      currentSelection: selection.currentSelection,
+      isValid:true
+  }});
+}
+
 function reducers (state = {
-    configEditor: { editorState: null, rawContent: '', textContent: '', currentSelection: 0, title: ''},
+    configEditor: { editorState: null, rawContent: '', textContent: '', isValid:false, currentSelection: 0, title: ''},
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
     configurations: [],
     manifests: [],
@@ -98,6 +111,8 @@ function reducers (state = {
       return loadConfigurations(state, action.configurations)
     case ActionTypes.SET_TITLE:
       return setTitle(state, action.title)
+    case ActionTypes.LOAD_SELECTION:
+      return loadSelection(state, action.selection);
     default:
       return state
   }

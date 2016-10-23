@@ -63,7 +63,7 @@ class Dashboard extends Component {
           <FlatButton label='Transformer Editor' onTouchTap={(e) => this.updateEditor(e, 'transformer')} />
           <FlatButton label='Preview' onTouchTap={(e) => this.updateEditor(e, 'preview')} />
         </Toolbar>
-        <TextField value={this.props.state.configEditor.title} hintText='Configuration' fullWidth={true} onChange={(e) => this.setTitle(e)} />
+        <TextField value={this.props.state.configEditor.title} hintText='Title' style={{'width': widthProps, 'paddingLeft':'16px'}} onChange={(e) => this.setTitle(e)} />
         <div className='dashboard'>
           {this.state.editors.configuration ?
              <ConfigEditor {...this.props} editorSize={widthProps} /> : null}

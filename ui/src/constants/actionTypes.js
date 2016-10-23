@@ -15,5 +15,6 @@ export const API_REQUEST = 'API_REQUEST';
 
 // Editors
 export const SET_TITLE = 'SET_TITLE';
+export const LOAD_SELECTION = 'LOAD_SELECTION';
 export const SET_EDITOR_CONTENT = 'SET_EDITOR_CONTENT';
 export const SET_TRANSFORMER_CONTENT = 'SET_TRANSFORMER_CONTENT';

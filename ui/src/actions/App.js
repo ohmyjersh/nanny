@@ -27,3 +27,10 @@ export function setTitle(title) {
         title
     }
 }
+
+export function loadSelection(selection) {
+    return {
+        type:ActionTypes.LOAD_SELECTION,
+        selection
+    }
+}
