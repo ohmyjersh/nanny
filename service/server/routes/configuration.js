@@ -36,8 +36,8 @@ class ConfigurationRouter {
             var result = yield this._configurationHandler.getAll();
             response.send(result);
         }));
-        this.router.put("/configuration", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._configurationHandler.update(request.body.id, request.body);
+        this.router.put("/configuration/:id", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            yield this._configurationHandler.update(request.params.id, request.body);
             response.status(200).send();
         }));
         this.router.delete("/configuration", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {

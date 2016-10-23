@@ -1,8 +1,7 @@
 import React from 'react'
 import { mapEditorContent, initNewEditor } from '../Helpers/EditorHelper'
 import RaisedButton from 'material-ui/RaisedButton'
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
-import SelectField from 'material-ui/SelectField'
+import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 
@@ -22,7 +21,13 @@ class DashboardToolbar extends React.Component {
   }
 
   _clone () {
-    // set editor to curent raw and content but set selection to 0
+    if(this.props.state.configEditor.id) {
+        this.props.actions.app.setEditorContent(mapEditorContent(
+          this.props.state.configEditor.editorState,
+          this.props.state.configEditor.rawContent,
+          this.props.state.configEditor.textContent
+        ));
+    }
   }
 
   _save () {
@@ -35,9 +40,10 @@ class DashboardToolbar extends React.Component {
         })
       } else {
         this.props.actions.configuration.updateConfiguration(this.props.state.auth, {
-          title: this.props.configEditor.title,
-          configuration: this.props.configEditor.textContent,
-          raw: this.props.configEditor.rawContent
+          id:this.props.state.configEditor.id,
+          title: this.props.state.configEditor.title,
+          configuration: this.props.state.configEditor.textContent,
+          raw: this.props.state.configEditor.rawContent
         })
       }}else {
       console.log('not valid json, dont do it')
@@ -45,9 +51,9 @@ class DashboardToolbar extends React.Component {
   }
 
   _resetEditor () {
-    initNewEditor(this.props.actions.app.setEditorContent);
-    initNewEditor(this.props.actions.app.setTransformerContent);
-    this.props.actions.app.setTitle('');
+        initNewEditor(this.props.actions.app.setEditorContent);
+        initNewEditor(this.props.actions.app.setTransformerContent);
+        this.props.actions.app.setTitle('');
   }
 
   _delete () {
@@ -70,7 +76,7 @@ class DashboardToolbar extends React.Component {
     return (
       <Toolbar>
         <ToolbarGroup>
-          <RaisedButton label='Clone' secondary={true} />
+          <RaisedButton label='Clone' secondary={true} disabled={this.props.state.configEditor.id ? false : true } onTouchTap={(e) => this.clone()}/>
           <DropDownMenu value={this.state.value} onChange={(e, index, value) => this.handleChange(e, index, value)}>
             <MenuItem key={-1} value={-1} primaryText='New Configuration' />
             {menuItems}
@@ -78,18 +84,11 @@ class DashboardToolbar extends React.Component {
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarSeparator />
-          <RaisedButton label='Reset' primary={false} onTouchTap={(e) => this.resetEditor()} />
-          <RaisedButton label={this.props.state.configEditor.id ? 'Update' :'Save'} primary={true} onTouchTap={(e) => this.save()} />
+          <RaisedButton label='Reset' primary={false} disabled={this.props.state.configEditor.id ? true : false} onTouchTap={(e) => this.resetEditor()} />
+          <RaisedButton label={this.props.state.configEditor.id ? 'Update' :'Save'} disabled={this.props.state.configEditor.title ? false : true} primary={true} onTouchTap={(e) => this.save()} />
         </ToolbarGroup>
       </Toolbar>
     )
-  }
-}
-
-var styles = {
-  button: {
-    // width:'50%',
-    height: '50%'
   }
 }
 

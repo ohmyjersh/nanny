@@ -23,7 +23,7 @@ class ConfigEditor extends Component {
     this.onReturn = (e) => this._onReturn(e)
   }
   componentWillReceiveProps (newProps) {
-    if (this.props.state.configEditor.currentSelection != newProps.state.configEditor.currentSelection) {
+    if (this.props.state.configEditor.currentSelection !== newProps.state.configEditor.currentSelection) {
     let contentParsed = JSON.parse(newProps.state.configEditor.rawContent);
     let newContentState = convertFromRaw(contentParsed);
     let editorState = EditorState.push(newProps.state.configEditor.editorState, newContentState)
@@ -109,14 +109,7 @@ class ConfigEditor extends Component {
   }
 
   render () {
-    const { selectedBlock } = this.state
-    const { editorState } = this.props.state.configEditor
-    if (selectedBlock) {
-      const editor = document.getElementById('richEditor')
-      const editorBounds = editor.getBoundingClientRect()
-      const blockBounds = selectedBlock.getBoundingClientRect()
-    }
-
+    const { editorState } = this.props.state.configEditor;
     return (
       <div className='editorDashboard' style={{ 'width': this.props.editorSize }}>
         <Subheader>

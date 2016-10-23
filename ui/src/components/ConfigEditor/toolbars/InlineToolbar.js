@@ -30,8 +30,9 @@ export function toolBarActions(editorState, action) {
     switch(action) {
       case 'padTemplate':
           return padTemplate(editorState);
+      default:
+        return editorState;
     }
-    return editorState;
 };
 
 export default ({ editorState, onToggle, position }) => {

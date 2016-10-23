@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ConfigEditor from '../ConfigEditor/ConfigEditor'
 import PreviewEditor from '../PreviewEditor/PreviewEditor'
 import TransformerEditor from '../TransformerEditor/TransformerEditor'
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
+import { Toolbar } from 'material-ui/Toolbar'
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton'
 import DashboardToolbar from './DashboardToolbar'
@@ -45,7 +45,7 @@ class Dashboard extends Component {
   _visibleEditors () {
     var count = 0
     for (var k in this.state.editors) {
-      if (this.state.editors[k] == true) {
+      if (this.state.editors[k] === true) {
         count++
       }
     }

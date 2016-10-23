@@ -33,9 +33,9 @@ export function createConfiguration(auth, configuration) {
 export function updateConfiguration(auth, configuration) {
     return dispatch => {
         //dispatch(loginRequest())
-        return fetch(`${Config.API_HOST}/configuration`,
+        return fetch(`${Config.API_HOST}/configuration/${configuration.id}`,
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -47,13 +47,8 @@ export function updateConfiguration(auth, configuration) {
             }).then(response => {
                 if (response.status !== 200) {
                     console.log(response);
-                    //dispatch(setError("error"));
                 }
-                return response.json();
-            })
-            .then((json) => {
-                //dispatch(loginResponse(json));
-                //window.location.href = 'http://localhost:3000/dashboard';
+                return dispatch(getConfigurations(auth));
             })
     };
 }

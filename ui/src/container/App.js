@@ -72,14 +72,12 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  {
-    return  {actions: { 
+    return  { actions: { 
       auth: bindActionCreators(Actions.Auth, dispatch),
       app: bindActionCreators(Actions.App, dispatch),
       configuration: bindActionCreators(Actions.Configuration, dispatch),
       manifest: bindActionCreators(Actions.Manifest, dispatch)
     }
-  }
   }
 }
 

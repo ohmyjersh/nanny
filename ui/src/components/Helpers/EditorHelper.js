@@ -1,5 +1,5 @@
 import isJSON from 'is-json';
-import { convertFromRaw,createWithContent, convertToRaw, Editor, EditorState } from 'draft-js'
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 
 export function initNewEditor(editor) {
     var state = EditorState.createWithContent(convertFromRaw(startState()));
@@ -8,13 +8,12 @@ export function initNewEditor(editor) {
       mapEditorContent(
         state,
         JSON.stringify(convertToRaw(content)),
-        content.getPlainText(),''))
+        content.getPlainText(),
+        ''))
   }
 
 
 export function mapEditorContent(editorState, raw, text, id) {
-  console.log(id);
-  console.log("called mapEditorContent");
     return {
         editorState:editorState,
         rawContent: raw,
@@ -55,16 +54,3 @@ export function startState(){
       ]
     }
 }
-
-export function paddedStrategy(contentState, contentBlock, callback) {
-    findWithRegex(/^(({.+}))$/g, contentBlock, callback);
-  }
-
-  function findWithRegex(regex, contentBlock, callback) {
-    const text = contentBlock.getText();
-    let matchArr, start;
-    while ((matchArr = regex.exec(text)) !== null) {
-      start = matchArr.index;
-      callback(start, start + matchArr[0].length);
-    }
-  }

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
-import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import { register } from '../../actions';
 
 class Registration extends Component {
     constructor() {

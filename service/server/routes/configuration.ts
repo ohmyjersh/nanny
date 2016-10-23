@@ -31,8 +31,8 @@ export class ConfigurationRouter {
             response.send(result);
         });
 
-        this.router.put("/configuration", auth, async(request: Request, response: Response) => {
-            await this._configurationHandler.update(request.body.id, request.body);
+        this.router.put("/configuration/:id", auth, async(request: Request, response: Response) => {
+            await this._configurationHandler.update(request.params.id, request.body);
             response.status(200).send();
         });
 
