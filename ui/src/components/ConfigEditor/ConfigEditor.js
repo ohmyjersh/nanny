@@ -9,7 +9,6 @@ import Subheader from 'material-ui/Subheader'
 class ConfigEditor extends Component {
   constructor (props) {
     super(props)
-    console.log(this.props.state.configEditor.editorState)
     this.props.state.configEditor.editorState
       ? EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.state.configEditor.rawContent)))
       : initNewEditor(this.props.actions.app.setEditorContent)
@@ -33,7 +32,7 @@ class ConfigEditor extends Component {
       mapEditorContent(
         editorState,
         JSON.stringify(convertToRaw(currentContent)),
-        currentContent.getPlainText()))
+        currentContent.getPlainText(),newProps.state.configEditor.id))
     }
   }
 
@@ -94,11 +93,13 @@ class ConfigEditor extends Component {
     } else {
       this.setState({ inlineToolbar: { show: false } })
     }
+
     this.props.actions.app.setEditorContent(
       mapEditorContent(
         editorState,
         JSON.stringify(convertToRaw(currentContent)),
-        currentContent.getPlainText()))
+        currentContent.getPlainText(),
+        this.props.state.configEditor.id))
   }
 
   _toggleToolbarActions (action) {

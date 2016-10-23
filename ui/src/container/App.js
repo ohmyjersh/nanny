@@ -60,7 +60,6 @@ class App extends Component {
   }
 }
 function mapStateToProps (state) {
-  //console.log(state);
   return { state: {
       configEditor: state.module.configEditor,
       transformerEditor: state.module.transformerEditor,
@@ -83,12 +82,5 @@ function mapDispatchToProps(dispatch) {
   }
   }
 }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: bindActionCreators(Object.assign({}, todoActionCreators, counterActionCreators), dispatch)
-//   }
-// }
-
 
 export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)

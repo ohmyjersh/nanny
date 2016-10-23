@@ -33,7 +33,7 @@ class DashboardToolbar extends React.Component {
           configuration: this.props.state.configEditor.textContent,
           raw: this.props.state.configEditor.rawContent
         })
-      }else {
+      } else {
         this.props.actions.configuration.updateConfiguration(this.props.state.auth, {
           title: this.props.configEditor.title,
           configuration: this.props.configEditor.textContent,
@@ -45,13 +45,13 @@ class DashboardToolbar extends React.Component {
   }
 
   _resetEditor () {
-    initNewEditor(this.props.actions.app.setEditorContent)
-    initNewEditor(this.props.actions.app.setTransformerContent)
-    this.props.actions.app.setTitle('')
+    initNewEditor(this.props.actions.app.setEditorContent);
+    initNewEditor(this.props.actions.app.setTransformerContent);
+    this.props.actions.app.setTitle('');
   }
 
   _delete () {
-    this.props.actions.configuration.deleteConfiguration()
+    this.props.actions.configuration.deleteConfiguration();
   }
 
   // set current selected configuration to reducer to set state of configuration
@@ -79,7 +79,7 @@ class DashboardToolbar extends React.Component {
         <ToolbarGroup>
           <ToolbarSeparator />
           <RaisedButton label='Reset' primary={false} onTouchTap={(e) => this.resetEditor()} />
-          <RaisedButton label='Save' primary={true} onTouchTap={(e) => this.save()} />
+          <RaisedButton label={this.props.state.configEditor.id ? 'Update' :'Save'} primary={true} onTouchTap={(e) => this.save()} />
         </ToolbarGroup>
       </Toolbar>
     )

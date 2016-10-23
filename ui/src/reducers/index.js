@@ -29,7 +29,8 @@ function setConfigContent (state, configEditor) {
       editorState: configEditor.editorState,
       title: state.configEditor.title,
       currentSelection: state.configEditor.currentSelection,
-      isValid: configEditor.isValid
+      isValid: configEditor.isValid,
+      id: configEditor.id
   }})
 }
 function setTransformerContent (state, transformerEditor) {
@@ -43,7 +44,8 @@ function setTitle (state, title) {
       editorState: state.configEditor.editorState,
       title: title,
       currentSelection: state.configEditor.currentSelection,
-      isValid: state.configEditor.isValid
+      isValid: state.configEditor.isValid,
+      id: state.configEditor.id
   }})
 }
 
@@ -83,12 +85,13 @@ function loadSelection(state, selection ) {
       editorState: state.configEditor.editorState,
       title: configuration.title,
       currentSelection: selection,
-      isValid:false
+      isValid:false,
+      id: configuration.id
   }});
 }
 
 function reducers (state = {
-    configEditor: { editorState: null, rawContent: '', textContent: '', isValid:false, currentSelection: -1, title: ''},
+    configEditor: { editorState: null, rawContent: '', textContent: '', isValid:false, currentSelection: -1, title: '', id:''},
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
     configurations: [],
     manifests: [],
