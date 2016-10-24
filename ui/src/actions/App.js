@@ -1,5 +1,12 @@
 import * as ActionTypes from '../constants/actionTypes';
 
+export function setError(error) {
+    return {
+        type: ActionTypes.SET_ERROR,
+        error
+    }
+}
+
 export function apiRequest(configurations) {
     return {
         type: ActionTypes.API_REQUEST,

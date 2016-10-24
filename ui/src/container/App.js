@@ -10,6 +10,8 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import Subheader from 'material-ui/Subheader';
+import Snackbar from 'material-ui/Snackbar';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -30,6 +32,10 @@ class App extends Component {
 
   handleToggle = () => this.setState({open: !this.state.open});
 
+  handleRequestClose = () => {
+    this.props.actions.app.setError({message:'', open:false});
+  };
+
   render () {
     let rightButtons
     if (this.props.state.auth.authenticated) {
@@ -47,9 +53,16 @@ class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>        
         <Drawer open={this.state.open}>
-          <MenuItem>Menu Item</MenuItem>
-          <MenuItem>Menu Item 2</MenuItem>
+        <Subheader>Dashboards</Subheader>
+          <MenuItem>Configurations</MenuItem>
+          <MenuItem>Manifests</MenuItem>
         </Drawer>
+        <Snackbar
+          open={this.props.state.error.open}
+          message={this.props.state.error.message}
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
           <AppBar iconElementRight={rightButtons} 
           onLeftIconButtonTouchTap={this.handleToggle}
           style={{'width':'100%'}}/>
@@ -66,7 +79,8 @@ function mapStateToProps (state) {
       configurations: state.module.configurations,
       manifests: state.module.manifests,
       isFetching: state.module.isFetching,
-      auth: state.module.auth
+      auth: state.module.auth,
+      error: state.module.error
     }
   }
 }

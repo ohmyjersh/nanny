@@ -90,13 +90,19 @@ function loadSelection(state, selection ) {
   }});
 }
 
+function setError(state, error) {
+  console.log(error);
+  return Object.assign({}, state, {error:{message:error.message, open:error.open}});
+}
+
 function reducers (state = {
     configEditor: { editorState: null, rawContent: '', textContent: '', isValid:false, currentSelection: -1, title: '', id:''},
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
     configurations: [],
     manifests: [],
     isFetching: false,
-    auth: { token: null, authenticated: false }
+    auth: { token: null, authenticated: false },
+    error: { message:'', open:false }
   } , action) {
   switch (action.type) {
     case ActionTypes.REGISTER_REQUEST:
@@ -119,6 +125,8 @@ function reducers (state = {
       return setTitle(state, action.title)
     case ActionTypes.LOAD_SELECTION:
       return loadSelection(state, action.selection);
+    case ActionTypes.SET_ERROR:
+      return setError(state, action.error);
     default:
       return state
   }

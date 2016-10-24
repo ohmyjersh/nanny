@@ -46,8 +46,8 @@ class DashboardToolbar extends React.Component {
           configuration: this.props.state.configEditor.textContent,
           raw: this.props.state.configEditor.rawContent
         })
-      }}else {
-      console.log('not valid json, dont do it')
+      }} else {
+        this.props.actions.app.setError({message:'Not valid json', open:true});
     }
   }
 

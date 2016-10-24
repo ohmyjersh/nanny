@@ -11,6 +11,7 @@ export const LOAD_CONFIGURATIONS = 'LOAD_CONFIGURATIONS';
 export const LOAD_MANIFESTS = 'LOAD_MANIFESTS';
 
 // App
+export const SET_ERROR = 'SET_ERROR';
 export const API_REQUEST = 'API_REQUEST';
 
 // Editors
