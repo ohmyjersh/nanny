@@ -22,6 +22,12 @@ function loginRequest (state) {
     isFetching: true
   })
 }
+
+function logout(state) {
+  return Object.assign({},state, {auth:{ token: '', authenticated: false }});
+  
+}
+
 function setConfigContent (state, configEditor) {
   return Object.assign({}, state, { configEditor: {
       rawContent: configEditor.rawContent,
@@ -101,7 +107,7 @@ function reducers (state = {
     configurations: [],
     manifests: [],
     isFetching: false,
-    auth: { token: null, authenticated: false },
+    auth: { token: '', authenticated: false },
     error: { message:'', open:false }
   } , action) {
   switch (action.type) {
@@ -127,6 +133,8 @@ function reducers (state = {
       return loadSelection(state, action.selection);
     case ActionTypes.SET_ERROR:
       return setError(state, action.error);
+    case ActionTypes.LOGOUT:
+      return logout(state);
     default:
       return state
   }

@@ -26,6 +26,13 @@ export function loginResponse(response) {
     }
 }
 
+export function logOut() {
+    cookie.remove('token', { path: '/' });
+    return {
+        type: ActionTypes.LOGOUT
+    }
+}
+
 export function register(register) {
     console.log(register);
     return dispatch => {

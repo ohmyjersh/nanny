@@ -9,6 +9,8 @@ import { deepOrange500 } from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
 import Snackbar from 'material-ui/Snackbar';
@@ -27,19 +29,55 @@ const muiTheme = getMuiTheme({
 class App extends Component {
   constructor (props) {
     super(props)
-    this.state = {open: false};
+    this.state = {drawerOpen: false, popOpen:false};
   }
 
-  handleToggle = () => this.setState({open: !this.state.open});
+  handleToggle = () => this.setState({drawerOpen: !this.state.open});
+
+  handleTouchTap = (event) => {
+    // This prevents ghost click.
+    event.preventDefault();
+
+    this.setState({
+      popOpen: true,
+      anchorEl: event.currentTarget,
+    });
+  };
 
   handleRequestClose = () => {
+    this.setState({
+      popOpen: false,
+    });
+  };
+
+  handleLogOut() {
+
+  }
+
+  closeSnackbar = () => {
     this.props.actions.app.setError({message:'', open:false});
   };
 
   render () {
     let rightButtons
     if (this.props.state.auth.authenticated) {
-      rightButtons = <span>Logged In!</span>
+      rightButtons =       <span>
+        <FlatButton
+          onTouchTap={this.handleTouchTap}
+          label="Logged In!"
+        />
+        <Popover
+          open={this.state.popOpen}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}>
+          <Menu>
+            <MenuItem primaryText="Profile" />
+            <MenuItem primaryText="Sign out" onTouchTap={(e) => this.props.actions.auth.logOut()} />
+          </Menu>
+        </Popover>
+      </span>
     } else {
       rightButtons =
         <span>
@@ -52,7 +90,7 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>        
-        <Drawer open={this.state.open}>
+        <Drawer docked={false} open={this.state.drawerOpen} onRequestChange={(open) => this.setState({drawerOpen:open})}>
         <Subheader>Dashboards</Subheader>
           <MenuItem>Configurations</MenuItem>
           <MenuItem>Manifests</MenuItem>
@@ -61,7 +99,7 @@ class App extends Component {
           open={this.props.state.error.open}
           message={this.props.state.error.message}
           autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
+          onRequestClose={this.closeSnackbar}
         />
           <AppBar iconElementRight={rightButtons} 
           onLeftIconButtonTouchTap={this.handleToggle}
