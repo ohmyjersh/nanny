@@ -39,7 +39,7 @@ class GeneratorHandler {
             var results = { validationErrors: [] };
             for (var config in requestedConfigurations) {
                 var result = yield this._configurationHandler.getByName(requestedConfigurations[config]);
-                Object.assign(results, result.configurations);
+                Object.assign({}, results, result.configuration);
             }
             return results;
         });

@@ -35,7 +35,7 @@ export default class GeneratorHandler {
         var results = { validationErrors: [] };
         for (var config in requestedConfigurations) {
             var result = await this._configurationHandler.getByName(requestedConfigurations[config])
-            Object.assign(results, result.configurations);
+            Object.assign({},results, result.configuration);
         }
         return results;
     }
