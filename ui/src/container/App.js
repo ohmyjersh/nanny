@@ -14,6 +14,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
 import Snackbar from 'material-ui/Snackbar';
+import {toJS} from 'immutable';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -114,7 +115,6 @@ class App extends Component {
   }
 }
 function mapStateToProps (state) {
-  console.log(state);
   return { state: {
       configEditor: state.module.reducer.configEditor,
       transformerEditor: state.module.reducer.transformerEditor,
@@ -123,7 +123,8 @@ function mapStateToProps (state) {
       profile: state.module.profile,
       isFetching: state.module.isFetching,
       auth: state.module.reducer.auth,
-      error: state.module.reducer.error
+      error: state.module.reducer.error,
+      nannyEditor: state.module.nannyEditor.toJS()
     }
   }
 }
@@ -133,7 +134,8 @@ function mapDispatchToProps(dispatch) {
       auth: bindActionCreators(Actions.Auth, dispatch),
       app: bindActionCreators(Actions.App, dispatch),
       configuration: bindActionCreators(Actions.Configuration, dispatch),
-      manifest: bindActionCreators(Actions.Manifest, dispatch)
+      manifest: bindActionCreators(Actions.Manifest, dispatch),
+      nannyEditor: bindActionCreators(Actions.NannyEditor, dispatch)
     }
   }
 }

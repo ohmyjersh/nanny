@@ -6,7 +6,6 @@ import { Toolbar } from 'material-ui/Toolbar'
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton'
 import DashboardToolbar from './DashboardToolbar'
-// import EditorToolbar from './EditorToolbar'
 
 class Dashboard extends Component {
   constructor (props) {

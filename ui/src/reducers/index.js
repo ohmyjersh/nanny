@@ -1,5 +1,6 @@
 import * as ActionTypes from '../constants/actionTypes'
 import profile from './profile';
+import nannyEditor from './nannyEditor';
 import { combineReducers } from 'redux'
 
 function registerResponse (state, response) {
@@ -144,5 +145,6 @@ function reducer (state = {
 
 exports.module = combineReducers({
   reducer,
-  profile
+  profile,
+  nannyEditor
 });

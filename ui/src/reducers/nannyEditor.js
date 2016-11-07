@@ -2,14 +2,12 @@ import * as ActionTypes from '../constants/actionTypes'
 import Immutable from 'immutable';
 
 function setNannyEditor(state, editor) {
-    return Object.assign({}, state, {
-
-    });
+    return Immutable.fromJS(initialState(editor));
 }
 
 
 
-const initialState = (type = '') => {
+const initialState = (editor = '') => {
     return {
         id: '',
         currentSelection: '',
@@ -18,16 +16,14 @@ const initialState = (type = '') => {
         textContent: '',
         isValid: true,
         title: '',
-        type: type
+        editor: editor
     }
 };
 
-export default function (state = Immutable.fromJS(initialState), action) {
+export default function (state = Immutable.fromJS(initialState('configuration')), action) {
     switch (action.type) {
-        case ActionTypes.setNannyEditor:
-            return setNannyEditor();
-        case ActionTypes.resetEditor():
-            return resetEditor();
+        case ActionTypes.SET_NANNY_EDITOR:
+            return setNannyEditor(state, action.editor);
         default:
             return state;
     }
