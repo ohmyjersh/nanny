@@ -101,7 +101,10 @@ class App extends Component {
           autoHideDuration={4000}
           onRequestClose={this.closeSnackbar}
         />
-          <AppBar iconElementRight={rightButtons} 
+          <AppBar 
+          titleStyle={{textAlign: "center"}}
+          title="nanny"
+          iconElementRight={rightButtons} 
           onLeftIconButtonTouchTap={this.handleToggle}
           style={{'width':'100%'}}/>
               {this.props.children && React.cloneElement(this.props.children, { ...this.props })}
@@ -111,14 +114,16 @@ class App extends Component {
   }
 }
 function mapStateToProps (state) {
+  console.log(state);
   return { state: {
-      configEditor: state.module.configEditor,
-      transformerEditor: state.module.transformerEditor,
-      configurations: state.module.configurations,
-      manifests: state.module.manifests,
+      configEditor: state.module.reducer.configEditor,
+      transformerEditor: state.module.reducer.transformerEditor,
+      configurations: state.module.reducer.configurations,
+      manifests: state.module.reducer.manifests,
+      profile: state.module.profile,
       isFetching: state.module.isFetching,
-      auth: state.module.auth,
-      error: state.module.error
+      auth: state.module.reducer.auth,
+      error: state.module.reducer.error
     }
   }
 }

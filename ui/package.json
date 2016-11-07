@@ -11,6 +11,7 @@
     "draft-js": "^0.9.1",
     "draft-js-code": "^0.2.0",
     "draft-js-prism": "^1.0.3",
+    "enzyme": "^2.5.1",
     "immutable": "^3.8.1",
     "is-json": "^2.0.1",
     "markup-js": "^1.5.21",

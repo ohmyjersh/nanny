@@ -33,6 +33,15 @@ export class AuthenticationRouter {
                 });
             });
         });
+        // probably move this to its own route and handler
+        this.router.post('/authentication/invite', (request:Request,response:Response) => {
+            response.send("invite user endpoint");
+        });
+        
+        this.router.post('/authentication/forgotpassword', (request:Request,response:Response) => {
+
+        });
+
         return this.router;
     }
 }

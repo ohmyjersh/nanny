@@ -1,7 +1,9 @@
 import * as ActionTypes from '../constants/actionTypes'
+import profile from './profile';
+import { combineReducers } from 'redux'
 
 function registerResponse (state, response) {
-  return Object.assign({}, state, {
+  return Object.assign({}, state.auth, {
     auth: { token: response.token, authenticated: true },
     isFetching: false
   })
@@ -101,7 +103,7 @@ function setError(state, error) {
   return Object.assign({}, state, {error:{message:error.message, open:error.open}});
 }
 
-function reducers (state = {
+function reducer (state = {
     configEditor: { editorState: null, rawContent: '', textContent: '', isValid:false, currentSelection: -1, title: '', id:''},
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
     configurations: [],
@@ -139,4 +141,8 @@ function reducers (state = {
       return state
   }
 }
-exports.module = reducers
+
+exports.module = combineReducers({
+  reducer,
+  profile
+});

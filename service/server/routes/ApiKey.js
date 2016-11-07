@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const express_1 = require("express");
-const configuration_1 = require("../handlers/configuration");
+const ApiKey_1 = require("../handlers/ApiKey");
 var jwt = require('express-jwt');
 var auth = jwt({
     secret: 'SecretKey',
@@ -22,30 +22,18 @@ var auth = jwt({
         return null;
     }
 });
-class ConfigurationRouter {
+class ApiKeyRouter {
     constructor() {
         this.router = express_1.Router();
-        this._configurationHandler = new configuration_1.default();
+        this._apiKeyHandler = new ApiKey_1.default();
     }
     getRouter() {
-        this.router.post('/configuration', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._configurationHandler.create(request.body);
-            response.status(200).send();
+        this.router.post('apikey', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
         }));
-        this.router.get('/configuration', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            var result = yield this._configurationHandler.getAll();
-            response.send(result);
-        }));
-        this.router.put('/configuration/:id', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._configurationHandler.update(request.params.id, request.body);
-            response.status(200).send();
-        }));
-        this.router.delete('/configuration/:id', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._configurationHandler.delete(request.params.id);
-            response.status(200).send();
+        this.router.get('apikey', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
         }));
         return this.router;
     }
 }
-exports.ConfigurationRouter = ConfigurationRouter;
-//# sourceMappingURL=configuration.js.map
+exports.ApiKeyRouter = ApiKeyRouter;
+//# sourceMappingURL=ApiKey.js.map

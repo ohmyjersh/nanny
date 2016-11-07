@@ -8,12 +8,10 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { AppContainer } from './container/App';
 import RequireAuth from './components/auth/Authentication';
 import Registration from './components/registration/registration';
-import Profile from './components/Profile/Profile';
 import AccountManagement from './components/AccountManagement/AccountManagement';
 import Invite from './components/AccountManagement/Invite';
 import Users from './components/AccountManagement/Users';
-import ApiKeys from './components/Settings/ApiKeys';
-import Settings from './components/Settings/Settings';
+import Profile from './components/Profile/Profile'
 import Login from './components/login/login';
 import Actions from './actions/index';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -58,11 +56,8 @@ ReactDOM.render(
         <Route title='AccountManagement' path='/account' component={RequireAuth(AccountManagement)} />
         <Route title='Invite' path='/account/invite' component={RequireAuth(Invite)} />
         <Route title='Users' path='/account/users' component={RequireAuth(Invite)} />
-        {/* Settings */}
-        <Route title='Settings' path='/settings' component={RequireAuth(Settings)} />
-        <Route title='ApiKeys' path='/settings/apikeys' component={RequireAuth(ApiKeys)} />
-        {/* Settings */}
-        <Route title='Profile' path='/settings/profile' component={RequireAuth(Profile)} />
+        {/* Profile */}
+        <Route title='Profile' path='/profile' component={RequireAuth(Profile)} />
         {/* Auth */}
         <Route title='Registration' path='registration' component={Registration}/>
         <Route title='Login' path='login' component={Login}/>

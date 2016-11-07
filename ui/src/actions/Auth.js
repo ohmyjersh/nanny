@@ -7,6 +7,7 @@ export function registerRequest() {
         type: ActionTypes.REGISTER_REQUEST,
     }
 }
+
 export function registerResponse(response) {
     return {
         type: ActionTypes.REGISTER_RESPONSE,

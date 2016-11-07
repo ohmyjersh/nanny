@@ -39,6 +39,7 @@ userSchema.methods.comparePassword = function(password: string, done: Function) 
   });
 }
 
+// maybe add type since we are using this for apikey and for passwords
 userSchema.methods.createJWT = function() {
   return jwt.sign({
     _id: this._id,
