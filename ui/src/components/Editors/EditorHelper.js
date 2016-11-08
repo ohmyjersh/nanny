@@ -2,7 +2,7 @@ import isJSON from 'is-json';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 
 export function initNewEditor(editor, type) {
-    var start = type === 'configuration' ? startState() : startManifest();
+    var start = type === 'configuration' || type === 'transformer' ? startState() : startManifest();
     var state = EditorState.createWithContent(convertFromRaw(start));
     const content = state.getCurrentContent()
     editor(type,
@@ -44,13 +44,13 @@ export function mapTransformerContent(editorState, raw, text) {
     }
 }
 
-export function startState(){
+export function startState(text = '{\n}'){
     return  {
       entityMap: {},
       blocks: [
         {
           type: 'code-block',
-          text: '{\n}'
+          text: text
         }
       ]
     }
@@ -62,7 +62,7 @@ export function startManifest() {
       blocks: [
         {
           type: 'code-block',
-          text: '{\t\n configurations:[],\n\t transformers:[]\n}'
+          text: '{\n\t "configurations":{},\n\t "transformers":{}\n}'
         }
       ]
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { convertToRaw, Editor } from 'draft-js'
 import CodeUtils from 'draft-js-code'
-import { mapTransformerContent, initNewTransformer } from '../Helpers/EditorHelper'
+import { mapTransformerContent, initNewTransformer } from './EditorHelper'
 import Subheader from 'material-ui/Subheader';
 
 export default class TransformerEditor extends Component {

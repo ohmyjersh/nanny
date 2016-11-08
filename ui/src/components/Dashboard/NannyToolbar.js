@@ -1,5 +1,5 @@
 import React from 'react'
-import { mapEditorContent, initNewEditor } from '../Helpers/EditorHelper'
+import { mapEditorContent, initNewEditor, initNewTransformer } from '../Editors/EditorHelper'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Toolbar, ToolbarGroup, ToolbarSeparator } from 'material-ui/Toolbar'
 import DropDownMenu from 'material-ui/DropDownMenu'
@@ -24,29 +24,29 @@ class NannyToolbar extends React.Component {
   }
 
   _clone () {
-    if(this.props.state.configEditor.id) {
-        this.props.actions.app.setEditorContent(mapEditorContent(
-          this.props.state.configEditor.editorState,
-          this.props.state.configEditor.rawContent,
-          this.props.state.configEditor.textContent
+    if(this.props.state.nannyEditor.id) {
+        this.props.actions.nannyEditor.SetNannyEditor(mapEditorContent(
+          this.props.state.nannyEditor.editorState,
+          this.props.state.nannyEditor.rawContent,
+          this.props.state.nannyEditor.textContent
         ));
     }
   }
 
   _save () {
-    if (this.props.state.configEditor.isValid) {
-      if (!this.props.state.configEditor.id) {
+    if (this.props.state.nannyEditor.isValid) {
+      if (!this.props.state.nannyEditor.id) {
         this.props.actions.configuration.createConfiguration(this.props.state.auth, {
-          title: this.props.state.configEditor.title,
-          configuration: this.props.state.configEditor.textContent,
-          raw: this.props.state.configEditor.rawContent
+          title: this.props.state.nannyEditor.title,
+          configuration: this.props.state.nannyEditor.textContent,
+          raw: this.props.state.nannyEditor.rawContent
         })
       } else {
         this.props.actions.configuration.updateConfiguration(this.props.state.auth, {
-          id:this.props.state.configEditor.id,
-          title: this.props.state.configEditor.title,
-          configuration: this.props.state.configEditor.textContent,
-          raw: this.props.state.configEditor.rawContent
+          id:this.props.state.nannyEditor.id,
+          title: this.props.state.nannyEditor.title,
+          configuration: this.props.state.nannyEditor.textContent,
+          raw: this.props.state.nannyEditor.rawContent
         })
       }} else {
         this.props.actions.app.setError({message:'Not valid json', open:true});
@@ -55,13 +55,13 @@ class NannyToolbar extends React.Component {
 
   _resetEditor (editor) {
         initNewEditor(this.props.actions.nannyEditor.SetNannyEditor, editor);
-        initNewEditor(this.props.actions.app.setTransformerContent);
+        initNewTransformer(this.props.actions.app.setTransformerContent);
         this.props.actions.app.setTitle('');
   }
 
   _delete () {
-    this.props.actions.configuration.deleteConfiguration(this.props.state.auth, this.props.state.configEditor.id);
-    initNewEditor(this.props.actions.app.setEditorContent);
+    this.props.actions.configuration.deleteConfiguration(this.props.state.auth, this.props.state.nannyEditor.id);
+    initNewEditor(this.props.actions.app.SetNannyEditor, this.props.state.nannyEditor.editor);
     this.props.actions.app.setTitle('');
   }
 
@@ -108,7 +108,7 @@ class NannyToolbar extends React.Component {
           <ToolbarSeparator />
           <RaisedButton label='Delete' secondary={true} disabled={this.props.state.configEditor.id ? false : true } onTouchTap={(e) => this.delete()}/>
           <RaisedButton label='Clone' secondary={true} disabled={this.props.state.configEditor.id ? false : true } onTouchTap={(e) => this.clone()}/>
-          <RaisedButton label='Reset' primary={false} disabled={this.props.state.configEditor.id || !this.props.state.configEditor.title ? true : false} onTouchTap={(e) => this.resetEditor()} />
+          <RaisedButton label='Reset' primary={false} disabled={this.props.state.configEditor.id || !this.props.state.configEditor.title ? true : false} onTouchTap={(e) => this.resetEditor(this.props.state.nannyEditor.editor)} />
           <RaisedButton label={this.props.state.configEditor.id ? 'Update' :'Save'} disabled={this.props.state.configEditor.title ? false : true} primary={true} onTouchTap={(e) => this.save()} />
         </ToolbarGroup>
       </Toolbar>

@@ -14,7 +14,6 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
 import Snackbar from 'material-ui/Snackbar';
-import {toJS} from 'immutable';
 
 const muiTheme = getMuiTheme({
   palette: {

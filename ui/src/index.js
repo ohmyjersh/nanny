@@ -14,7 +14,6 @@ import Users from './components/AccountManagement/Users';
 import Profile from './components/Profile/Profile'
 import Login from './components/login/login';
 import Actions from './actions/index';
-import Dashboard from './components/Dashboard/Dashboard';
 import NannyDashboard from './components/Dashboard/NannyDashboard';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import cookie from 'react-cookie';
@@ -51,9 +50,8 @@ ReactDOM.render(
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
       <Route path="/" component={AppContainer}>
-       <Route title='NannyDashboard' path='nannydashboard' component={NannyDashboard} />
       {/* Dashboard */}
-        <Route title='Dashboard' path='dashboard' component={RequireAuth(Dashboard)} />
+        <Route title='NannyDashboard' path='nannydashboard' component={NannyDashboard} />
         {/* AccountManagement */}
         <Route title='AccountManagement' path='/account' component={RequireAuth(AccountManagement)} />
         <Route title='Invite' path='/account/invite' component={RequireAuth(Invite)} />

@@ -3,9 +3,8 @@ import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js'
 import { getSelectionRange, getSelectedBlockElement, getSelectionCoords } from './utils/selection'
 import InlineToolbar, { toolBarActions } from './toolbars/InlineToolbar'
 import CodeUtils from 'draft-js-code'
-import { mapEditorContent, initNewEditor } from '../Helpers/EditorHelper'
+import { mapEditorContent, initNewEditor } from './EditorHelper'
 import Subheader from 'material-ui/Subheader'
-import Immutable from 'immutable';
 
 class nannyEditor extends Component {
   constructor (props) {
@@ -73,7 +72,6 @@ class nannyEditor extends Component {
   }
 
   _onChange (editorState) {
-    console.log('on change');
     var currentContent = editorState.getCurrentContent()
     if (!currentContent.hasText()) {
       return initNewEditor(this.props.actions.nannyEditor.SetNannyEditor, this.props.state.nannyEditor.editor)

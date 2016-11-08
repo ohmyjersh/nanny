@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Editor, EditorState, convertFromRaw } from 'draft-js'
 var format = require('string-template')
-import { startState } from '../Helpers/EditorHelper'
+import { startState } from './EditorHelper'
 import Subheader from 'material-ui/Subheader';
 
 export default class TransformerEditor extends Component {
@@ -24,12 +24,11 @@ export default class TransformerEditor extends Component {
   }
 
   mapPropsToPreviewState(props) {
-
+    let newContentState;
     if(props.state.nannyEditor.editor === 'configuration') {
       let nannyEditor = props.state.nannyEditor
       let transformerEditor = props.state.transformerEditor
       let contentParsed = JSON.parse(nannyEditor.rawContent)
-      let newContentState;
       if (transformerEditor.isValid && nannyEditor.isValid) {
         let transformer = JSON.parse(transformerEditor.textContent)
         let formatted = format(nannyEditor.rawContent, transformer)
@@ -39,19 +38,56 @@ export default class TransformerEditor extends Component {
       } else {
         newContentState = convertFromRaw(contentParsed)
       }
-      return newContentState;
     }
-    else {
-      let nannyEditor = props.state.nannyEditor;
-      let contentParsed = JSON.parse(nannyEditor.rawContent);
-      let parsedManifest = JSON.parse(nannyEditor.rawText);
-      if(parsedManifest.isValid && nannyEditor.rawContent.isValid) {
-
-      } else {
-
-      }
-    }
+    // else {
+    //   let nannyEditor = props.state.nannyEditor;
+    //   let contentParsed = JSON.parse(nannyEditor.rawContent);
+    //   console.log(nannyEditor.isValid);
+    //   if(nannyEditor.isValid) {
+    //       var manifest = JSON.parse(nannyEditor.textContent);
+    //       var configurations = this.getConfigurations(this.props.state.configurations, manifest.configurations);
+    //       var transformed = this.transformConfigs(configurations, manifest.transformer);
+    //       console.log(transformed);
+    //       //newContentState = convertFromRaw(startState(transformed));
+    //       newContentState = convertFromRaw(contentParsed)
+    //   } else {
+    //     newContentState = convertFromRaw(contentParsed)
+    //   }
+    // }
+    return newContentState;
   }
+
+  getConfigurations(loadedConfigs, configurations) {
+    var results = [];
+    for(var i = 0; i < loadedConfigs.length; i++)
+    {
+      for(var s = 0; s < configurations.length; s++) {
+        if(loadedConfigs[i].title === configurations[s].title)
+        {
+          results.push(loadedConfigs[i].rawContent);
+        }
+      }
+    }  
+    return results;
+  }
+
+  transformConfigs(configurations, transformer) {
+      var arr = configurations.map(x => {
+          return format(x.textContent, transformer)
+      });
+      console.log(arr);
+      return Object.assign(...arr);
+      //let formatted = format(nannyEditor.rawContent, transformer)
+        // for (let configuration in configurations) {
+        //     let config = {};
+        //     for (let key in configurations[configuration]) {
+        //         config[key] = format(configurations[configuration][key], transformer)
+        //     }
+        //     Object.assign(configurations[configuration], config);
+        // }
+        //return configurations;
+    }
+
 
   render() {
     const {editorState} = this.state

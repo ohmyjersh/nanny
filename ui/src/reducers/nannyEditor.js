@@ -1,5 +1,4 @@
 import * as ActionTypes from '../constants/actionTypes'
-import Immutable from 'immutable';
 
 function setNannyEditor(state, editor, content = initialState(editor)) {
     return Object.assign({}, state, content, {editor:editor});

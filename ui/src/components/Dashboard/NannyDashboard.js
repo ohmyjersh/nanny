@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import {Tabs, Tab} from 'material-ui/Tabs';
-import Dashboard from './Dashboard'
-import Manifest from './Manifest';
 import NannyToolbar from './NannyToolbar'
 import TextField from 'material-ui/TextField';
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
-import NannyEditor from '../ConfigEditor/NannyEditor'
-import PreviewEditor from '../PreviewEditor/PreviewEditor'
-import TransformerEditor from '../TransformerEditor/TransformerEditor'
+import NannyEditor from '../Editors/NannyEditor'
+import PreviewEditor from '../Editors/PreviewEditor'
+import TransformerEditor from '../Editors/TransformerEditor'
 
 class NannyDashboard extends Component {
   constructor (props) {
@@ -40,7 +37,8 @@ class NannyDashboard extends Component {
         preview: true}}) 
     : this.setState({ editors: {
         nanny: true,
-        preview: true} });
+        transformer: false,
+        preview: false} });
   }
   
   _setTitle(e) {
@@ -70,7 +68,6 @@ class NannyDashboard extends Component {
   }
 
   render () {
-    console.log(this.props.state.nannyEditor.editor);
     var width = 100 / this._visibleEditors()
     var widthProps = `${width}%`
     return (
@@ -88,11 +85,12 @@ class NannyDashboard extends Component {
           {this.state.editors.transformer ?
               <TransformerEditor {...this.props} editorSize={widthProps} /> : null}
           {this.state.editors.preview ?
-              <PreviewEditor {...this.props} editorSize={widthProps} /> : null}
+               <PreviewEditor {...this.props} editorSize={widthProps} /> : null}
         </div>
           </div>)
   }
 }
+
 
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);

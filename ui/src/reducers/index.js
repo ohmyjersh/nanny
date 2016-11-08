@@ -100,7 +100,6 @@ function loadSelection(state, selection ) {
 }
 
 function setError(state, error) {
-  console.log(error);
   return Object.assign({}, state, {error:{message:error.message, open:error.open}});
 }
 

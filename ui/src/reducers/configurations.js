@@ -1,11 +1,10 @@
 import * as ActionTypes from '../constants/actionTypes'
-import Immutable from 'immutable';
 
 function loadConfigurations(state, configurations) {
-    return Immuteable.fromJS(configurations);
+    return Object.assign({}, state.configurations, configurations);
 }
 
-export default function(state = Immuteable.fromJS([]), action) {
+export default function(state = [], action) {
     switch(action.type){
         case ActionTypes.LOAD_CONFIGURATIONS:
             return loadConfigurations(state, action.configurations);
