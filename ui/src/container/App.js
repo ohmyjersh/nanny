@@ -124,7 +124,7 @@ function mapStateToProps (state) {
       isFetching: state.module.isFetching,
       auth: state.module.reducer.auth,
       error: state.module.reducer.error,
-      nannyEditor: state.module.nannyEditor.toJS()
+      nannyEditor: state.module.nannyEditor
     }
   }
 }

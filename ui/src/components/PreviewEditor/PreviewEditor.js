@@ -7,7 +7,7 @@ import Subheader from 'material-ui/Subheader';
 export default class TransformerEditor extends Component {
   constructor(props) {
     super(props)
-    var editorState = this.props.state.configEditor.rawContent
+    var editorState = this.props.state.nannyEditor.rawContent
       ? EditorState.createWithContent(this.mapPropsToPreviewState(props))
       : EditorState.createWithContent(convertFromRaw(startState()));;
     this.state = {
@@ -24,13 +24,13 @@ export default class TransformerEditor extends Component {
   }
 
   mapPropsToPreviewState(props) {
-    let configEditor = props.state.configEditor
+    let nannyEditor = props.state.nannyEditor
     let transformerEditor = props.state.transformerEditor
-    let contentParsed = JSON.parse(configEditor.rawContent)
+    let contentParsed = JSON.parse(nannyEditor.rawContent)
     let newContentState;
-    if (transformerEditor.isValid && configEditor.isValid) {
+    if (transformerEditor.isValid && nannyEditor.isValid) {
       let transformer = JSON.parse(transformerEditor.textContent)
-      let formatted = format(configEditor.rawContent, transformer)
+      let formatted = format(nannyEditor.rawContent, transformer)
       let transformedContent = JSON.parse(formatted)
       let formatParsed = Object.assign({}, contentParsed, transformedContent)
       newContentState = convertFromRaw(formatParsed)

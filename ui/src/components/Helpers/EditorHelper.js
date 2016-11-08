@@ -1,10 +1,10 @@
 import isJSON from 'is-json';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 
-export function initNewEditor(editor) {
+export function initNewEditor(editor, type) {
     var state = EditorState.createWithContent(convertFromRaw(startState()));
     const content = state.getCurrentContent()
-    editor(
+    editor(type,
       mapEditorContent(
         state,
         JSON.stringify(convertToRaw(content)),

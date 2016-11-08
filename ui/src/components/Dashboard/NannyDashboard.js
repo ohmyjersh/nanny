@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Dashboard from './Dashboard'
 import Manifest from './Manifest';
-import DashboardToolbar from './DashboardToolbar'
+import NannyToolbar from './NannyToolbar'
 import TextField from 'material-ui/TextField';
 import { Toolbar } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
-import ConfigEditor from '../ConfigEditor/ConfigEditor'
+import NannyEditor from '../ConfigEditor/NannyEditor'
 import PreviewEditor from '../PreviewEditor/PreviewEditor'
 import TransformerEditor from '../TransformerEditor/TransformerEditor'
 
@@ -22,7 +22,8 @@ class NannyDashboard extends Component {
 
   componentWillMount() {
     this._setEditors(this.props.state.nannyEditor.editor);
-    this.props.actions.configuration.getConfigurations(this.props.state.auth)
+    this.props.actions.configuration.getConfigurations(this.props.state.auth);
+    this.props.actions.manifest.getManifests(this.props.state.auth);
   }
 
   componentWillReceiveProps (newProps) {
@@ -41,6 +42,7 @@ class NannyDashboard extends Component {
         nanny: true,
         preview: true} });
   }
+  
   _setTitle(e) {
     this.props.actions.app.setTitle(e.target.value);
   }
@@ -68,52 +70,27 @@ class NannyDashboard extends Component {
   }
 
   render () {
-    console.log(this.state.editors);
+    console.log(this.props.state.nannyEditor.editor);
     var width = 100 / this._visibleEditors()
     var widthProps = `${width}%`
     return (
-    <Tabs
-        value={this.props.state.nannyEditor.editor}
-        onChange={(value) => this.props.actions.nannyEditor.SetNannyEditor(value)}
-      >
-        <Tab label="Configuration Editor" value="configuration" >
       <div className='dashboardToolbar' style={{'width': '100%'}}>
-        <DashboardToolbar {...this.props}/>
+        <NannyToolbar {...this.props}/>
         <Toolbar style={{'height': '35px'}}>
           <FlatButton label={`${this.props.state.nannyEditor.editor.capitalize()} Editor`} onTouchTap={(e) => this.updateEditor(e, 'nanny')} />
-          <FlatButton label='Transformer Editor' onTouchTap={(e) => this.updateEditor(e, 'transformer')} />
+          { this.props.state.nannyEditor.editor == 'configuration' ? <FlatButton label='Transformer Editor' onTouchTap={(e) => this.updateEditor(e, 'transformer')} /> : null }
           <FlatButton label='Preview' onTouchTap={(e) => this.updateEditor(e, 'preview')} />
         </Toolbar>
         <TextField value={this.props.state.configEditor.title} hintText='Title' style={{'width': widthProps, 'paddingLeft':'16px'}} onChange={(e) => this.setTitle(e)} />
         <div className='dashboard'>
           {this.state.editors.nanny ?
-             <ConfigEditor {...this.props} editorSize={widthProps} /> : null}
+             <NannyEditor {...this.props} editorSize={widthProps} /> : null}
           {this.state.editors.transformer ?
-             <TransformerEditor {...this.props} editorSize={widthProps} /> : null}
+              <TransformerEditor {...this.props} editorSize={widthProps} /> : null}
           {this.state.editors.preview ?
-             <PreviewEditor {...this.props} editorSize={widthProps} /> : null}
+              <PreviewEditor {...this.props} editorSize={widthProps} /> : null}
         </div>
-          </div>
-        </Tab>
-        <Tab label="Manfiest Editor" value="manifest">
-      <div className='dashboardToolbar' style={{'width': '100%'}}>
-        <DashboardToolbar {...this.props}/>
-        <Toolbar style={{'height': '35px'}}>
-          <FlatButton label={`${this.props.state.nannyEditor.editor.capitalize()} Editor`} onTouchTap={(e) => this.updateEditor(e, 'nanny')} />
-          <FlatButton label='Preview' onTouchTap={(e) => this.updateEditor(e, 'preview')} />
-        </Toolbar>
-        <TextField value={this.props.state.configEditor.title} hintText='Title' style={{'width': widthProps, 'paddingLeft':'16px'}} onChange={(e) => this.setTitle(e)} />
-        <div className='dashboard'>
-          {this.state.editors.nanny ?
-             <ConfigEditor {...this.props} editorSize={widthProps} /> : null}
-          {this.state.editors.transformer ?
-             <TransformerEditor {...this.props} editorSize={widthProps} /> : null}
-          {this.state.editors.preview ?
-             <PreviewEditor {...this.props} editorSize={widthProps} /> : null}
-        </div>
-          </div>
-        </Tab>
-      </Tabs>)
+          </div>)
   }
 }
 
