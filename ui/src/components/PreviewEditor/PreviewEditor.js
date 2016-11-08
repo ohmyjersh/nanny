@@ -24,20 +24,33 @@ export default class TransformerEditor extends Component {
   }
 
   mapPropsToPreviewState(props) {
-    let nannyEditor = props.state.nannyEditor
-    let transformerEditor = props.state.transformerEditor
-    let contentParsed = JSON.parse(nannyEditor.rawContent)
-    let newContentState;
-    if (transformerEditor.isValid && nannyEditor.isValid) {
-      let transformer = JSON.parse(transformerEditor.textContent)
-      let formatted = format(nannyEditor.rawContent, transformer)
-      let transformedContent = JSON.parse(formatted)
-      let formatParsed = Object.assign({}, contentParsed, transformedContent)
-      newContentState = convertFromRaw(formatParsed)
-    } else {
-      newContentState = convertFromRaw(contentParsed)
+
+    if(props.state.nannyEditor.editor === 'configuration') {
+      let nannyEditor = props.state.nannyEditor
+      let transformerEditor = props.state.transformerEditor
+      let contentParsed = JSON.parse(nannyEditor.rawContent)
+      let newContentState;
+      if (transformerEditor.isValid && nannyEditor.isValid) {
+        let transformer = JSON.parse(transformerEditor.textContent)
+        let formatted = format(nannyEditor.rawContent, transformer)
+        let transformedContent = JSON.parse(formatted)
+        let formatParsed = Object.assign({}, contentParsed, transformedContent)
+        newContentState = convertFromRaw(formatParsed)
+      } else {
+        newContentState = convertFromRaw(contentParsed)
+      }
+      return newContentState;
     }
-    return newContentState;
+    else {
+      let nannyEditor = props.state.nannyEditor;
+      let contentParsed = JSON.parse(nannyEditor.rawContent);
+      let parsedManifest = JSON.parse(nannyEditor.rawText);
+      if(parsedManifest.isValid && nannyEditor.rawContent.isValid) {
+
+      } else {
+
+      }
+    }
   }
 
   render() {
