@@ -1,6 +1,9 @@
 import * as ActionTypes from '../constants/actionTypes'
 import profile from './profile';
+import auth from './auth'
 import nannyEditor from './nannyEditor';
+import manifests from './manifests';
+import configurations from './configurations';
 import { combineReducers } from 'redux'
 
 function registerResponse (state, response) {
@@ -13,22 +16,6 @@ function registeringRequest (state) {
   return Object.assign({}, state, {
     isFetching: true
   })
-}
-function loginResponse (state, response) {
-  return Object.assign({}, state, {
-    auth: { token: response.token, authenticated: true },
-    isFetching: false
-  })
-}
-function loginRequest (state) {
-  return Object.assign({}, state, {
-    isFetching: true
-  })
-}
-
-function logout(state) {
-  return Object.assign({},state, {auth:{ token: '', authenticated: false }});
-  
 }
 
 function setConfigContent (state, configEditor) {
@@ -45,35 +32,6 @@ function setConfigContent (state, configEditor) {
 function setTransformerContent (state, transformerEditor) {
   return Object.assign({}, state, { transformerEditor: transformerEditor })
 }
-
-function loadConfigurations (state, configurations) {
-  let mapConfigurations = configurations.map(configuration => {
-    return {
-      id: configuration._id,
-      title: configuration.title,
-      configuration: configuration.configuration,
-      raw: configuration.raw
-    }
-  })
-  return Object.assign({}, state, {
-    configurations: mapConfigurations
-  })
-}
-
-function loadManifests (state, manifests) {
-  let mapManifests = manifests.map(manifest => {
-    return {
-      id: manifest.id,
-      title: manifest.title,
-      manifest: manifest.manifest,
-      raw: manifest.raw
-    }
-  })
-  return Object.assign({}, state, {
-    manifests: mapManifests
-  })
-}
-
 function loadSelection(state, selection ) {
   var configuration = state.configurations[selection];
   return Object.assign({}, state, { configEditor: {
@@ -86,16 +44,12 @@ function loadSelection(state, selection ) {
       id: configuration.id
   }});
 }
-
 function setError(state, error) {
   return Object.assign({}, state, {error:{message:error.message, open:error.open}});
 }
 
 function reducer (state = {
-    configEditor: { editorState: null, rawContent: '', textContent: '', isValid:false, currentSelection: -1, title: '', id:''},
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
-    configurations: [],
-    manifests: [],
     isFetching: false,
     auth: { token: '', authenticated: false },
     error: { message:'', open:false }
@@ -105,22 +59,12 @@ function reducer (state = {
       return registeringRequest(state)
     case ActionTypes.REGISTER_RESPONSE:
       return registerResponse(state, action.response)
-    case ActionTypes.LOGIN_REQUEST:
-      return loginRequest(state)
-    case ActionTypes.LOGIN_RESPONSE:
-      return loginResponse(state, action.response)
     case ActionTypes.SET_EDITOR_CONTENT:
       return setConfigContent(state, action.configEditor)
     case ActionTypes.SET_TRANSFORMER_CONTENT:
       return setTransformerContent(state, action.transformerEditor)
-    case ActionTypes.LOAD_CONFIGURATIONS:
-      return loadConfigurations(state, action.configurations)
-    case ActionTypes.LOAD_MANIFESTS:
-      return loadManifests(state, action.manifests);
     case ActionTypes.SET_ERROR:
       return setError(state, action.error);
-    case ActionTypes.LOGOUT:
-      return logout(state);
     default:
       return state
   }
@@ -129,5 +73,8 @@ function reducer (state = {
 exports.module = combineReducers({
   reducer,
   profile,
-  nannyEditor
+  nannyEditor,
+  manifests,
+  auth,
+  configurations
 });

@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const manifest_1 = require("../models/manifest");
 class ManifestHandler {
-    create() {
+    create(manifest) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield manifest_1.Manifest.create({ thing: "thing" });
+            return yield manifest_1.Manifest.create(manifest);
         });
     }
     getAll() {

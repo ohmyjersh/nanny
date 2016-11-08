@@ -23,13 +23,14 @@ export function loginRequest() {
 }
 export function loginResponse(response) {
     return {
-        type: ActionTypes.LOGIN_RESPONSE,
+        type: ActionTypes.LOGIN,
         response: response
     }
 }
 
 export function logOut() {
     cookie.remove('token', { path: '/' });
+    browserHistory.push('/');
     return {
         type: ActionTypes.LOGOUT
     }

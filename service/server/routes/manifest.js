@@ -12,7 +12,15 @@ const Manifest_1 = require("../handlers/Manifest");
 var jwt = require('express-jwt');
 var auth = jwt({
     secret: 'SecretKey',
-    userProperty: 'payload'
+    getToken: function fromHeaderOrQuerystring(req) {
+        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            return req.headers.authorization.split(' ')[1];
+        }
+        else if (req.query && req.query.token) {
+            return req.query.token;
+        }
+        return null;
+    }
 });
 class ManifestRouter {
     constructor() {
@@ -20,12 +28,22 @@ class ManifestRouter {
         this._manifestHandler = new Manifest_1.default();
     }
     getRouter() {
-        this.router.post("/Manifest", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.post("/manifest", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            console.log('create manifest');
             yield this._manifestHandler.create(request.body);
             response.status(200);
         }));
-        this.router.get("/Manifest", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            response.json("hi");
+        this.router.get("/manifest", auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            var result = yield this._manifestHandler.getAll();
+            response.send(result);
+        }));
+        this.router.put('/configuration/:id', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            yield this._manifestHandler.update(request.params.id, request.body);
+            response.status(200).send();
+        }));
+        this.router.delete('/configuration/:id', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            yield this._manifestHandler.delete(request.params.id);
+            response.status(200).send();
         }));
         return this.router;
     }

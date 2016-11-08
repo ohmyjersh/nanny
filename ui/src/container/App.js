@@ -28,8 +28,10 @@ const muiTheme = getMuiTheme({
 
 class App extends Component {
   constructor (props) {
-    super(props)
-    this.state = {drawerOpen: false, popOpen:false};
+    super(props);
+    this.state = {
+      popOpen:false
+    }
   }
 
   handleToggle = () => this.setState({drawerOpen: !this.state.open});
@@ -49,10 +51,6 @@ class App extends Component {
       popOpen: false,
     });
   };
-
-  handleLogOut() {
-
-  }
 
   closeSnackbar = () => {
     this.props.actions.app.setError({message:'', open:false});
@@ -90,11 +88,6 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>        
-        <Drawer docked={false} open={this.state.drawerOpen} onRequestChange={(open) => this.setState({drawerOpen:open})}>
-        <Subheader>Dashboards</Subheader>
-          <MenuItem>Configurations</MenuItem>
-          <MenuItem>Manifests</MenuItem>
-        </Drawer>
         <Snackbar
           open={this.props.state.error.open}
           message={this.props.state.error.message}
@@ -117,11 +110,11 @@ function mapStateToProps (state) {
   return { state: {
       configEditor: state.module.reducer.configEditor,
       transformerEditor: state.module.reducer.transformerEditor,
-      configurations: state.module.reducer.configurations,
-      manifests: state.module.reducer.manifests,
+      configurations: state.module.configurations,
+      manifests: state.module.manifests,
       profile: state.module.profile,
       isFetching: state.module.isFetching,
-      auth: state.module.reducer.auth,
+      auth: state.module.auth,
       error: state.module.reducer.error,
       nannyEditor: state.module.nannyEditor
     }

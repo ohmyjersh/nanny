@@ -1,20 +1,19 @@
 import * as ActionTypes from '../constants/actionTypes'
 
 function setNannyEditor(state, editor, content = initialState(editor)) {
-    return Object.assign({}, state, content, {editor:editor});
+    return Object.assign({}, state, content, {editor:editor, currentSelection: -1});
 }
 
 function loadSelection(state, selection, editor, loaded) {
   let selected = loaded[selection];
-    console.log(selected);
-  var obj = Object.assign({}, state, {
+  return Object.assign({}, state, {
+      id:selected.id,
       rawContent:selected.raw,
       textContent: selected.configuration,
       title:selected.title,
-      editor:editor
+      editor:editor,
+      currentSelection:selection
     });
-  console.log(obj);
-  return obj;
 }
 
 function setTitle (state, title) {

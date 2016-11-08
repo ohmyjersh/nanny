@@ -25,6 +25,7 @@ export function createManifest(auth, manifest) {
                 if (response.status !== 200) {
                     console.log(response);
                 }
+                console.log('got 200');
                 return dispatch(getManifests(auth));
             })
     };
@@ -32,7 +33,6 @@ export function createManifest(auth, manifest) {
 
 export function updateManifest(auth, manifest) {
     return dispatch => {
-        //dispatch(loginRequest())
         return fetch(`${Config.API_HOST}/manifest/${manifest.id}`,
             {
                 method: 'PUT',
@@ -55,7 +55,6 @@ export function updateManifest(auth, manifest) {
 
 export function getManifests(auth) {
     return dispatch => {
-        //dispatch(registerRequest())
         return fetch(`${Config.API_HOST}/manifest`,
             {
                 method: 'GET',
@@ -82,7 +81,6 @@ export function getManifests(auth) {
 export function deleteManifest(auth, id) {
     console.log('delete');
     return dispatch => {
-        //dispatch(loginRequest())
         return fetch(`${Config.API_HOST}/manifest/${id}`,
             {
                 method: 'DELETE',

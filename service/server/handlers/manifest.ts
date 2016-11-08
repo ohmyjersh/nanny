@@ -1,7 +1,7 @@
 import { Manifest } from "../models/manifest";
 export default class ManifestHandler {
-    async create() {
-        return await Manifest.create({thing:"thing"});
+    async create(manifest:Object) {
+        return await Manifest.create(manifest);
     }
     async getAll() {
         return await Manifest.find();

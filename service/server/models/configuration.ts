@@ -4,7 +4,7 @@ import { mongoose } from "../config/db";
 interface IConfiguration extends mongoose.Document {
     title: string;
     configuration: string;
-    raw: string
+    raw: string;
 }
 
 export interface IConfigurationModel extends IConfiguration, mongoose.Document  {
