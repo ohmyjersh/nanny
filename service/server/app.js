@@ -10,6 +10,11 @@ app.use(body_parser_1.json());
 app.use(body_parser_1.urlencoded({
     extended: true
 }));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.get("/", (request, response) => {
     response.json({
         name: "Express application"

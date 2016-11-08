@@ -7,12 +7,12 @@ import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { AppContainer } from './container/App';
 import RequireAuth from './components/auth/Authentication';
-import Registration from './components/registration/registration';
+import Registration from './components/auth/registration';
 import AccountManagement from './components/AccountManagement/AccountManagement';
 import Invite from './components/AccountManagement/Invite';
 import Users from './components/AccountManagement/Users';
 import Profile from './components/Profile/Profile'
-import Login from './components/login/login';
+import Login from './components/auth/login';
 import Actions from './actions/index';
 import NannyDashboard from './components/Dashboard/NannyDashboard';
 import injectTapEventPlugin from 'react-tap-event-plugin';
