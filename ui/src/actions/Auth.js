@@ -1,6 +1,7 @@
 import * as ActionTypes from '../constants/actionTypes';
 import * as Config from "../constants/config";
 import cookie from 'react-cookie';
+import { Router, browserHistory } from 'react-router';
 
 export function registerRequest() {
     return {
@@ -35,7 +36,6 @@ export function logOut() {
 }
 
 export function register(register) {
-    console.log(register);
     return dispatch => {
         dispatch(registerRequest())
         return fetch(`${Config.API_HOST}/authentication/register`,
@@ -91,6 +91,7 @@ export function login(login) {
             .then((json) => {
                 cookie.save('token', json.token, { path: '/' });
                 dispatch(loginResponse(json));
+                return browserHistory.push('/nannydashboard');
                 //window.location.href = 'http://localhost:3000/dashboard';
             })
     };

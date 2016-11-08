@@ -75,12 +75,12 @@ class NannyToolbar extends React.Component {
       if(editor === 'configuration')
       {
         this.setState({configurationValue:value});
-        this.props.actions.app.loadSelection(value, this.props.state.configurations);
+        this.props.actions.nannyEditor.LoadSelection(value, editor, this.props.state.configurations);
       }
       if(editor === 'manifest')
       {
         this.setState({manifestValue:value});
-        this.props.actions.app.loadSelection(value, this.props.state.manifests);
+        this.props.actions.nannyEditor.loadSelection(value, editor, this.props.state.manifests);
       }
     }
   }

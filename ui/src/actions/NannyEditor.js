@@ -8,10 +8,11 @@ export function SetNannyEditor(editor, content) {
     }
 }
 
-export function LoadSelection(selection, editor) {
+export function LoadSelection(selection, editor, loaded) {
     return {
         type: ActionTypes.LOAD_SELECTION,
         selection,
-        editor
+        editor,
+        loaded
     }
 }

@@ -41,7 +41,8 @@ const history = syncHistoryWithStore(browserHistory, store)
 const token = cookie.load('token');
 if (token) {
   // Update application state. User has token and is probably authenticated
-  store.dispatch(Actions.Auth.loginResponse({token:token}));
+store.dispatch(Actions.Auth.loginResponse({token:token}));
+  browserHistory.push('nannydashboard');
 }
 
 

@@ -78,7 +78,7 @@ class NannyDashboard extends Component {
           { this.props.state.nannyEditor.editor == 'configuration' ? <FlatButton label='Transformer Editor' onTouchTap={(e) => this.updateEditor(e, 'transformer')} /> : null }
           <FlatButton label='Preview' onTouchTap={(e) => this.updateEditor(e, 'preview')} />
         </Toolbar>
-        <TextField value={this.props.state.configEditor.title} hintText='Title' style={{'width': widthProps, 'paddingLeft':'16px'}} onChange={(e) => this.setTitle(e)} />
+        <TextField value={this.props.state.nannyEditor.title} hintText='Title' style={{'width': widthProps, 'paddingLeft':'16px'}} onChange={(e) => this.setTitle(e)} />
         <div className='dashboard'>
           {this.state.editors.nanny ?
              <NannyEditor {...this.props} editorSize={widthProps} /> : null}

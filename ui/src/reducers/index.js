@@ -46,18 +46,6 @@ function setTransformerContent (state, transformerEditor) {
   return Object.assign({}, state, { transformerEditor: transformerEditor })
 }
 
-function setTitle (state, title) {
-  return Object.assign({}, state, { configEditor: {
-      rawContent: state.configEditor.rawContent,
-      textContent: state.configEditor.textContent,
-      editorState: state.configEditor.editorState,
-      title: title,
-      currentSelection: state.configEditor.currentSelection,
-      isValid: state.configEditor.isValid,
-      id: state.configEditor.id
-  }})
-}
-
 function loadConfigurations (state, configurations) {
   let mapConfigurations = configurations.map(configuration => {
     return {
@@ -129,10 +117,6 @@ function reducer (state = {
       return loadConfigurations(state, action.configurations)
     case ActionTypes.LOAD_MANIFESTS:
       return loadManifests(state, action.manifests);
-    case ActionTypes.SET_TITLE:
-      return setTitle(state, action.title)
-    case ActionTypes.LOAD_SELECTION:
-      return loadSelection(state, action.selection);
     case ActionTypes.SET_ERROR:
       return setError(state, action.error);
     case ActionTypes.LOGOUT:
