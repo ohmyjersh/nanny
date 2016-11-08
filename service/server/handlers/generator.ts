@@ -82,7 +82,6 @@ export default class GeneratorHandler {
     }
 
     public transformConfigs(configurations: Object, transformer: Object) {
-
         for (let configuration in configurations) {
             let config = {};
             for (let key in configurations[configuration]) {
@@ -92,6 +91,7 @@ export default class GeneratorHandler {
         }
         return configurations;
     }
+
     private addValidationErrors(configs, validationErrors) {
         return Object.assign(configs, validationErrors);
     }

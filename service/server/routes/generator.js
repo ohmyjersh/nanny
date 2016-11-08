@@ -24,7 +24,7 @@ class GeneratorRouter {
         this.router.post("/configuration/generator", (request, response) => __awaiter(this, void 0, void 0, function* () {
             if (utils_1.default.isNullOrUndefined(request.body.manifest) && utils_1.default.isNullOrUndefined(request.body.configurations))
                 response.status(400).json({ error: "Need manifest or configuration defined" });
-            var configurations = yield this._generatorHandler.configuration();
+            var configurations = yield this._generatorHandler.generateConfiguration(request.body.manifest, request.body.configurations, request.body.transformers, request.body.options);
             response.status(200).json(configurations);
         }));
         return this.router;
