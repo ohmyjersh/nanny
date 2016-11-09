@@ -8,11 +8,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { deepOrange500 } from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
-import Drawer from 'material-ui/Drawer';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import Subheader from 'material-ui/Subheader';
 import Snackbar from 'material-ui/Snackbar';
 
 const muiTheme = getMuiTheme({

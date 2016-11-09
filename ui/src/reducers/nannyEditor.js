@@ -1,5 +1,18 @@
 import * as ActionTypes from '../constants/actionTypes'
 
+const initialState = (editor = '') => {
+    return {
+        id: '',
+        currentSelection: -1,
+        editorState: '',
+        rawContent: '',
+        textContent: '',
+        isValid: true,
+        title: '',
+        editor: editor
+    }
+};
+
 function setNannyEditor(state, editor, content = initialState(editor)) {
     return Object.assign({}, state, content, {editor:editor, currentSelection: -1});
 }
@@ -19,20 +32,6 @@ function loadSelection(state, selection, editor, loaded) {
 function setTitle (state, title) {
   return Object.assign({}, state, {title: title})
 }
-
-
-export const initialState = (editor = '') => {
-    return {
-        id: '',
-        currentSelection: -1,
-        editorState: '',
-        rawContent: '',
-        textContent: '',
-        isValid: true,
-        title: '',
-        editor: editor
-    }
-};
 
 export default function (state = initialState('configuration'), action) {
     switch (action.type) {

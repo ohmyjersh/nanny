@@ -1,10 +1,5 @@
 import * as ActionTypes from '../constants/actionTypes'
 
-function loadManifests(state, manifests) {
-    console.log('load manifests');
-    return Object.assign(manifests);
-}
-
 function loadManifests (state, manifests) {
   let mapManifests = manifests.map(manifest => {
     return {

@@ -18,32 +18,10 @@ function registeringRequest (state) {
   })
 }
 
-function setConfigContent (state, configEditor) {
-  return Object.assign({}, state, { configEditor: {
-      rawContent: configEditor.rawContent,
-      textContent: configEditor.textContent,
-      editorState: configEditor.editorState,
-      title: state.configEditor.title,
-      currentSelection: state.configEditor.currentSelection,
-      isValid: configEditor.isValid,
-      id: configEditor.id
-  }})
-}
 function setTransformerContent (state, transformerEditor) {
   return Object.assign({}, state, { transformerEditor: transformerEditor })
 }
-function loadSelection(state, selection ) {
-  var configuration = state.configurations[selection];
-  return Object.assign({}, state, { configEditor: {
-      rawContent: configuration.raw,
-      textContent: configuration.configuration,
-      editorState: state.configEditor.editorState,
-      title: configuration.title,
-      currentSelection: selection,
-      isValid:false,
-      id: configuration.id
-  }});
-}
+
 function setError(state, error) {
   return Object.assign({}, state, {error:{message:error.message, open:error.open}});
 }
@@ -59,8 +37,6 @@ function reducer (state = {
       return registeringRequest(state)
     case ActionTypes.REGISTER_RESPONSE:
       return registerResponse(state, action.response)
-    case ActionTypes.SET_EDITOR_CONTENT:
-      return setConfigContent(state, action.configEditor)
     case ActionTypes.SET_TRANSFORMER_CONTENT:
       return setTransformerContent(state, action.transformerEditor)
     case ActionTypes.SET_ERROR:

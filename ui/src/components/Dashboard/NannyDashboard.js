@@ -24,7 +24,7 @@ class NannyDashboard extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if(this.props != newProps) {
+    if(this.props !== newProps) {
       this._setEditors(newProps.state.nannyEditor.editor);
     }
   }
@@ -75,7 +75,7 @@ class NannyDashboard extends Component {
         <NannyToolbar {...this.props}/>
         <Toolbar style={{'height': '35px'}}>
           <FlatButton label={`${this.props.state.nannyEditor.editor.capitalize()} Editor`} onTouchTap={(e) => this.updateEditor(e, 'nanny')} />
-          { this.props.state.nannyEditor.editor == 'configuration' ? <FlatButton label='Transformer Editor' onTouchTap={(e) => this.updateEditor(e, 'transformer')} /> : null }
+          { this.props.state.nannyEditor.editor === 'configuration' ? <FlatButton label='Transformer Editor' onTouchTap={(e) => this.updateEditor(e, 'transformer')} /> : null }
           <FlatButton label='Preview' onTouchTap={(e) => this.updateEditor(e, 'preview')} />
         </Toolbar>
         <TextField value={this.props.state.nannyEditor.title} hintText='Title' style={{'width': widthProps, 'paddingLeft':'16px'}} onChange={(e) => this.setTitle(e)} />

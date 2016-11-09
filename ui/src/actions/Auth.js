@@ -1,7 +1,7 @@
 import * as ActionTypes from '../constants/actionTypes';
 import * as Config from "../constants/config";
 import cookie from 'react-cookie';
-import { Router, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 
 export function registerRequest() {
     return {

@@ -10,8 +10,8 @@ class NannyToolbar extends React.Component {
 
   constructor (props) {
     super(props)
-    var configurationValue = this.props.state.nannyEditor.editor ===  'configuration' ? this.props.state.nannyEditor.currentSelection : -1;
-    var manifestValue = this.props.state.nannyEditor.editor ===  'manifest' ? this.props.state.nannyEditor.currentSelection : -1;
+    var configurationValue = this.props.state.nannyEditor.editor ===  'configuration' ? this.props.state.nannyEditor.currentSelection : -2;
+    var manifestValue = this.props.state.nannyEditor.editor ===  'manifest' ? this.props.state.nannyEditor.currentSelection : -2;
     this.state = {
       configurationValue:configurationValue,
       manifestValue:manifestValue
@@ -88,22 +88,25 @@ class NannyToolbar extends React.Component {
 
   // set current selected configuration to reducer to set state of configuration
   _handleChange (event, index, value, editor) {
-
+    if(index === -2) {
+      return;
+    } else {
     if (value === -1) {
       return this._resetEditor(editor);
     }
     else {
       if(editor === 'configuration')
       {
-        this.setState({configurationValue:value});
+        this.setState({configurationValue:value, manifestValue: -2});
         this.props.actions.nannyEditor.LoadSelection(value, editor, this.props.state.configurations);
       }
       if(editor === 'manifest')
       {
-        this.setState({manifestValue:value});
+        this.setState({manifestValue:value, configurationValue: -2});
         this.props.actions.nannyEditor.loadSelection(value, editor, this.props.state.manifests);
       }
     }
+   }
   }
 
   render () {
@@ -117,10 +120,12 @@ class NannyToolbar extends React.Component {
       <Toolbar>
         <ToolbarGroup>
           <DropDownMenu value={this.state.configurationValue} onChange={(e, index, value) => this.handleChange(e, index, value, 'configuration')}>
+            <MenuItem key={-2} value={-2} primaryText='Configurations' />
             <MenuItem key={-1} value={-1} primaryText='New Configuration' />
             {configurationItems}
           </DropDownMenu>
           <DropDownMenu value={this.state.manifestValue} onChange={(e, index, value) => this.handleChange(e, index, value, 'manifest')}>
+            <MenuItem key={-2} value={-2} primaryText='Manifests' />
             <MenuItem key={-1} value={-1} primaryText='New Manifest' />
             {manifestItems}
           </DropDownMenu>
