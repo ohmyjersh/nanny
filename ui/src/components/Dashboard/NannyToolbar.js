@@ -23,7 +23,7 @@ class NannyToolbar extends React.Component {
     this.handleChange = this._handleChange
   }
 
-  _clone () {
+  _clone (editor) {
     if(this.props.state.nannyEditor.id) {
         this.props.actions.nannyEditor.SetNannyEditor(this.props.state.nannyEditor.editor, mapEditorContent(
           this.props.state.nannyEditor.editorState,
@@ -31,20 +31,21 @@ class NannyToolbar extends React.Component {
           this.props.state.nannyEditor.textContent,
           ''
         ));
+      editor === 'manifest' ? this.setState({manifestValue: -1}) : this.setState({configurationValue:-1});
     }
   }
 
-  _save () {
+  _save (editor) {
     if (this.props.state.nannyEditor.isValid) {
       if (!this.props.state.nannyEditor.id) {
-       if(this.props.state.nannyEditor.editor === 'configuration') {
+       if(editor === 'configuration') {
         this.props.actions.configuration.createConfiguration(this.props.state.auth, {
           title: this.props.state.nannyEditor.title,
           configuration: this.props.state.nannyEditor.textContent,
           raw: this.props.state.nannyEditor.rawContent
         });
         }
-        if(this.props.state.nannyEditor.editor === 'manifest'){
+        if(editor === 'manifest'){
         this.props.actions.manifest.createManifest(this.props.state.auth, {
           title: this.props.state.nannyEditor.title,
           manifest: this.props.state.nannyEditor.textContent,
@@ -52,7 +53,7 @@ class NannyToolbar extends React.Component {
         });
         }
       } else {
-       if(this.props.state.nannyEditor.editor === 'configuration') {
+       if(editor === 'configuration') {
         this.props.actions.configuration.updateConfiguration(this.props.state.auth, {
           id:this.props.state.nannyEditor.id,
           title: this.props.state.nannyEditor.title,
@@ -60,7 +61,7 @@ class NannyToolbar extends React.Component {
           raw: this.props.state.nannyEditor.rawContent
         })
        }
-      if(this.props.state.nannyEditor.editor === 'manifest'){ 
+      if(editor === 'manifest'){ 
           this.props.actions.manifest.updateManifest(this.props.state.auth, {
           id:this.props.state.nannyEditor.id,
           title: this.props.state.nannyEditor.title,
@@ -78,6 +79,7 @@ class NannyToolbar extends React.Component {
         initNewEditor(this.props.actions.nannyEditor.SetNannyEditor, editor);
         initNewTransformer(this.props.actions.app.setTransformerContent);
         this.props.actions.app.setTitle('');
+        editor === 'manifest' ? this.setState({manifestValue: -1}) : this.setState({configurationValue:-1});
   }
 
   _delete (editor) {
@@ -103,7 +105,7 @@ class NannyToolbar extends React.Component {
       if(editor === 'manifest')
       {
         this.setState({manifestValue:value, configurationValue: -2});
-        this.props.actions.nannyEditor.loadSelection(value, editor, this.props.state.manifests);
+        this.props.actions.nannyEditor.LoadSelection(value, editor, this.props.state.manifests);
       }
     }
    }
@@ -133,9 +135,9 @@ class NannyToolbar extends React.Component {
         <ToolbarGroup>
           <ToolbarSeparator />
           <RaisedButton label='Delete' secondary={true} disabled={this.props.state.nannyEditor.id ? false : true } onTouchTap={(e) => this.delete(this.props.state.nannyEditor.editor)}/>
-          <RaisedButton label='Clone' secondary={true} disabled={this.props.state.nannyEditor.id ? false : true } onTouchTap={(e) => this.clone()}/>
+          <RaisedButton label='Clone' secondary={true} disabled={this.props.state.nannyEditor.id ? false : true } onTouchTap={(e) => this.clone(this.props.state.nannyEditor.editor)}/>
           <RaisedButton label='Reset' primary={false} disabled={this.props.state.nannyEditor.id || !this.props.state.nannyEditor.title ? true : false} onTouchTap={(e) => this.resetEditor(this.props.state.nannyEditor.editor)} />
-          <RaisedButton label={this.props.state.nannyEditor.id ? 'Update' :'Save'} disabled={this.props.state.nannyEditor.title ? false : true} primary={true} onTouchTap={(e) => this.save()} />
+          <RaisedButton label={this.props.state.nannyEditor.id ? 'Update' :'Save'} disabled={this.props.state.nannyEditor.title ? false : true} primary={true} onTouchTap={(e) => this.save(this.props.state.nannyEditor.editor)} />
         </ToolbarGroup>
       </Toolbar>
     )

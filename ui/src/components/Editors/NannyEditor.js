@@ -93,7 +93,6 @@ class nannyEditor extends Component {
     } else {
       this.setState({ inlineToolbar: { show: false } })
     }
-    console.log(JSON.stringify(convertToRaw(currentContent)));
 
     this.props.actions.nannyEditor.SetNannyEditor(
       this.props.state.nannyEditor.editor,
