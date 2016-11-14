@@ -69,7 +69,7 @@ class App extends Component {
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
           onRequestClose={this.handleRequestClose}>
           <Menu>
-            <MenuItem primaryText="Profile" />
+            <Link to='settings'><MenuItem primaryText="Settings" /></Link>
             <MenuItem primaryText="Sign out" onTouchTap={(e) => this.props.actions.auth.logOut()} />
           </Menu>
         </Popover>

@@ -7,6 +7,7 @@ import { AppContainer } from './container/App';
 import RequireAuth from './components/auth/Authentication';
 import Registration from './components/auth/registration';
 import Login from './components/auth/login';
+import Settings from './components/Settings/Settings';
 import Actions from './actions/index';
 import NannyDashboard from './components/Dashboard/NannyDashboard';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -38,6 +39,7 @@ ReactDOM.render(
         {/* Auth */}
         <Route title='Registration' path='registration' component={Registration}/>
         <Route title='Login' path='login' component={Login}/>
+        <Route title='Settings' path='settings' component={Settings}/>
       </Route>
     </Router>
   </Provider>,

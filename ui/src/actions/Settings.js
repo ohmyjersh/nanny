@@ -1,6 +1,18 @@
 import * as ActionTypes from '../constants/actionTypes';
 import * as Config from "../constants/config";
 
+export function getUsersResponse() {
+
+ }
+
+ export function getUser() {
+     
+ }
+
+ export function deleteUser() {
+
+ }
+
 export function generateApiKeyResponse(response) {
     return {
         type: ActionTypes.GENERATE_APIKEY_RESPONSE,
