@@ -37,6 +37,7 @@ export function logOut() {
 }
 
 export function register(register) {
+    console.log(register);
     return dispatch => {
         dispatch(registerRequest())
         return fetch(`${Config.API_HOST}/authentication/register`,

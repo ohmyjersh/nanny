@@ -24,14 +24,15 @@ function setTransformerContent (state, transformerEditor) {
 }
 
 function setError(state, error) {
-  return Object.assign({}, state, {error:{message:error.message, open:error.open}});
+  console.log(error);
+  return Object.assign({}, state.error, {error:{message:error.message}});
 }
 
 function reducer (state = {
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
     isFetching: false,
     auth: { token: '', authenticated: false },
-    error: { message:'', open:false }
+    error: { message:''}
   } , action) {
   switch (action.type) {
     case ActionTypes.REGISTER_REQUEST:

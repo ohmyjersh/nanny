@@ -16,8 +16,8 @@ import {store} from './store'
 
 injectTapEventPlugin();
 
-
-
+// For invite, create session token that has a one time use, grab that token from the query string and pass to registration page.
+// cookie.save('from query string');
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
 

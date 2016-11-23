@@ -43,14 +43,13 @@ class App extends Component {
   };
 
   handleRequestClose = () => {
-    console.log('close');
     this.setState({
       popOpen: false,
     });
   };
 
   closeSnackbar = () => {
-    this.props.actions.app.setError({message:'', open:false});
+    this.props.actions.app.setError({message:''});
   };
 
   render () {
@@ -86,7 +85,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>        
         <Snackbar
-          open={this.props.state.error.open}
+          open={this.props.state.error === '' ? false : true}
           message={this.props.state.error.message}
           autoHideDuration={4000}
           onRequestClose={this.closeSnackbar}

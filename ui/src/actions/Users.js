@@ -8,6 +8,13 @@ export function getAllUsersResponse(users) {
     }
 }
 
+export function updateCreate(value) {
+    return {
+        type: ActionTypes.UPDATE_CREATE_USER,
+        value
+    }
+}
+
 export function getUsers(auth) {
     return dispatch => {
         return fetch(`${Config.API_HOST}/user`,
