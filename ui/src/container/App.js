@@ -32,8 +32,6 @@ class App extends Component {
     }
   }
 
-  handleToggle = () => this.setState({drawerOpen: !this.state.open});
-
   handleTouchTap = (event) => {
     // This prevents ghost click.
     event.preventDefault();
@@ -45,6 +43,7 @@ class App extends Component {
   };
 
   handleRequestClose = () => {
+    console.log('close');
     this.setState({
       popOpen: false,
     });
@@ -69,7 +68,7 @@ class App extends Component {
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
           onRequestClose={this.handleRequestClose}>
           <Menu>
-            <Link to='settings'><MenuItem primaryText="Settings" /></Link>
+            <Link to='settings'><MenuItem primaryText="Settings" onTouchTap={this.handleRequestClose} /></Link>
             <MenuItem primaryText="Sign out" onTouchTap={(e) => this.props.actions.auth.logOut()} />
           </Menu>
         </Popover>
@@ -95,8 +94,8 @@ class App extends Component {
           <AppBar 
           titleStyle={{textAlign: "center"}}
           title="nanny"
+          showMenuIconButton={false}
           iconElementRight={rightButtons} 
-          onLeftIconButtonTouchTap={this.handleToggle}
           style={{'width':'100%'}}/>
               {this.props.children && React.cloneElement(this.props.children, { ...this.props })}
         </div>
@@ -106,7 +105,6 @@ class App extends Component {
 }
 function mapStateToProps (state) {
   return { state: {
-      configEditor: state.module.reducer.configEditor,
       transformerEditor: state.module.reducer.transformerEditor,
       configurations: state.module.configurations,
       manifests: state.module.manifests,
@@ -114,7 +112,8 @@ function mapStateToProps (state) {
       isFetching: state.module.isFetching,
       auth: state.module.auth,
       error: state.module.reducer.error,
-      nannyEditor: state.module.nannyEditor
+      nannyEditor: state.module.nannyEditor,
+      users: state.module.users
     }
   }
 }
@@ -125,7 +124,8 @@ function mapDispatchToProps(dispatch) {
       app: bindActionCreators(Actions.App, dispatch),
       configuration: bindActionCreators(Actions.Configuration, dispatch),
       manifest: bindActionCreators(Actions.Manifest, dispatch),
-      nannyEditor: bindActionCreators(Actions.NannyEditor, dispatch)
+      nannyEditor: bindActionCreators(Actions.NannyEditor, dispatch),
+      users: bindActionCreators(Actions.Users, dispatch)
     }
   }
 }

@@ -13,7 +13,7 @@ export default class ApiKeys extends Component {
               <CardHeader>
                 <FlatButton label='Generate New ApiKey' primary={true} />
               </CardHeader>
-              <Table>
+              <Table multiSelectable={true}>
                 <TableHeader>
                   <TableRow>
                     <TableHeaderColumn colSpan='3' tooltip='ApiKeys' style={{textAlign: 'center'}}>
