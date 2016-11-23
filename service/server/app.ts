@@ -5,6 +5,7 @@ import { GeneratorRouter } from "./routes/generator";
 import { ConfigurationRouter } from "./routes/configuration";
 import { ManifestRouter } from "./routes/manifest";
 import { AuthenticationRouter } from "./routes/authentication";
+import { UserRouter } from "./routes/User";
 const app: express.Application = express();
 
 app.use(json());
@@ -32,10 +33,13 @@ app.use((err: Error & { status: number }, request: express.Request, response: ex
         error: "Server error"
     })
 });
-app.use("/api", new AuthenticationRouter().getRouter());
-app.use("/api", new ConfigurationRouter().getRouter());
-app.use("/api", new ManifestRouter().getRouter());
-app.use("/api", new GeneratorRouter().getRouter());
+
+app.use("/api", new AuthenticationRouter().getRouter(), 
+                new ConfigurationRouter().getRouter(),
+                new ManifestRouter().getRouter(),
+                new GeneratorRouter().getRouter(),
+                new UserRouter().getRouter());
+                
 const server: http.Server = app.listen(3003);
 
 export { server };

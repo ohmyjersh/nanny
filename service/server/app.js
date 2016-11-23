@@ -5,6 +5,7 @@ const generator_1 = require("./routes/generator");
 const configuration_1 = require("./routes/configuration");
 const manifest_1 = require("./routes/manifest");
 const authentication_1 = require("./routes/authentication");
+const User_1 = require("./routes/User");
 const app = express();
 app.use(body_parser_1.json());
 app.use(body_parser_1.urlencoded({
@@ -27,10 +28,7 @@ app.use((err, request, response, next) => {
         error: "Server error"
     });
 });
-app.use("/api", new authentication_1.AuthenticationRouter().getRouter());
-app.use("/api", new configuration_1.ConfigurationRouter().getRouter());
-app.use("/api", new manifest_1.ManifestRouter().getRouter());
-app.use("/api", new generator_1.GeneratorRouter().getRouter());
+app.use("/api", new authentication_1.AuthenticationRouter().getRouter(), new configuration_1.ConfigurationRouter().getRouter(), new manifest_1.ManifestRouter().getRouter(), new generator_1.GeneratorRouter().getRouter(), new User_1.UserRouter().getRouter());
 const server = app.listen(3003);
 exports.server = server;
 //# sourceMappingURL=app.js.map
