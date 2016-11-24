@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
+import {CardHeader } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
-// dialog => move to own file + bring in flat button
 import Dialog from 'material-ui/Dialog';
 
-export default class CreateUser extends React.Component {
+export default class CreateUser extends Component {
     constructor(props) {
         super(props);
           this.state = {

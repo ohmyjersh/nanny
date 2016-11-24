@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
+import { Card } from 'material-ui/Card'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import CreateUser from './CreateUser';
-import TextField from 'material-ui/TextField'
-import FlatButton from 'material-ui/FlatButton'
-// dialog => move to own file + bring in flat button
-import Dialog from 'material-ui/Dialog';
 
 export default class Users extends Component {
   componentWillMount () {
@@ -18,7 +14,7 @@ export default class Users extends Component {
               <Table multiSelectable={true}>
                 <TableHeader>
                   <TableRow>
-                    <TableHeaderColumn colSpan='3' tooltip='Users' style={{textAlign: 'center'}}>
+                    <TableHeaderColumn colSpan='3' tooltip='Users' style={{teusertAlign: 'center'}}>
                       Users
                     </TableHeaderColumn>
                   </TableRow>
@@ -38,22 +34,22 @@ export default class Users extends Component {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                {this.props.state.users.users.map(x => 
-               <TableRow>
-                    <TableRowColumn>
-                      {[x._id]}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                      {x.username}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                      {x.role}
-                    </TableRowColumn>
-                    <TableRowColumn>
-                      {x.createdAt}
-                    </TableRowColumn>
-                  </TableRow>
-                )}
+                {this.props.state.users.users.map(user => 
+                    <TableRow>
+                          <TableRowColumn>
+                            {[user._id]}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                            {user.username}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                            {user.role}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                            {user.createdAt}
+                          </TableRowColumn>
+                        </TableRow>
+                    )}
                 </TableBody>
               </Table>
             </Card>)

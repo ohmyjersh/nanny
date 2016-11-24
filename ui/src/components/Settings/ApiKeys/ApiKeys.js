@@ -4,9 +4,6 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import FlatButton from 'material-ui/FlatButton'
 
 export default class ApiKeys extends Component {
-  constructor (props) {
-    super(props)
-  }
   componentWillMount () {}
   render () {
     return (<Card>

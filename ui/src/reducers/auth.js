@@ -5,7 +5,7 @@ function logout(state) {
 }
 
 function login (state, response) {
-  return Object.assign({}, state, { token: response.token, authenticated: true });
+  return Object.assign({}, state, {token: response.token, authenticated: true});
 }
 
 export default function(state = {}, action) {

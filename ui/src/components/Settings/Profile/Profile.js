@@ -1,21 +1,18 @@
 import React, { Component } from 'react'
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
+import { Card, CardHeader } from 'material-ui/Card'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import TextField from 'material-ui/TextField'
 
-export default class Profile extends React.Component {
-  constructor (props) {
-    super(props)
-  }
+export default class Profile extends Component {
   componentWillMount () {}
   render () {
     return (<div>
               <Card>
+              <CardHeader>
                 <TextField />
                 <br />
                 <TextField />
-              </Card>
-              <Card>
+              </CardHeader>
                 <Table>
                   <TableHeader>
                     <TableRow>
