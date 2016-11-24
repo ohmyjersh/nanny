@@ -49,7 +49,7 @@ class App extends Component {
   };
 
   closeSnackbar = () => {
-    this.props.actions.app.setError({message:''});
+    this.props.actions.app.setError({message:'',open:false});
   };
 
   render () {
@@ -85,7 +85,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className='App'>        
         <Snackbar
-          open={this.props.state.error === '' ? false : true}
+          open={this.props.state.error.open}
           message={this.props.state.error.message}
           autoHideDuration={4000}
           onRequestClose={this.closeSnackbar}
@@ -103,6 +103,7 @@ class App extends Component {
   }
 }
 function mapStateToProps (state) {
+  console.log(state);
   return { state: {
       transformerEditor: state.module.reducer.transformerEditor,
       configurations: state.module.configurations,

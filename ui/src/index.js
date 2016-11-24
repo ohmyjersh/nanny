@@ -25,7 +25,7 @@ const token = cookie.load('token');
 if (token) {
   // Update application state. User has token and is probably authenticated
 store.dispatch(Actions.Auth.loginResponse({token:token}));
-  browserHistory.push('nannydashboard');
+  browserHistory.push('dashboard');
 }
 
 
@@ -35,7 +35,7 @@ ReactDOM.render(
     <Router history={history}>
       <Route path="/" component={AppContainer}>
       {/* Dashboard */}
-        <Route title='NannyDashboard' path='nannydashboard' component={NannyDashboard} />
+        <Route title='NannyDashboard' path='dashboard' component={NannyDashboard} />
         {/* Auth */}
         <Route title='Registration' path='registration' component={Registration}/>
         <Route title='Login' path='login' component={Login}/>
