@@ -9,28 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const express_1 = require("express");
 const ApiKey_1 = require("../handlers/ApiKey");
-var jwt = require('express-jwt');
-var auth = jwt({
-    secret: 'SecretKey',
-    getToken: function fromHeaderOrQuerystring(req) {
-        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-            return req.headers.authorization.split(' ')[1];
-        }
-        else if (req.query && req.query.token) {
-            return req.query.token;
-        }
-        return null;
-    }
-});
+const tokenValidator_1 = require("../validators/tokenValidator");
 class ApiKeyRouter {
     constructor() {
         this.router = express_1.Router();
         this._apiKeyHandler = new ApiKey_1.default();
     }
     getRouter() {
-        this.router.post('apikey', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.post('apikey', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            yield this._apiKeyHandler.create(request.body);
         }));
-        this.router.get('apikey', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.get('apikey/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        }));
+        this.router.get('apikey', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        }));
+        this.router.put('apikey/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        }));
+        this.router.delete('apikey/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        }));
+        // user api key routes
+        this.router.get('apikey/user/:userId', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            yield this._apiKeyHandler.getAllByUserId(request.params.userId);
         }));
         return this.router;
     }

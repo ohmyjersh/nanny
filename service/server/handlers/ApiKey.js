@@ -8,15 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const ApiKey_1 = require("../models/ApiKey");
+const utils_1 = require("../utils/utils");
 class ApiKeyHandler {
-    create(apiKey) {
+    create(apiKeyRequest) {
         return __awaiter(this, void 0, void 0, function* () {
+            let guid = utils_1.default.newGuid();
+            var encodedToken = new Buffer(guid).toString('base64');
+            var apiKey = Object.assign({}, apiKeyRequest, { apiKey: encodedToken });
             return yield ApiKey_1.ApiKey.create(apiKey);
         });
     }
-    getAll(account) {
+    getAllByUserId(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield ApiKey_1.ApiKey.find({ account: account });
+            return yield ApiKey_1.ApiKey.find({ userId: id });
+        });
+    }
+    getAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield ApiKey_1.ApiKey.find();
         });
     }
 }

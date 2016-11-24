@@ -1,16 +1,19 @@
 import {ApiKey} from '../models/ApiKey';
+import Util from "../utils/utils";
 
 export default class ApiKeyHandler {
-    async create(apiKey:Object) {
+    async create(apiKeyRequest:Object) {
+        let guid = Util.newGuid();
+        var encodedToken = new Buffer(guid).toString('base64');
+        var apiKey = Object.assign({},apiKeyRequest,{apiKey:encodedToken});
         return await ApiKey.create(apiKey);
-    }   
-
-    async getAll(account:String) {
-        return await ApiKey.find({account:account});
     }
-    // async getByUserName(id:string) {
-    //     return await ApiKey.findByUserName({
 
-    //     })
-    // }
+    async getAllByUserId(id:string) {
+        return await ApiKey.find({userId:id});
+    }
+
+    async getAll() {
+        return await ApiKey.find();
+    }
 }

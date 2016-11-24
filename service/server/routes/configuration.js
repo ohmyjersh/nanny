@@ -9,38 +9,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const express_1 = require("express");
 const configuration_1 = require("../handlers/configuration");
-var jwt = require('express-jwt');
-var auth = jwt({
-    secret: 'SecretKey',
-    getToken: function fromHeaderOrQuerystring(req) {
-        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-            return req.headers.authorization.split(' ')[1];
-        }
-        else if (req.query && req.query.token) {
-            return req.query.token;
-        }
-        return null;
-    }
-});
+const tokenValidator_1 = require("../validators/tokenValidator");
 class ConfigurationRouter {
     constructor() {
         this.router = express_1.Router();
         this._configurationHandler = new configuration_1.default();
     }
     getRouter() {
-        this.router.post('/configuration', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.post('/configuration', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             yield this._configurationHandler.create(request.body);
             response.status(200).send();
         }));
-        this.router.get('/configuration', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.get('/configuration', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             var result = yield this._configurationHandler.getAll();
             response.send(result);
         }));
-        this.router.put('/configuration/:id', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.put('/configuration/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             yield this._configurationHandler.update(request.params.id, request.body);
             response.status(200).send();
         }));
-        this.router.delete('/configuration/:id', auth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.delete('/configuration/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             yield this._configurationHandler.delete(request.params.id);
             response.status(200).send();
         }));

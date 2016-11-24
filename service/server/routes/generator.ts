@@ -1,11 +1,7 @@
 import { Router, Request, Response } from "express";
 import GeneratorHandler from "../handlers/generator";
 import Util from "../utils/utils";
-var jwt = require('express-jwt');
-var auth = jwt({
-    secret: 'SecretKey',
-    userProperty: 'payload'
-});
+import {apiKeyAuth} from "../validators/tokenValidator";
 
 export class GeneratorRouter {
     private _generatorHandler;

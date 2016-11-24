@@ -10,11 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const express_1 = require("express");
 const generator_1 = require("../handlers/generator");
 const utils_1 = require("../utils/utils");
-var jwt = require('express-jwt');
-var auth = jwt({
-    secret: 'SecretKey',
-    userProperty: 'payload'
-});
 class GeneratorRouter {
     constructor() {
         this.router = express_1.Router();
