@@ -5,6 +5,7 @@ import nannyEditor from './nannyEditor';
 import manifests from './manifests';
 import configurations from './configurations';
 import users from './users';
+import apiKeys from './apiKeys';
 import { combineReducers } from 'redux'
 
 function registerResponse (state, response) {
@@ -55,5 +56,6 @@ exports.module = combineReducers({
   manifests,
   auth,
   configurations,
-  users
+  users,
+  apiKeys
 });

@@ -103,7 +103,6 @@ class App extends Component {
   }
 }
 function mapStateToProps (state) {
-  console.log(state);
   return { state: {
       transformerEditor: state.module.reducer.transformerEditor,
       configurations: state.module.configurations,
@@ -113,7 +112,8 @@ function mapStateToProps (state) {
       auth: state.module.auth,
       error: state.module.reducer.error,
       nannyEditor: state.module.nannyEditor,
-      users: state.module.users
+      users: state.module.users,
+      apiKeys: state.module.apiKeys
     }
   }
 }
@@ -125,7 +125,8 @@ function mapDispatchToProps(dispatch) {
       configuration: bindActionCreators(Actions.Configuration, dispatch),
       manifest: bindActionCreators(Actions.Manifest, dispatch),
       nannyEditor: bindActionCreators(Actions.NannyEditor, dispatch),
-      users: bindActionCreators(Actions.Users, dispatch)
+      users: bindActionCreators(Actions.Users, dispatch),
+      apiKeys: bindActionCreators(Actions.ApiKeys, dispatch)
     }
   }
 }

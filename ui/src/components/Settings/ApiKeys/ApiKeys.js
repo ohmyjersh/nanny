@@ -4,12 +4,18 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import FlatButton from 'material-ui/FlatButton'
 
 export default class ApiKeys extends Component {
-  componentWillMount () {}
+  componentWillMount () {
+    this.props.actions.apiKeys.getUserApiKeys(this.props.state.auth, '123412342');
+  }
+    submit = () => {
+        this.props.actions.apiKeys.GenerateApiKey(this.props.state.auth,{userId: '123412342'});
+    }
   render () {
     return (<Card>
-              <CardHeader>
-                <FlatButton label='Generate New ApiKey' primary={true} />
-              </CardHeader>
+                <CardHeader>
+                    <FlatButton label='Create New ApiKey' primary={true} onTouchTap={this.submit} />
+                    {this.props.state.apiKeys.apiKey ? <p> {`New ApiKey created: ${this.props.state.apiKeys.apiKey} - write this down as it won't be shown again.`} </p> : null}
+                </CardHeader>
               <Table multiSelectable={true}>
                 <TableHeader>
                   <TableRow>
@@ -19,7 +25,10 @@ export default class ApiKeys extends Component {
                   </TableRow>
                   <TableRow>
                     <TableHeaderColumn>
-                      Title
+                      Id
+                    </TableHeaderColumn>
+                    <TableHeaderColumn>
+                      ApiKey
                     </TableHeaderColumn>
                     <TableHeaderColumn>
                       Status
@@ -30,14 +39,22 @@ export default class ApiKeys extends Component {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableRowColumn>
-                      John Smith
-                    </TableRowColumn>
-                    <TableRowColumn>
-                      Employed
-                    </TableRowColumn>
-                  </TableRow>
+                  {this.props.state.apiKeys.apiKeys.map(apiKey => 
+                    <TableRow>
+                          <TableRowColumn>
+                            {[apiKey._id]}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                            {apiKey.apiKey}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                          {apiKey.status}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                            {apiKey.createdAt}
+                          </TableRowColumn>
+                        </TableRow>
+                    )}
                 </TableBody>
               </Table>
             </Card>)

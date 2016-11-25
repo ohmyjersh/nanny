@@ -2,7 +2,7 @@ import * as ActionTypes from '../constants/actionTypes'
 
 function generatingApiKey(state, status) {
     console.log(status);
-    return Object.assign({}, state, {generating:stats});
+    return Object.assign({}, state, {generating:status});
 }
 
 function setApiKey(state, apiKey) {
