@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -8,10 +9,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { deepOrange500 } from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Snackbar from 'material-ui/Snackbar';
+import Dashboard from 'material-ui/svg-icons/action/dashboard';
+import Login from '../components/auth/login';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -30,6 +34,10 @@ class App extends Component {
     this.state = {
       popOpen:false
     }
+  }
+
+  dashboardTap = () => {
+    browserHistory.push('/dashboard');
   }
 
   handleTouchTap = (event) => {
@@ -73,13 +81,7 @@ class App extends Component {
         </Popover>
       </span>
     } else {
-      rightButtons =
-        <span>
-        <Link to='login'>
-          <FlatButton label='Login' />
-          </Link>/<Link to='registration'>
-          <FlatButton label='Register' /></Link>
-        </span>
+      null;
     }
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -91,12 +93,16 @@ class App extends Component {
           onRequestClose={this.closeSnackbar}
         />
           <AppBar 
+          showMenuIconButton={this.props.state.auth.authenticated ? true : false}
           titleStyle={{textAlign: "center"}}
           title="nanny"
-          showMenuIconButton={false}
+          iconElementLeft={this.props.state.auth.authenticated ? <IconButton onTouchTap={this.dashboardTap}><Dashboard /></IconButton> : null}
           iconElementRight={rightButtons} 
           style={{'width':'100%'}}/>
-              {this.props.children && React.cloneElement(this.props.children, { ...this.props })}
+              { this.props.state.auth.authenticated ?
+                   this.props.children && React.cloneElement(this.props.children, { ...this.props }) :
+                   <Login {...this.props}/>
+            }
         </div>
       </MuiThemeProvider>
     )

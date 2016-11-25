@@ -93,7 +93,7 @@ export function login(login) {
             .then((json) => {
                 cookie.save('token', json.token, { path: '/' });
                 dispatch(loginResponse(json));
-                return browserHistory.push('/nannydashboard');
+                return browserHistory.push('/dashboard');
                 //window.location.href = 'http://localhost:3000/dashboard';
             })
     };
