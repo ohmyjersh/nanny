@@ -63,7 +63,7 @@ class App extends Component {
   render () {
     let rightButtons
     if (this.props.state.auth.authenticated) {
-      rightButtons =       <span>
+      rightButtons = <span>
         <FlatButton
           onTouchTap={this.handleTouchTap}
           label="Logged In!"
@@ -81,7 +81,12 @@ class App extends Component {
         </Popover>
       </span>
     } else {
-      null;
+        null;
+        //    rightButtons =
+        // <span>
+        //   <Link to='registration'>
+        //   <FlatButton label='Register' /></Link>
+        // </span>
     }
     return (
       <MuiThemeProvider muiTheme={muiTheme}>

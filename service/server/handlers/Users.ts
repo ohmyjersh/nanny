@@ -1,4 +1,4 @@
-import { User } from "../models/User";
+import { User } from "../models/models";
 export default class UserHandler {
     async create(user:Object) {
         return await User.create(user);

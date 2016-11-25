@@ -17,7 +17,7 @@
     "node": "registry:dt/node#6.0.0+20160805072842",
     "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
     "sinon": "registry:dt/sinon#1.16.0+20160517064723",
-    "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654",
+    "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654"
   },
   "dependencies": {
     "jsonwebtoken": "registry:npm/jsonwebtoken#7.1.8+20160811031426"
