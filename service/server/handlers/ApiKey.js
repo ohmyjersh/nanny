@@ -14,7 +14,7 @@ class ApiKeyHandler {
         return __awaiter(this, void 0, void 0, function* () {
             let guid = utils_1.default.newGuid();
             var encodedToken = new Buffer(guid).toString('base64');
-            var apiKey = Object.assign({}, apiKeyRequest, { apiKey: encodedToken });
+            var apiKey = Object.assign({}, apiKeyRequest, { apiKey: encodedToken, isActive: true });
             return yield ApiKey_1.ApiKey.create(apiKey);
         });
     }

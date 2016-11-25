@@ -16,20 +16,28 @@ class ApiKeyRouter {
         this._apiKeyHandler = new ApiKey_1.default();
     }
     getRouter() {
-        this.router.post('apikey', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._apiKeyHandler.create(request.body);
+        this.router.post('/apikey', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            var result = yield this._apiKeyHandler.create(request.body);
+            console.log(result);
+            response.status(200).send(result);
         }));
-        this.router.get('apikey/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.get('/apikey', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            var result = yield this._apiKeyHandler.getAll();
+            response.status(200).send(result);
         }));
-        this.router.get('apikey', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-        }));
-        this.router.put('apikey/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-        }));
-        this.router.delete('apikey/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        // this.router.put('/apikey/:id', userAuth, async(request:Request, response:Response) => {
+        //     var result = await this._apiKeyHandler.update(request.params.id);
+        //     response.sendStatus(200).send(result);
+        // });
+        this.router.delete('/apikey/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            var result = yield this._apiKeyHandler.delete(request.params.id);
+            response.status(200).send(result);
         }));
         // user api key routes
-        this.router.get('apikey/user/:userId', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
-            yield this._apiKeyHandler.getAllByUserId(request.params.userId);
+        this.router.get('/apikey/user/:userId', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            var result = yield this._apiKeyHandler.getAllByUserId(request.params.userId);
+            console.log(result);
+            response.status(200).send(result);
         }));
         return this.router;
     }

@@ -6,6 +6,7 @@ import { ConfigurationRouter } from "./routes/configuration";
 import { ManifestRouter } from "./routes/manifest";
 import { AuthenticationRouter } from "./routes/authentication";
 import { UserRouter } from "./routes/User";
+import {ApiKeyRouter} from "./routes/ApiKey";
 const app: express.Application = express();
 
 app.use(json());
@@ -38,7 +39,8 @@ app.use("/api", new AuthenticationRouter().getRouter(),
                 new ConfigurationRouter().getRouter(),
                 new ManifestRouter().getRouter(),
                 new GeneratorRouter().getRouter(),
-                new UserRouter().getRouter());
+                new UserRouter().getRouter(),
+                new ApiKeyRouter().getRouter());
                 
 const server: http.Server = app.listen(3003);
 
