@@ -29,7 +29,7 @@ export function loginResponse(response) {
 }
 
 export function logOut() {
-    cookie.remove('token', { path: '/' });
+    cookie.remove('nannyCookie', { path: '/' });
     browserHistory.push('/');
     return {
         type: ActionTypes.LOGOUT
@@ -60,10 +60,10 @@ export function register(register) {
                 }
                 return response.json();
             })
-            .then((json) => {
-                cookie.save('token', json.token, { path: '/' });
-                dispatch(registerResponse(json));
-            })
+            // .then((json) => {
+            //     cookie.save('token', json.token, { path: '/' });
+            //     dispatch(registerResponse(json));
+            // })
     };
 }
 
@@ -91,7 +91,7 @@ export function login(login) {
                 return response.json();
             })
             .then((json) => {
-                cookie.save('token', json.token, { path: '/' });
+                cookie.save('nannyCookie', json, { path: '/' });
                 dispatch(loginResponse(json));
                 return browserHistory.push('/dashboard');
                 //window.location.href = 'http://localhost:3000/dashboard';

@@ -5,10 +5,10 @@ import FlatButton from 'material-ui/FlatButton'
 
 export default class ApiKeys extends Component {
   componentWillMount () {
-    this.props.actions.apiKeys.getUserApiKeys(this.props.state.auth, '123412342');
+    this.props.actions.apiKeys.getUserApiKeys(this.props.state.auth);
   }
     submit = () => {
-        this.props.actions.apiKeys.GenerateApiKey(this.props.state.auth,{userId: '123412342'});
+        this.props.actions.apiKeys.GenerateApiKey(this.props.state.auth);
     }
   render () {
     return (<Card>

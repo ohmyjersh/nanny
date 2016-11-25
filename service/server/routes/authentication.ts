@@ -17,7 +17,8 @@ export class AuthenticationRouter {
                     result.comparePassword(request.body.password, (err, isMatch) => {
                         if (err) return next(err);
                         if (!isMatch) return next({ status: 400, message: 'invalid username/password combination' });
-                        response.json({ token: result.createJWT() });
+                        console.log(result);
+                        response.json({ token: result.createJWT(), username:result.username,id:result._id,role:result.role });
                     });
                 });
         });

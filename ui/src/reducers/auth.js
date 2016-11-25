@@ -1,11 +1,11 @@
 import * as ActionTypes from '../constants/actionTypes'
 
 function logout(state) {
-  return Object.assign({}, state, {token: '', authenticated: false });
+  return Object.assign({}, state, {token: '', authenticated: false, username:'', id:'', role:'' });
 }
 
 function login (state, response) {
-  return Object.assign({}, state, {token: response.token, authenticated: true});
+  return Object.assign({}, state, {token: response.token, authenticated: true,  username:response.username, id:response.id, role:response.role});
 }
 
 export default function(state = {}, action) {

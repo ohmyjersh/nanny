@@ -21,10 +21,10 @@ injectTapEventPlugin();
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
 
-const token = cookie.load('token');
-if (token) {
+const nannyCookie = cookie.load('nannyCookie');
+if (nannyCookie) {
   // Update application state. User has token and is probably authenticated
-store.dispatch(Actions.Auth.loginResponse({token:token}));
+store.dispatch(Actions.Auth.loginResponse({token:nannyCookie.token, username:nannyCookie.username, id:nannyCookie.id, role:nannyCookie.role}));
   browserHistory.push('dashboard');
 }
 

@@ -71,7 +71,7 @@ export function PutApiKeyResponse() {
     }
 }
 
-export function GenerateApiKey(auth, apiKey) {
+export function GenerateApiKey(auth) {
     return dispatch => {
         return fetch(`${Config.API_HOST}/apikey`,
             {
@@ -82,7 +82,7 @@ export function GenerateApiKey(auth, apiKey) {
                     'Authorization': `Bearer ${auth.token}`
                 },
                 mode: 'cors',
-                body: JSON.stringify(apiKey),
+                body: JSON.stringify({userId:auth.id}),
                 cache: 'default'
             }).then(response => {
                 console.log(response);
@@ -153,9 +153,9 @@ export function getApiKeys(auth) {
     };
 }
 
-export function getUserApiKeys(auth, userId) {
+export function getUserApiKeys(auth) {
     return dispatch => {
-        return fetch(`${Config.API_HOST}/apikey/user/${userId}`,
+        return fetch(`${Config.API_HOST}/apikey/user/${auth.id}`,
             {
                 method: 'GET',
                 headers: {
