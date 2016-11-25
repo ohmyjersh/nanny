@@ -20,12 +20,20 @@ class ApiKeyHandler {
     }
     getAllByUserId(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield ApiKey_1.ApiKey.find({ userId: id });
+            var keys = yield ApiKey_1.ApiKey.find({ userId: id });
+            var masked = this.maskKeys(keys);
+            return masked;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield ApiKey_1.ApiKey.find();
+        });
+    }
+    maskKeys(keys) {
+        return keys.map(x => {
+            let maskedKey = x.apiKey.replace(/.(?=.{8,}$)/gm, '#');
+            return Object.assign({}, x, { apiKey: maskedKey });
         });
     }
 }

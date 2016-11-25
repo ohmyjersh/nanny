@@ -30,7 +30,6 @@ export class ApiKeyRouter {
         // user api key routes
         this.router.get('/apikey/user/:userId', userAuth, async(request:Request, response:Response) => {
             var result = await this._apiKeyHandler.getAllByUserId(request.params.userId);
-            console.log(result);
             response.status(200).send(result);
         });
 

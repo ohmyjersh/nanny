@@ -10,10 +10,28 @@ export default class ApiKeyHandler {
     }
 
     async getAllByUserId(id:string) {
-        return await ApiKey.find({userId:id});
+        var keys = await ApiKey.find({userId:id});
+        var masked = this.maskKeys(keys);
+        return masked;
     }
 
     async getAll() {
         return await ApiKey.find();
     }
+
+    maskKeys(keys) {
+        return keys.map(x => {
+            let maskedKey = x.apiKey.replace(/.(?=.{8,}$)/gm,'#');
+            return Object.assign({},x,{apiKey:maskedKey});
+        });
+    }
+    // maskKeys(keys) {
+    //     let maskedKeys =  [];
+    //     keys.forEach(x => {
+    //         let maskedKey = x.apiKey.replace(/.(?=.{8,}$)/gm,'#');
+    //         var newKey = Object.assign({},x,{apiKey:maskedKey});
+    //         maskedKeys.push(newKey);
+    //     })
+    //     return maskedKeys;
+    // }
 }

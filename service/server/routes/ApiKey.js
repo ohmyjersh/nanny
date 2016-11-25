@@ -36,7 +36,6 @@ class ApiKeyRouter {
         // user api key routes
         this.router.get('/apikey/user/:userId', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
             var result = yield this._apiKeyHandler.getAllByUserId(request.params.userId);
-            console.log(result);
             response.status(200).send(result);
         }));
         return this.router;
