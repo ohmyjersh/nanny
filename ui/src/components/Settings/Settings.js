@@ -13,7 +13,7 @@ export default class Settings extends Component {
                     <Profile {...this.props} />
                   </div>
                 </Tab>
-                <Tab label='Api Keys'>
+                <Tab label='ApiKeys'>
                   <div>
                     <ApiKeys {...this.props} />
                   </div>

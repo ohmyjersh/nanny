@@ -1,58 +1,145 @@
 import React, { Component } from 'react'
-import { Card, CardHeader } from 'material-ui/Card'
+import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
 
 export default class Profile extends Component {
   componentWillMount () {}
   render () {
+    console.log(this.props.state);
     return (<div>
-              <Card>
-              <CardHeader>
-                <TextField />
-                <br />
-                <TextField />
-              </CardHeader>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHeaderColumn colSpan='3' tooltip=' User Activity' style={{textAlign: 'center'}}>
-                        User Activity
-                      </TableHeaderColumn>
-                    </TableRow>
-                    <TableRow>
-                      <TableHeaderColumn>
-                        ID
-                      </TableHeaderColumn>
-                      <TableHeaderColumn>
-                        Type
-                      </TableHeaderColumn>
-                      <TableHeaderColumn>
-                        Info
-                      </TableHeaderColumn>
-                      <TableHeaderColumn>
-                        Created
-                      </TableHeaderColumn>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableRowColumn>
-                        1234
-                      </TableRowColumn>
-                      <TableRowColumn>
-                        Create ApiKey
-                      </TableRowColumn>
-                      <TableRowColumn>
-                        Create a new ApiKey
-                      </TableRowColumn>
-                      <TableRowColumn>
-                        11-12-2014
-                      </TableRowColumn>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </Card>
+                <UserProfile {...this.props}/>
+                <UserApiKeys {...this.props}/>
+                <UserActivity {...this.props}/>
             </div>)
   }
 }
+
+const UserApiKeys = (props) => (
+    <Card initiallyExpanded={true}>
+    <CardHeader
+      title='ApiKey Management'
+      actAsExpander={true}
+      showExpandableButton={true} />
+                <Table multiSelectable={true} expandable={true}>
+                <TableHeader>
+                  <TableRow>
+                    <TableHeaderColumn colSpan='3' tooltip='ApiKeys' style={{textAlign: 'center'}}>
+                      ApiKeys
+                    </TableHeaderColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeaderColumn>
+                      Id
+                    </TableHeaderColumn>
+                    <TableHeaderColumn>
+                      ApiKey
+                    </TableHeaderColumn>
+                    <TableHeaderColumn>
+                      Status
+                    </TableHeaderColumn>
+                    <TableHeaderColumn>
+                      Created
+                    </TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {props.state.apiKeys.apiKeys.map(apiKey => 
+                    <TableRow>
+                          <TableRowColumn>
+                            {[apiKey._id]}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                            {apiKey.apiKey}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                          {apiKey.status}
+                          </TableRowColumn>
+                          <TableRowColumn>
+                            {apiKey.createdAt}
+                          </TableRowColumn>
+                        </TableRow>
+                    )}
+                </TableBody>
+    </Table>
+  </Card>
+)
+
+const UserActivity = (props) => (
+  <Card initiallyExpanded={true} >
+    <CardHeader
+      title='User Activity'
+      actAsExpander={true}
+      showExpandableButton={true}/>
+    <Table expandable={true}>
+      <TableHeader>
+        <TableRow>
+          <TableHeaderColumn colSpan='3' tooltip=' User Activity' style={{textAlign: 'center'}}>
+            User Activity
+          </TableHeaderColumn>
+        </TableRow>
+        <TableRow>
+          <TableHeaderColumn>
+            ID
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            Type
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            Info
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            Created
+          </TableHeaderColumn>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableRowColumn>
+            1234
+          </TableRowColumn>
+          <TableRowColumn>
+            Create ApiKey
+          </TableRowColumn>
+          <TableRowColumn>
+            Create a new ApiKey
+          </TableRowColumn>
+          <TableRowColumn>
+            11-12-2014
+          </TableRowColumn>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </Card>
+)
+
+const UserProfile = (props) => (
+  <Card initiallyExpanded={true}>
+    <CardHeader
+      title='User Profile'
+      subtitle={props.state.auth.username}
+      actAsExpander={true}
+      showExpandableButton={true} />
+      <Card expandable={true}>
+        <TextField 
+          hintText="Current Password"
+          floatingLabelText="Current Password"
+          type="password"/>
+          <br/>
+        <TextField       
+          hintText="New Password"
+          floatingLabelText="New Password"
+          type="password"/>
+          <br />
+        <TextField       
+          hintText="Confirm New Password"
+          floatingLabelText="Confirm New Password"
+          type="password"/>
+        <CardActions>
+        <FlatButton label='Clear' />
+        <FlatButton label='Update' />
+      </CardActions>
+  </Card>
+  </Card>
+)
