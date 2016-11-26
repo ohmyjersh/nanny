@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const express_1 = require("express");
 const ApiKey_1 = require("../handlers/ApiKey");
-const tokenValidator_1 = require("../validators/tokenValidator");
+const tokenValidator_1 = require("../middleware/tokenValidator");
 class ApiKeyRouter {
     constructor() {
         this.router = express_1.Router();

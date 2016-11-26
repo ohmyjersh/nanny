@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import ApiKeyHandler from '../handlers/ApiKey';
-import { userAuth } from '../validators/tokenValidator';
+import { userAuth } from '../middleware/tokenValidator';
 
 export class ApiKeyRouter {
     private _apiKeyHandler;

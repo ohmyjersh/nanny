@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const express_1 = require("express");
 const configuration_1 = require("../handlers/configuration");
-const tokenValidator_1 = require("../validators/tokenValidator");
+const tokenValidator_1 = require("../middleware/tokenValidator");
 class ConfigurationRouter {
     constructor() {
         this.router = express_1.Router();

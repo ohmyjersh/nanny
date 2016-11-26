@@ -3,75 +3,73 @@ import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
+import Paper from 'material-ui/Paper';
 
 export default class Profile extends Component {
   componentWillMount () {}
   render () {
-    console.log(this.props.state);
+    console.log(this.props.state)
     return (<div>
-                <UserProfile {...this.props}/>
-                <UserApiKeys {...this.props}/>
-                <UserActivity {...this.props}/>
+              <UserProfile {...this.props}/>
+              <UserApiKeys {...this.props}/>
+              <UserActivity {...this.props}/>
             </div>)
   }
 }
 
 const UserApiKeys = (props) => (
-    <Card initiallyExpanded={true}>
+  <Card initiallyExpanded={true}>
     <CardHeader
       title='ApiKey Management'
       actAsExpander={true}
-      showExpandableButton={true} />
-                <Table multiSelectable={true} expandable={true}>
-                <TableHeader>
-                  <TableRow>
-                    <TableHeaderColumn colSpan='3' tooltip='ApiKeys' style={{textAlign: 'center'}}>
-                      ApiKeys
-                    </TableHeaderColumn>
-                  </TableRow>
-                  <TableRow>
-                    <TableHeaderColumn>
-                      Id
-                    </TableHeaderColumn>
-                    <TableHeaderColumn>
-                      ApiKey
-                    </TableHeaderColumn>
-                    <TableHeaderColumn>
-                      Status
-                    </TableHeaderColumn>
-                    <TableHeaderColumn>
-                      Created
-                    </TableHeaderColumn>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {props.state.apiKeys.apiKeys.map(apiKey => 
-                    <TableRow>
-                          <TableRowColumn>
-                            {[apiKey._id]}
-                          </TableRowColumn>
-                          <TableRowColumn>
-                            {apiKey.apiKey}
-                          </TableRowColumn>
-                          <TableRowColumn>
-                          {apiKey.status}
-                          </TableRowColumn>
-                          <TableRowColumn>
-                            {apiKey.createdAt}
-                          </TableRowColumn>
-                        </TableRow>
-                    )}
-                </TableBody>
+      showExpandableButton={true}
+      style={{backgroundColor: 'rgb(232, 232, 232)'}}
+      titleStyle={{textAlign: 'center'}} />
+    <Table multiSelectable={true} expandable={true}>
+      <TableHeader>
+        <TableRow>
+          <TableHeaderColumn colSpan='3' tooltip='ApiKeys' style={{textAlign: 'center'}}>
+            ApiKeys
+          </TableHeaderColumn>
+        </TableRow>
+        <TableRow>
+          <TableHeaderColumn>
+            ApiKey
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            Status
+          </TableHeaderColumn>
+          <TableHeaderColumn>
+            Created
+          </TableHeaderColumn>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {props.state.apiKeys.apiKeys.map(apiKey => <TableRow>
+                                                     <TableRowColumn>
+                                                       {apiKey.apiKey}
+                                                     </TableRowColumn>
+                                                     <TableRowColumn>
+                                                       {apiKey.status}
+                                                     </TableRowColumn>
+                                                     <TableRowColumn>
+                                                       {apiKey.createdAt}
+                                                     </TableRowColumn>
+                                                   </TableRow>
+         )}
+      </TableBody>
     </Table>
   </Card>
 )
 
 const UserActivity = (props) => (
-  <Card initiallyExpanded={true} >
+  <Card initiallyExpanded={true}>
     <CardHeader
       title='User Activity'
       actAsExpander={true}
-      showExpandableButton={true}/>
+      showExpandableButton={true}
+      style={{backgroundColor: 'rgb(232, 232, 232)'}}
+      titleStyle={{textAlign: 'center'}} />
     <Table expandable={true}>
       <TableHeader>
         <TableRow>
@@ -120,26 +118,20 @@ const UserProfile = (props) => (
       title='User Profile'
       subtitle={props.state.auth.username}
       actAsExpander={true}
-      showExpandableButton={true} />
-      <Card expandable={true}>
-        <TextField 
-          hintText="Current Password"
-          floatingLabelText="Current Password"
-          type="password"/>
-          <br/>
-        <TextField       
-          hintText="New Password"
-          floatingLabelText="New Password"
-          type="password"/>
-          <br />
-        <TextField       
-          hintText="Confirm New Password"
-          floatingLabelText="Confirm New Password"
-          type="password"/>
-        <CardActions>
+      showExpandableButton={true}
+      style={{backgroundColor: 'rgb(232, 232, 232)'}}
+      titleStyle={{textAlign: 'center'}} />
+    <Paper expandable={true} style={{textAlign: 'center'}}>
+      <TextField hintText='Current Password' floatingLabelText='Current Password' type='password' />
+      <br/>
+      <TextField hintText='New Password' floatingLabelText='New Password' type='password' />
+      <br />
+      <TextField hintText='Confirm New Password' floatingLabelText='Confirm New Password' type='password' />
+      <br />
+      <CardActions>
         <FlatButton label='Clear' />
         <FlatButton label='Update' />
       </CardActions>
-  </Card>
+    </Paper>
   </Card>
 )

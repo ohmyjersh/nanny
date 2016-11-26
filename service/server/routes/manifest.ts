@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import ManifestHandler from "../handlers/Manifest";
-import {userAuth} from "../validators/tokenValidator";
+import {userAuth} from "../middleware/tokenValidator";
 
 export class ManifestRouter {
     private _manifestHandler;

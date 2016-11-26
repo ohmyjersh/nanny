@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import GeneratorHandler from "../handlers/generator";
 import Util from "../utils/utils";
-import {apiKeyAuth} from "../validators/tokenValidator";
+import {apiKeyAuth} from "../middleware/tokenValidator";
 
 export class GeneratorRouter {
     private _generatorHandler;

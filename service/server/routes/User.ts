@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import UserHandler from "../handlers/Users";
-import {userAuth} from "../validators/tokenValidator";
+import {userAuth} from "../middleware/tokenValidator";
 
 export class UserRouter {
     private _userHandler;
