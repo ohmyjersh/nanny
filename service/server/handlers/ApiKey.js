@@ -13,21 +13,23 @@ class ApiKeyHandler {
     create(apiKeyRequest) {
         return __awaiter(this, void 0, void 0, function* () {
             let guid = utils_1.default.newGuid();
-            var encodedToken = new Buffer(guid).toString('base64');
-            var apiKey = Object.assign({}, apiKeyRequest, { apiKey: encodedToken, isActive: true });
+            let encodedToken = new Buffer(guid).toString('base64');
+            let apiKey = Object.assign({}, apiKeyRequest, { apiKey: encodedToken, isActive: true });
             return yield ApiKey_1.ApiKey.create(apiKey);
         });
     }
     getAllByUserId(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            var keys = yield ApiKey_1.ApiKey.find({ userId: id });
-            var masked = this.maskKeys(keys);
+            let keys = yield ApiKey_1.ApiKey.find({ userId: id });
+            let masked = this.maskKeys(keys);
             return masked;
         });
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield ApiKey_1.ApiKey.find();
+            let keys = yield ApiKey_1.ApiKey.find();
+            let masked = this.maskKeys(keys);
+            return masked;
         });
     }
     maskKeys(keys) {

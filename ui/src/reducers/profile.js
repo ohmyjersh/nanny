@@ -1,20 +1,25 @@
 import * as ActionTypes from '../constants/actionTypes'
 
-function resetChangePassword() {
-
+function resetChangePassword(state) {
+    return Object.assign({}, state, initialState);
 }
 
-function updateChangePasswordForm() {
-
+function updateChangePassword(state, newValue) {
+    return Object.assign({}, state, state.changePassword[newValue.key]=newValue.value);
 }
 
-function changePasswordRequest() {
-
+function setProfile(state, newValue) {
+    return Object.assign({}, state, state.profile[newValue.key]=newValue.value);
 }
 
-function changePasswordResponse() {
-
+function setApikeys(state, keys) {
+    return Object.assing({}, state, state.apiKeys:keys);
 }
+
+function setUserActivity(state, activity) {
+    return Object.assing({}, state, state.userAcivity:keys);
+}
+
 
 const initialState = {
     profile : {

@@ -6,7 +6,22 @@ import FlatButton from 'material-ui/FlatButton'
 import Paper from 'material-ui/Paper';
 
 export default class Profile extends Component {
-  componentWillMount() { }
+  componentWillMount() {
+
+   }
+
+   setUpdatePassword() {
+
+   }
+
+   resetSetPassword() {
+
+   }
+
+   submitPasswordChange() {
+     
+   }
+
   render() {
     console.log(this.props.state)
     return (<div>
