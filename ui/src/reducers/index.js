@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux'
 import * as ActionTypes from '../constants/actionTypes'
 import profile from './profile';
 import auth from './auth'
@@ -6,7 +7,6 @@ import manifests from './manifests';
 import configurations from './configurations';
 import users from './users';
 import apiKeys from './apiKeys';
-import { combineReducers } from 'redux'
 
 function registerResponse (state, response) {
   return Object.assign({}, state.auth, {

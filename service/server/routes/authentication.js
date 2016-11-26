@@ -34,19 +34,25 @@ class AuthenticationRouter {
             });
         });
         this.router.post("/authentication/changepassword", (request, response, next) => {
-            let { confirmed, userId } = request.body;
-            user_1.User.findOne({ _id: userId }, (err, resetUser) => {
+            let { oldPassword, confirmedPassword, userId } = request.body;
+            user_1.User.findOne({ _id: userId }, (err, result) => {
                 // If query returned no results, token expired or was invalid. Return error.
-                if (!resetUser) {
+                if (!result) {
                     response.status(422).json({ error: 'Your token has expired. Please attempt to reset your password again.' });
                 }
-                // Otherwise, save new password and clear resetToken from database
-                resetUser.password = confirmed;
-                resetUser.save((err) => {
-                    if (err) {
+                result.comparePassword(oldPassword, (err, isMatch) => {
+                    if (err)
                         return next(err);
-                    }
-                    return response.status(200).json({ message: 'Password changed successfully. Please login with your new password.' });
+                    if (!isMatch)
+                        return next({ status: 400, message: "You've entered the wrong current password" });
+                    // Otherwise, save new password and clear resetToken from database
+                    result.password = confirmedPassword;
+                    result.save((err) => {
+                        if (err) {
+                            return next(err);
+                        }
+                        return response.status(200).json({ message: 'Password changed successfully!' });
+                    });
                 });
             });
         });
@@ -55,6 +61,7 @@ class AuthenticationRouter {
             response.send("invite user endpoint");
         });
         this.router.post('/authentication/forgotpassword', (request, response) => {
+            response.send("forgot password");
         });
         return this.router;
     }

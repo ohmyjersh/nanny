@@ -28,6 +28,20 @@ export function loginResponse(response) {
     }
 }
 
+export function changePasswordRequest(status) {
+    return {
+        type: ActionTypes.CHANGE_PASSWORD_REQUEST,
+        status
+    }
+}
+
+export function changePasswordResponse(status) {
+    return {
+        type: ActionTypes.CHANGE_PASSWORD_RESPONSE,
+        status
+    }
+}
+
 export function logOut() {
     cookie.remove('nannyCookie', { path: '/' });
     browserHistory.push('/');
@@ -60,10 +74,10 @@ export function register(register) {
                 }
                 return response.json();
             })
-            // .then((json) => {
-            //     cookie.save('token', json.token, { path: '/' });
-            //     dispatch(registerResponse(json));
-            // })
+            .then((json) => {
+                cookie.save('token', json.token, { path: '/' });
+                dispatch(registerResponse(json));
+            })
     };
 }
 
@@ -94,7 +108,35 @@ export function login(login) {
                 cookie.save('nannyCookie', json, { path: '/' });
                 dispatch(loginResponse(json));
                 return browserHistory.push('/dashboard');
-                //window.location.href = 'http://localhost:3000/dashboard';
+            })
+    };
+}
+
+export function changePassword(passwords) {
+    return dispatch => {
+        dispatch(loginRequest())
+        return fetch('http://localhost:3003/api/authentication/changepassword',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                mode: 'cors',
+                body: JSON.stringify({
+                    confirmedPassword: passwords.confirmedPasswords,
+                    oldPassword: passwords.oldPassword
+                }),
+                cache: 'default'
+            }).then(response => {
+                if (response.status !== 200) {
+                    console.log(response);
+                    //dispatch(setError("error"));
+                }
+                return response.json();
+            })
+            .then((json) => {
+                console.log(json);
             })
     };
 }

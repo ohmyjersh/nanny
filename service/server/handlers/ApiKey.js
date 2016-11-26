@@ -32,8 +32,9 @@ class ApiKeyHandler {
     }
     maskKeys(keys) {
         return keys.map(x => {
-            let maskedKey = x.apiKey.replace(/.(?=.{8,}$)/gm, '#');
-            return Object.assign({}, x, { apiKey: maskedKey });
+            let maskedKey = x.apiKey.replace(/.(?=.{5,}$)/gm, '#');
+            let shortString = maskedKey.substr(maskedKey.length - 12);
+            return Object.assign({}, x, { apiKey: `...${shortString}` });
         });
     }
 }

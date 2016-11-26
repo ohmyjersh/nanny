@@ -32,19 +32,6 @@ userSchema.methods.comparePassword = function (candidatePassword, cb) {
         cb(null, isMatch);
     });
 };
-// userSchema.methods.hashPassword = function(password: string, done: Function) {
-//   this.salt = crypto.randomBytes(16).toString('hex');
-//   crypto.pbkdf2(password, this.salt, 1000, 32, (err, hash) => {
-//     if (err) return done(err);
-//     done(null, hash.toString('hex'));
-//   });
-// }
-// userSchema.methods.comparePassword = function(password: string, done: Function) {
-//   crypto.pbkdf2(password, this.salt, 1000, 32, (err, hash) => {
-//     if (err) return done(err);
-//     done(null, hash.toString('hex') === this.password);
-//   });
-// }
 // maybe add type since we are using this for apikey and for passwords
 userSchema.methods.createJWT = function () {
     return jwt.sign({
