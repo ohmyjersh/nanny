@@ -1,7 +1,14 @@
 import * as ActionTypes from '../constants/actionTypes'
 
+const initialChangePassword = {
+        oldPassword:'',
+        newPassword:'',
+        confirmPassword:'',
+        fetching:false,
+        status:''
+}
+
 function resetChangePassword(state) {
-    return Object.assign({}, state, initialChangePassword);
     return Object.assign( {}, state, { changePassword: Object.assign( {}, state.changePassword, initialChangePassword ) } );
 }
 
@@ -23,31 +30,12 @@ function updateProfile(state, newValue) {
     return Object.assign( {}, state, { profile: Object.assign( {}, state.profile, { [newValue.key]: newValue.value } ) } );
 }
 
-function setApikeys(state, apiKeys) {
-    return Object.assign({}, state, {apiKeys:apiKeys});;
-}
-
-function setUserActivity(state, activity) {
-    return Object.assign({}, state, state.userAcivity:activity);
-}
-
-const initialChangePassword = {
-        oldPassword:'',
-        newPassword:'',
-        confirmPassword:'',
-        fetching:false,
-        status:''
-}
-
-
 const initialState = {
     profile : {
         email:'',
         fetching:false
     },
-    changePassword: initialChangePassword,
-    userAcivity: [],
-    apiKeys:[]
+    changePassword: initialChangePassword
 }
 
 export default function(state = initialState, action) {
@@ -58,8 +46,8 @@ export default function(state = initialState, action) {
         return updateChangePassword(state, action.value);
     case ActionTypes.UPDATE_CHANGE_PROFILE:
         return updateProfile(state, action.value);
-    case ActionTypes.GET_USER_ACTIVITY_RESPONSE:
-        return setApikeys(state, action.apiKeys);
+    case ActionTypes.RESET_CHANGE_PASSWORD:
+        return resetChangePassword(state);
     default:
         return state;
     }

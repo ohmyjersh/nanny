@@ -81,6 +81,7 @@ class App extends Component {
         </Popover>
       </span>
     } else {
+      // eslint-disable-next-line
         null;
         //    rightButtons =
         // <span>

@@ -1,34 +1,11 @@
 import React, { Component } from 'react'
-import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card'
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
+import { Card, CardHeader, CardActions } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
-import Paper from 'material-ui/Paper';
 
 export default class Profile extends Component {
   componentWillMount () {
     }
-
-    setUpdateProfile() {
-
-   }
-
-   submitProfileChange() {
-
-   }
-
-   setUpdatePassword() {
-
-   }
-
-   resetSetPassword() {
-
-   }
-
-   submitPasswordChange() {
-     
-   }
-
   render() {
     return (<div>
       <UserProfile {...this.props} />

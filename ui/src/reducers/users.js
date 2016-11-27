@@ -1,5 +1,5 @@
 import * as ActionTypes from '../constants/actionTypes'
-import Immutable from 'immutable';
+//import Immutable from 'immutable';
 
 function getUsers(state, users) {
     return Object.assign({}, state, {users:users});

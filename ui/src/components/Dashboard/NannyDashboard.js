@@ -30,6 +30,7 @@ class NannyDashboard extends Component {
   }
 
   _setEditors(editor) {
+    // eslint-disable-next-line
     editor === 'configuration' 
     ? this.setState({ editors: {        
         nanny: true,
@@ -91,7 +92,7 @@ class NannyDashboard extends Component {
   }
 }
 
-
+// eslint-disable-next-line
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 } 

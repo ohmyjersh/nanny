@@ -26,7 +26,7 @@ export default function reducer(state = {apiKeys:[],
         case ActionTypes.GENERATE_APIKEY_RESPONSE:
             return setApiKey(state,action.result);
         case ActionTypes.GET_APIKEY_REPSONSE:
-            return setApiKey(state,action.keys);
+            return getApiKeys(state,action.keys);
         case ActionTypes.GET_USER_APIKEY_RESPONSE:
             return getUserApiKeys(state,action.apiKeys);
         default:

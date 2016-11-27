@@ -31,6 +31,7 @@ class NannyToolbar extends React.Component {
           this.props.state.nannyEditor.textContent,
           ''
         ));
+      // eslint-disable-next-line
       editor === 'manifest' ? this.setState({manifestValue: -1}) : this.setState({configurationValue:-1});
     }
   }
@@ -79,6 +80,7 @@ class NannyToolbar extends React.Component {
         initNewEditor(this.props.actions.nannyEditor.SetNannyEditor, editor);
         initNewTransformer(this.props.actions.app.setTransformerContent);
         this.props.actions.app.setTitle('');
+        // eslint-disable-next-line
         editor === 'manifest' ? this.setState({manifestValue: -1}) : this.setState({configurationValue:-1});
   }
 

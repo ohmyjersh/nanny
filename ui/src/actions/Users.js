@@ -29,19 +29,19 @@ export function updateCreate(value) {
     }
 }
 
-function GetUserActivityRequest() {
-    return {
-        type: ActionTypes.ET_USER_ACTIVITY_REQUEST,
-        status: true
-    }
-}
+// function GetUserActivityRequest() {
+//     return {
+//         type: ActionTypes.ET_USER_ACTIVITY_REQUEST,
+//         status: true
+//     }
+// }
 
-export function GetUserActivityResponse(json) {
-    return {
-        type: ActionTypes.GET_USER_ACTIVITY_RESPONSE,
-        userActivity: json
-    }
-}
+// export function GetUserActivityResponse(json) {
+//     return {
+//         type: ActionTypes.GET_USER_ACTIVITY_RESPONSE,
+//         userActivity: json
+//     }
+// }
 
 export function getUsers(auth) {
     return dispatch => {
@@ -121,6 +121,6 @@ export function deleteUser(auth, id) {
     };
 }
 
-export function getUserActivity() {
+// export function getUserActivity() {
 
-}
+// }

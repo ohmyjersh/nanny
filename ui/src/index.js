@@ -31,12 +31,9 @@ store.dispatch(Actions.Auth.loginResponse({token:nannyCookie.token, username:nan
 
 ReactDOM.render(
   <Provider store={store}>
-    { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
       <Route path="/" component={AppContainer}>
-      {/* Dashboard */}
         <Route title='NannyDashboard' path='dashboard' component={NannyDashboard} />
-        {/* Auth */}
         <Route title='Registration' path='registration' component={Registration}/>
         <Route title='Login' path='login' component={Login}/>
         <Route title='Settings' path='settings' component={Settings}/>
