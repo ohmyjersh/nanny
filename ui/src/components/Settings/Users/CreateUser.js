@@ -20,8 +20,6 @@ export default class CreateUser extends Component {
       this.checkPasswordValid();
     }
     checkPasswordValid() {
-      console.log(this.props.state.users.createNew);
-      console.log(this.props.state.users.createNew.password, this.props.state.users.createNew.confirmPassword);
         if (this.props.state.users.createNew.password === this.props.state.users.createNew.confirmPassword) {
             this.updateCreatNew('valid',true);
             this.updateCreatNew('error','');

@@ -1,11 +1,12 @@
 import * as ActionTypes from '../constants/actionTypes'
+import ImmutableJs from 'immutable';
 
 function getUsers(state, users) {
     return Object.assign({}, state, {users:users});
 }
 
 function updateCreateUser(state, newValue) {
-    return Object.assign({}, state, state.createNew[newValue.key]=newValue.value);
+   return Object.assign( {}, state, { createNew: Object.assign( {}, state.createNew, { [newValue.key]: newValue.value } ) } );
 }
 
 function initialState() {
