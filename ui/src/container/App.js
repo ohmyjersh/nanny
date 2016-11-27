@@ -137,7 +137,8 @@ function mapDispatchToProps(dispatch) {
       manifest: bindActionCreators(Actions.Manifest, dispatch),
       nannyEditor: bindActionCreators(Actions.NannyEditor, dispatch),
       users: bindActionCreators(Actions.Users, dispatch),
-      apiKeys: bindActionCreators(Actions.ApiKeys, dispatch)
+      apiKeys: bindActionCreators(Actions.ApiKeys, dispatch),
+      profile: bindActionCreators(Actions.Profile, dispatch)
     }
   }
 }

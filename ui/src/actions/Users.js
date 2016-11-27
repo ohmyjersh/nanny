@@ -1,6 +1,20 @@
 import * as ActionTypes from '../constants/actionTypes';
 import * as Config from "../constants/config";
 
+export function changeProfileRequest(){
+    return {
+        type: ActionTypes.CHANGE_PROFILE_REQUEST,
+        fetching:true
+    }
+}
+
+export function changeProfileResponse(json){
+    return {
+        type: ActionTypes.CHANGE_PROFILE_RESPONSE,
+        json
+    }
+}
+
 export function getAllUsersResponse(users) {
     return {
         type: ActionTypes.GET_USERS_RESPONSE,
@@ -12,6 +26,20 @@ export function updateCreate(value) {
     return {
         type: ActionTypes.UPDATE_CREATE_USER,
         value
+    }
+}
+
+function GetUserActivityRequest() {
+    return {
+        type: ActionTypes.ET_USER_ACTIVITY_REQUEST,
+        status: true
+    }
+}
+
+export function GetUserActivityResponse(json) {
+    return {
+        type: ActionTypes.GET_USER_ACTIVITY_RESPONSE,
+        userActivity: json
     }
 }
 
@@ -40,7 +68,7 @@ export function getUsers(auth) {
     };
 }
 
-export function updateUsers(auth, user) {
+export function updateUser(auth, user) {
     return dispatch => {
         return fetch(`${Config.API_HOST}/user/${user.id}`,
             {

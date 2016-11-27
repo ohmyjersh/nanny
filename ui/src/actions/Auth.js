@@ -28,19 +28,48 @@ export function loginResponse(response) {
     }
 }
 
-export function changePasswordRequest(status) {
+export function changePasswordRequest(){
     return {
         type: ActionTypes.CHANGE_PASSWORD_REQUEST,
-        status
+        fetching: true
     }
 }
 
-export function changePasswordResponse(status) {
+export function changePasswordResponse(json){
     return {
         type: ActionTypes.CHANGE_PASSWORD_RESPONSE,
-        status
+        json
     }
 }
+
+export function submitPasswordChange(auth, passwords) {
+ return dispatch => {
+        return fetch(`${Config.API_HOST}/changepassword`,
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                },
+                mode: 'cors',
+                body: JSON.stringify(passwords),
+                cache: 'default'
+            }).then(response => {
+                if (response.status !== 200) {
+
+                    //dispatch(setError("error"));
+                }
+                return response.json();
+            })
+            .then((json) => {
+                // could just push these changes to the user id locally so you don't have to make the call
+                return dispatch(changePasswordResponse(json));
+            })
+    };
+
+}
+
 
 export function logOut() {
     cookie.remove('nannyCookie', { path: '/' });

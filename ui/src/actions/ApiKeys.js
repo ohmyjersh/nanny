@@ -29,20 +29,6 @@ export function GetApiKeysResponse(json) {
     }
 }
 
-export function GetUserApiKeysRequest() {
-    return {
-        type: ActionTypes.GET_USER_APIKEY_REQUEST,
-        status: true
-    }
-}
-
-export function GetUserApiKeysResponse(json) {
-    return {
-        type: ActionTypes.GET_USER_APIKEY_RESPONSE,
-        keys: json
-    }
-}
-
 export function DeleteApiKeyRequest() {
     return {
         type: ActionTypes.DELETE_APIKEY_REQUEST,
@@ -71,6 +57,21 @@ export function PutApiKeyResponse() {
     }
 }
 
+export function GetUserApiKeysRequest() {
+    return {
+        type: ActionTypes.GET_USER_APIKEY_REQUEST,
+        status: true
+    }
+}
+
+export function GetUserApiKeysResponse(json) {
+    return {
+        type: ActionTypes.GET_USER_APIKEY_RESPONSE,
+        apiKeys: json
+    }
+}
+
+
 export function GenerateApiKey(auth) {
     return dispatch => {
         return fetch(`${Config.API_HOST}/apikey`,
@@ -97,6 +98,34 @@ export function GenerateApiKey(auth) {
             })
     };
 }
+
+
+export function getUserApiKeys(auth) {
+    return dispatch => {
+        return fetch(`${Config.API_HOST}/apikey/user/${auth.id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                },
+                mode: 'cors',
+                cache: 'default'
+            }).then(response => {
+                if (response.status !== 200) {
+                    console.log("error");
+                    //dispatch(setError("error"));
+                }
+                return response.json();
+            })
+            .then((json) => {
+                // could just push these changes to the user id locally so you don't have to make the call
+                return dispatch(GetUserApiKeysResponse(json));
+            })
+    };
+}
+
 
 export function updateApiKey(auth, apiKeyId, status) {
     return dispatch => {
@@ -151,31 +180,6 @@ export function getApiKeys(auth) {
     };
 }
 
-export function getUserApiKeys(auth) {
-    return dispatch => {
-        return fetch(`${Config.API_HOST}/apikey/user/${auth.id}`,
-            {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${auth.token}`
-                },
-                mode: 'cors',
-                cache: 'default'
-            }).then(response => {
-                if (response.status !== 200) {
-                    console.log("error");
-                    //dispatch(setError("error"));
-                }
-                return response.json();
-            })
-            .then((json) => {
-                // could just push these changes to the user id locally so you don't have to make the call
-                return dispatch(GetUserApiKeysResponse(json));
-            })
-    };
-}
 
 // export function deleteApiKey(auth, apiKeyId) {
 //     return dispatch => {

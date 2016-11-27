@@ -1,7 +1,8 @@
 import * as ActionTypes from '../constants/actionTypes'
 
 function resetChangePassword(state) {
-    return Object.assign({}, state, initialState);
+    return Object.assign({}, state, initialChangePassword);
+    return Object.assign( {}, state, { changePassword: Object.assign( {}, state.changePassword, initialChangePassword ) } );
 }
 
 function updateChangePassword(state, newValue) {
@@ -13,7 +14,7 @@ function updateChangePassword(state, newValue) {
     return Object.assign( {}, state, { changePassword: Object.assign( {}, state.changePassword, { [newValue.key]: newValue.value } ) } );
 }
 
-function setProfile(state, newValue) {
+function updateProfile(state, newValue) {
         //keeping this here for now, will convert to use immutable in the future
 //     var immutUpdate = Immutable.fromJS(state);
 //     var newStuff =  immutUpdate.setIn(['createNew', newValue.key], newValue.value);
@@ -22,26 +23,29 @@ function setProfile(state, newValue) {
     return Object.assign( {}, state, { profile: Object.assign( {}, state.profile, { [newValue.key]: newValue.value } ) } );
 }
 
-function setApikeys(state, keys) {
-    return Object.assing({}, state, {apiKeys:keys});
+function setApikeys(state, apiKeys) {
+    return Object.assign({}, state, {apiKeys:apiKeys});;
 }
 
 function setUserActivity(state, activity) {
-    return Object.assing({}, state, {userAcivity:activity});
+    return Object.assign({}, state, state.userAcivity:activity);
 }
+
+const initialChangePassword = {
+        oldPassword:'',
+        newPassword:'',
+        confirmPassword:'',
+        fetching:false,
+        status:''
+}
+
 
 const initialState = {
     profile : {
         email:'',
         fetching:false
     },
-    changePassword: {
-        oldPassword:'',
-        newPassword:'',
-        confirmPassword:'',
-        fetching:false,
-        status:''
-    },
+    changePassword: initialChangePassword,
     userAcivity: [],
     apiKeys:[]
 }
@@ -50,6 +54,12 @@ export default function(state = initialState, action) {
     switch(action.type) {
     case ActionTypes.CHANGE_PASSWORD_REQUEST:
         return state;
+    case ActionTypes.UPDATE_CHANGE_PASSWORD:
+        return updateChangePassword(state, action.value);
+    case ActionTypes.UPDATE_CHANGE_PROFILE:
+        return updateProfile(state, action.value);
+    case ActionTypes.GET_USER_ACTIVITY_RESPONSE:
+        return setApikeys(state, action.apiKeys);
     default:
         return state;
     }
