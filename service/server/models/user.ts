@@ -55,7 +55,8 @@ userSchema.methods.createJWT = function() {
   return jwt.sign({
     _id: this._id,
     username: this.username,
-    role: this.role
+    role: this.role,
+    expiresIn: 10080 // in seconds
   }, "SecretKey");
 }
 
