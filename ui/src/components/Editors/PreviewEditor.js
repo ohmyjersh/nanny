@@ -75,7 +75,6 @@ export default class TransformerEditor extends Component {
       var arr = configurations.map(x => {
           return format(x.textContent, transformer)
       });
-      console.log(arr);
       return Object.assign(...arr);
       //let formatted = format(nannyEditor.rawContent, transformer)
         // for (let configuration in configurations) {

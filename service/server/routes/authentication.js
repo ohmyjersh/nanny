@@ -15,11 +15,12 @@ class AuthenticationRouter {
                 if (!result)
                     return next({ status: 400, message: 'invalid username/password combination' });
                 result.comparePassword(request.body.password, (err, isMatch) => {
-                    if (err)
+                    if (err) {
                         return next(err);
+                    }
+                    ;
                     if (!isMatch)
                         return next({ status: 400, message: 'invalid username/password combination' });
-                    console.log(result);
                     response.json({ token: result.createJWT(), username: result.username, id: result._id, role: result.role });
                 });
             });

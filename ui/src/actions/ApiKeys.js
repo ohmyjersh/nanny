@@ -85,15 +85,13 @@ export function GenerateApiKey(auth) {
                 body: JSON.stringify({userId:auth.id}),
                 cache: 'default'
             }).then(response => {
-                console.log(response);
                 if (response.status !== 200) {
-                    console.log("error");
+
                     //dispatch(setError("error"));
                 }
                 return response.json();
             })
             .then((json) => {
-                console.log(json);
                 // could just push these changes to the user id locally so you don't have to make the call
                 return dispatch(GenerateApiKeyResponse(json));
             })

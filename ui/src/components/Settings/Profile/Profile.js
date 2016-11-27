@@ -23,7 +23,6 @@ export default class Profile extends Component {
    }
 
   render() {
-    console.log(this.props.state)
     return (<div>
       <UserProfile {...this.props} />
       <UserApiKeys {...this.props} />
