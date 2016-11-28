@@ -34,8 +34,8 @@ export default class Users extends Component {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                {this.props.state.users.users.map(user => 
-                    <TableRow>
+                {this.props.state.users.users.map((user,index) => 
+                    <TableRow key={index}>
                           <TableRowColumn>
                             {[user._id]}
                           </TableRowColumn>

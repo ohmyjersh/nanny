@@ -13,6 +13,7 @@ function resetChangePassword(state) {
 }
 
 function updateChangePassword(state, newValue) {
+    console.log(newValue);
     //keeping this here for now, will convert to use immutable in the future
 //     var immutUpdate = Immutable.fromJS(state);
 //     var newStuff =  immutUpdate.setIn(['createNew', newValue.key], newValue.value);

@@ -33,8 +33,8 @@ export class AuthenticationRouter {
         });
 
         this.router.post("/authentication/changepassword", (request: Request, response: Response, next: Function) => {
-            let { oldPassword, confirmedPassword, userId } = request.body;
- 
+            console.log(request.body);
+            let { oldPassword, confirmPassword, userId } = request.body;
             User.findOne({_id:userId}, (err, result) => {
                 // If query returned no results, token expired or was invalid. Return error.
                 if (!result) {
@@ -44,7 +44,7 @@ export class AuthenticationRouter {
                         if (err) return next(err);
                         if (!isMatch) return next({ status: 400, message: "You've entered the wrong current password" });
                         // Otherwise, save new password and clear resetToken from database
-                        result.password = confirmedPassword;
+                        result.password = confirmPassword;
                         result.save((err) => {
                             if (err) { return next(err); }
                             return response.status(200).json({ message: 'Password changed successfully!' });

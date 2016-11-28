@@ -35,16 +35,16 @@ export function changePasswordRequest(){
     }
 }
 
-export function changePasswordResponse(json){
+export function changePasswordResponse(response){
     return {
         type: ActionTypes.CHANGE_PASSWORD_RESPONSE,
-        json
+        response
     }
 }
 
 export function submitPasswordChange(auth, passwords) {
  return dispatch => {
-        return fetch(`${Config.API_HOST}/changepassword`,
+        return fetch(`${Config.API_HOST}/authentication/changepassword`,
             {
                 method: 'POST',
                 headers: {
@@ -53,18 +53,21 @@ export function submitPasswordChange(auth, passwords) {
                     'Authorization': `Bearer ${auth.token}`
                 },
                 mode: 'cors',
-                body: JSON.stringify(passwords),
+                body: JSON.stringify({
+                    userId:auth.id,
+                    confirmPassword:passwords.confirmPassword,
+                    oldPassword:passwords.oldPassword
+                }),
                 cache: 'default'
             }).then(response => {
                 if (response.status !== 200) {
 
-                    //dispatch(setError("error"));
+                    dispatch(changePasswordResponse('error'));
                 }
                 return response.json();
             })
             .then((json) => {
-                // could just push these changes to the user id locally so you don't have to make the call
-                return dispatch(changePasswordResponse(json));
+                return dispatch(changePasswordResponse('success!'));
             })
     };
 

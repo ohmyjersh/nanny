@@ -1,5 +1,5 @@
 import * as ActionTypes from '../constants/actionTypes';
-import * as Config from "../constants/config";
+//import * as Config from "../constants/config";
 
 export function resetChangePassword(){
     return {
@@ -8,6 +8,7 @@ export function resetChangePassword(){
 }
 
 export function updateChangePassword(value){
+    console.log(value);
     return {
         type: ActionTypes.UPDATE_CHANGE_PASSWORD,
         value
@@ -20,3 +21,5 @@ export function updateProfile(value){
         value
     }
 }
+
+

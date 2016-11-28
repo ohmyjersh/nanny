@@ -75,7 +75,7 @@ class App extends Component {
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
           onRequestClose={this.handleRequestClose}>
           <Menu>
-            <Link to='settings'><MenuItem primaryText="Settings" onTouchTap={this.handleRequestClose} /></Link>
+          <MenuItem  primaryText="Settings" onTouchTap={this.handleRequestClose} containerElement={<Link to='settings'/>}/>
             <MenuItem primaryText="Sign out" onTouchTap={(e) => this.props.actions.auth.logOut()} />
           </Menu>
         </Popover>
@@ -105,10 +105,11 @@ class App extends Component {
           iconElementLeft={this.props.state.auth.authenticated ? <IconButton onTouchTap={this.dashboardTap}><Dashboard /></IconButton> : null}
           iconElementRight={rightButtons} 
           style={{'width':'100%'}}/>
-              { this.props.state.auth.authenticated ?
+                        { this.props.state.auth.authenticated ?
                    this.props.children && React.cloneElement(this.props.children, { ...this.props }) :
                    <Login {...this.props}/>
             }
+
         </div>
       </MuiThemeProvider>
     )
@@ -145,3 +146,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)
+
+            // { this.props.state.auth.authenticated ?
+            //        this.props.children && React.cloneElement(this.props.children, { ...this.props }) :
+            //        <Login {...this.props}/> && this.props.children && React.cloneElement(this.props.children, { ...this.props })
+            // }
