@@ -6,7 +6,6 @@
     "react-scripts": "0.6.1"
   },
   "dependencies": {
-    "antd": "^2.0.1",
     "classnames": "^2.2.5",
     "draft-js": "^0.9.1",
     "draft-js-code": "^0.2.0",
@@ -24,7 +23,6 @@
     "react-router-redux": "^4.0.6",
     "react-tap-event-plugin":"2.0.0",
     "redux": "^3.6.0",
-    "redux-form": "^6.0.5",
     "redux-thunk": "^2.1.0",
     "string-template": "^1.0.0"
   },

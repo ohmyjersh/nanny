@@ -8,7 +8,6 @@ export function resetChangePassword(){
 }
 
 export function updateChangePassword(value){
-    console.log(value);
     return {
         type: ActionTypes.UPDATE_CHANGE_PASSWORD,
         value
