@@ -9,9 +9,6 @@ export default class TransformerEditor extends Component {
     super(props)
     if(!this.props.state.transformerEditor.editorState)
       initNewTransformer(this.props.actions.app.setTransformerContent);
-    this.state = {
-      inlineToolbar: { show: false }
-    }
 
     this.onChange = (editorState) => this._onChange(editorState)
     this.focus = () => this.refs.editor.focus()

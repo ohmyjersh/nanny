@@ -13,7 +13,6 @@ export default class TransformerEditor extends Component {
     this.state = {
       editorState: editorState
     }
-    this.onChange = (editorState) => this.setState({ editorState })
     this.focus = () => this.refs.editor.focus()
   }
 
@@ -96,7 +95,6 @@ export default class TransformerEditor extends Component {
         <div className='editor' id='richEditor' onClick={this.focus} style={{ 'width': this.props.editorSize }}>
           <Editor
             editorState={editorState}
-            onChange={this.onChange}
             readOnly={true}
             ref='editor' />
         </div>
