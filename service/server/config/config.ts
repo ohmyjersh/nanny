@@ -1,9 +1,5 @@
-export default class {
-    private _secret:string; // later get from .env
-    constructor() {
-        this._secret = "THISISSECRET";
-    }
-    getSecret() {
-        return this._secret;
-    }
+export function getSecret() {
+    console.log('get secret');
+    if(!process.env.SECRET) { 'Running in development mode with a default known SECRET. Do not run in Production!'}
+    return process.env.SECRET ? process.env.SECRET : "THISISSECRET";
 }

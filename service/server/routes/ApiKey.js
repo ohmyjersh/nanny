@@ -10,13 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const express_1 = require("express");
 const ApiKey_1 = require("../handlers/ApiKey");
 const tokenValidator_1 = require("../middleware/tokenValidator");
+const roleValidator_1 = require("../middleware/roleValidator");
 class ApiKeyRouter {
     constructor() {
         this.router = express_1.Router();
         this._apiKeyHandler = new ApiKey_1.default();
     }
     getRouter() {
-        this.router.post('/apikey', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.post('/apikey', tokenValidator_1.userAuth, roleValidator_1.default([roleValidator_1.BASIC, roleValidator_1.ADMIN]), (request, response) => __awaiter(this, void 0, void 0, function* () {
             var result = yield this._apiKeyHandler.create(request.body);
             console.log(result);
             response.status(200).send(result);

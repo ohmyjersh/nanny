@@ -1,12 +1,10 @@
 "use strict";
-class default_1 {
-    constructor() {
-        this._secret = "THISISSECRET";
+function getSecret() {
+    console.log('get secret');
+    if (!process.env.SECRET) {
+        'Running in development mode with a default known SECRET. Do not run in Production!';
     }
-    getSecret() {
-        return this._secret;
-    }
+    return process.env.SECRET ? process.env.SECRET : "THISISSECRET";
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = default_1;
+exports.getSecret = getSecret;
 //# sourceMappingURL=config.js.map

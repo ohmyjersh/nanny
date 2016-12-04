@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import ApiKeyHandler from '../handlers/ApiKey';
 import { userAuth } from '../middleware/tokenValidator';
+import checkRole, {BASIC, EDITOR, ADMIN} from '../middleware/roleValidator';
 
 export class ApiKeyRouter {
     private _apiKeyHandler;
@@ -9,7 +10,7 @@ export class ApiKeyRouter {
         this._apiKeyHandler = new ApiKeyHandler();
     }
     getRouter(): Router {
-        this.router.post('/apikey', userAuth, async(request:Request, response:Response) => {
+        this.router.post('/apikey', userAuth, checkRole([BASIC,ADMIN]), async(request:Request, response:Response) => {
             var result = await this._apiKeyHandler.create(request.body);
             console.log(result);
             response.status(200).send(result);
