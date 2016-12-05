@@ -8,16 +8,20 @@ import configurations from './configurations';
 import users from './users';
 import apiKeys from './apiKeys';
 
-function registerResponse (state, response) {
-  return Object.assign({}, state.auth, {
-    auth: { token: response.token, authenticated: true },
-    isFetching: false
-  })
-}
-function registeringRequest (state) {
+function beginFetching (state) {
   return Object.assign({}, state, {
     isFetching: true
   })
+}
+
+function doneFetching(state) {
+  return Object.assign({}, state, {
+    isFetching: false
+  });
+}
+
+function errorFetching(state, error) {
+  return Object.assign({}, state, {isFetching:false }, {error:{message:error.message, open:error.open}});
 }
 
 function setTransformerContent (state, transformerEditor) {
@@ -31,14 +35,15 @@ function setError(state, error) {
 function reducer (state = {
     transformerEditor: { editorState: null, rawContent: '', textContent: '' },
     isFetching: false,
-    auth: { token: '', authenticated: false },
     error: { message:'', open:false}
   } , action) {
   switch (action.type) {
-    case ActionTypes.REGISTER_REQUEST:
-      return registeringRequest(state)
-    case ActionTypes.REGISTER_RESPONSE:
-      return registerResponse(state, action.response)
+    case ActionTypes.BEGIN_FETCHING:
+      return beginFetching(state);
+    case ActionTypes.DONE_FETCHING:
+      return doneFetching(state);
+    case ActionTypes.ERROR_FETCHING:
+      return errorFetching(state, action.error);
     case ActionTypes.SET_TRANSFORMER_CONTENT:
       return setTransformerContent(state, action.transformerEditor)
     case ActionTypes.SET_ERROR:

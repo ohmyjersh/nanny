@@ -32,6 +32,11 @@ class ApiKeyHandler {
             return masked;
         });
     }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield ApiKey_1.ApiKey.remove({ _id: id });
+        });
+    }
     maskKeys(keys) {
         return keys.map(x => {
             let maskedKey = x.apiKey.replace(/.(?=.{5,}$)/gm, '#');

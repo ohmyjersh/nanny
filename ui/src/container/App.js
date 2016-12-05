@@ -8,6 +8,7 @@ import { deepOrange500 } from 'material-ui/styles/colors';
 import NannyAppBar from './NannyAppBar';
 import Snackbar from 'material-ui/Snackbar';
 import Login from '../components/auth/login';
+import LinearProgress from 'material-ui/LinearProgress';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -36,6 +37,7 @@ class App extends Component {
           onRequestClose={this.closeSnackbar}
         />
     <NannyAppBar {...this.props}/>
+    {this.props.state.isFetching ? <LinearProgress mode="indeterminate" /> : null }
                         { this.props.state.auth.authenticated ?
                    this.props.children && React.cloneElement(this.props.children, { ...this.props }) :
                    <Login {...this.props}/>

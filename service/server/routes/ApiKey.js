@@ -13,8 +13,9 @@ const tokenValidator_1 = require("../middleware/tokenValidator");
 const roleValidator_1 = require("../middleware/roleValidator");
 class ApiKeyRouter {
     constructor() {
-        this.router = express_1.Router();
         this._apiKeyHandler = new ApiKey_1.default();
+        this._apiKeyHandler = new ApiKey_1.default();
+        this.router = express_1.Router();
     }
     getRouter() {
         this.router.post('/apikey', tokenValidator_1.userAuth, roleValidator_1.default([roleValidator_1.BASIC, roleValidator_1.ADMIN]), (request, response) => __awaiter(this, void 0, void 0, function* () {

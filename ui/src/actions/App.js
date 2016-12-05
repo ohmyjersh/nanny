@@ -7,19 +7,26 @@ export function setError(error) {
     }
 }
 
-export function apiRequest(configurations) {
+export function errorFetching(error) {
     return {
-        type: ActionTypes.API_REQUEST,
-        configurations
+        type: ActionTypes.ERROR_FETCHING,
+        error
     }
 }
 
-export function setEditorContent(configEditor) {
+export function doneFetching() {
     return {
-        type: ActionTypes.SET_EDITOR_CONTENT,
-        configEditor
+        type: ActionTypes.DONE_FETCHING
     }
 }
+
+export function beginFetching(error) {
+    return {
+        type: ActionTypes.BEGIN_FETCHING
+    }
+}
+
+
 
 export function setTransformerContent(transformerEditor) {
     return {
@@ -35,16 +42,16 @@ export function setTitle(title) {
     }
 }
 
-export function loadSelection(selection) {
-    return {
-        type:ActionTypes.LOAD_SELECTION,
-        selection
-    }
-}
+// export function loadSelection(selection) {
+//     return {
+//         type:ActionTypes.LOAD_SELECTION,
+//         selection
+//     }
+// }
 
-export function setNannyEditor(editor) {
-    return {
-        type:ActionTypes.SET_NANNY_EDITOR,
-        editor
-    }
-}
+// export function setNannyEditor(editor) {
+//     return {
+//         type:ActionTypes.SET_NANNY_EDITOR,
+//         editor
+//     }
+//}

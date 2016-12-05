@@ -80,7 +80,6 @@ export function getConfigurations(auth) {
 }
 
 export function deleteConfiguration(auth, id) {
-    console.log('delete');
     return dispatch => {
         //dispatch(loginRequest())
         return fetch(`${Config.API_HOST}/configuration/${id}`,

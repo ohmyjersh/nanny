@@ -21,6 +21,10 @@ export default class ApiKeyHandler {
         return masked;
     }
 
+    async delete(id:string) {
+        return await ApiKey.remove({_id:id});
+    }
+
     maskKeys(keys) {
         return keys.map(x => {
             let maskedKey = x.apiKey.replace(/.(?=.{5,}$)/gm,'#');
