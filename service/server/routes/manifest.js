@@ -22,14 +22,17 @@ class ManifestRouter {
             response.status(200);
         }));
         this.router.get("/manifest", tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            console.log('get manifests');
             var result = yield this._manifestHandler.getAll();
             response.send(result);
         }));
-        this.router.put('/configuration/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.put('/manifest/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            console.log(`updating manifest with id: ${request.params.id}`);
             yield this._manifestHandler.update(request.params.id, request.body);
             response.status(200).send();
         }));
-        this.router.delete('/configuration/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        this.router.delete('/manifest/:id', tokenValidator_1.userAuth, (request, response) => __awaiter(this, void 0, void 0, function* () {
+            console.log(`deleting manifest with id: ${request.params.id}`);
             yield this._manifestHandler.delete(request.params.id);
             response.status(200).send();
         }));

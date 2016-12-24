@@ -16,16 +16,19 @@ export class ManifestRouter {
         });
 
         this.router.get("/manifest",userAuth, async(request: Request, response: Response) => {
+           console.log('get manifests');
            var result = await this._manifestHandler.getAll();
             response.send(result);
         });
 
-        this.router.put('/configuration/:id', userAuth, async(request: Request, response: Response) => {
+        this.router.put('/manifest/:id', userAuth, async(request: Request, response: Response) => {
+            console.log(`updating manifest with id: ${request.params.id}`)
             await this._manifestHandler.update(request.params.id, request.body);
             response.status(200).send();
         });
 
-        this.router.delete('/configuration/:id', userAuth, async(request: Request, response: Response) => {
+        this.router.delete('/manifest/:id', userAuth, async(request: Request, response: Response) => {
+            console.log(`deleting manifest with id: ${request.params.id}`);
             await this._manifestHandler.delete(request.params.id);
             response.status(200).send();
         });
