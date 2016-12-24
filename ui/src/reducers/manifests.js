@@ -2,8 +2,9 @@ import * as ActionTypes from '../constants/actionTypes'
 
 function loadManifests (state, manifests) {
   let mapManifests = manifests.map(manifest => {
+    console.log(manifest);
     return {
-      id: manifest.id,
+      id: manifest._id,
       title: manifest.title,
       manifest: manifest.manifest,
       raw: manifest.raw
